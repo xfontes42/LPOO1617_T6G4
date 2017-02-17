@@ -1,5 +1,7 @@
 package DungeonKeep;
 
+import java.util.Vector;
+
 public class Board {
 	public char[][][] board = {{{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 						 { 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
@@ -24,6 +26,7 @@ public class Board {
 						 { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } } };
 
 	public int level;
+	public Vector<Entity> entidades_ingame;
 	
 	public Board(int level){
 		this.level = level;
