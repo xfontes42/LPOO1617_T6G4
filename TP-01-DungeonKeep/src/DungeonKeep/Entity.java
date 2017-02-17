@@ -1,6 +1,7 @@
 package DungeonKeep;
 
 public class Entity {
+	public char sprite;
 	public int coordX, coordY;
 	public int nextMove;
 	public void startAtPosition(int x, int y){
