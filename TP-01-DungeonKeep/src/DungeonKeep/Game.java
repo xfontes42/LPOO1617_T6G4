@@ -32,26 +32,7 @@ public class Game {
 		return direction;
 	}
 
-	public void startEntities(Board b, int level) {
-		for (int i = 0; i < b.board[level].length; i++) {
-			for (int j = 0; j < b.board[level].length; j++) {
-				if (b.board[level][i][j] == 'H') {
-					Hero h = new Hero();
-					h.startAtPosition(i, j);
-				} 
-				
-				else if (b.board[level][i][j] == 'G') {
-					Guard g = new Guard();
-					g.startAtPosition(i, j);
-				} 
-				
-				else if (b.board[level][i][j] == 'O') {
-					Ogre o = new Ogre();
-					o.startAtPosition(i, j);
-				}
-			}
-		}
-	}
+	
 
 	public boolean checkMove(int movement, int x, int y, Board b, int level) {
 		boolean result = true;
