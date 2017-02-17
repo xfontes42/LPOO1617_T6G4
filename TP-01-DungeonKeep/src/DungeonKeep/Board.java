@@ -30,8 +30,8 @@ public class Board {
 	}
 	
 	public void printBoard() {
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
+		for (int i = 0; i < board[level].length; i++) {
+			for (int j = 0; j < board[level][i].length; j++) {
 				System.out.print((char) board[level][i][j] + " ");
 			}
 			System.out.println();
