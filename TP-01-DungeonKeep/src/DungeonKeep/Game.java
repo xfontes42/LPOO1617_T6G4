@@ -1,6 +1,7 @@
 package DungeonKeep;
 
 import java.util.Scanner;
+import java.lang.Math;
 
 public class Game {
 
@@ -57,6 +58,22 @@ public class Game {
 		default:
 			result = false;
 			break;
+		}
+
+		return result;
+	}
+	
+	public boolean checkIfLose(Board board, int level) {
+		boolean result = false;
+		for (int i = 0; i < board.entities.size(); i++) {
+			if (board.hero.coordX == board.entities.get(i).coordX) {
+				if (Math.abs(board.hero.coordY - board.entities.get(i).coordY) == 1)
+					result = true;
+			} else if (board.hero.coordY == board.entities.get(i).coordY) {
+				if (Math.abs(board.hero.coordX - board.entities.get(i).coordX) == 1)
+					result = true;
+			}
+
 		}
 
 		return result;
