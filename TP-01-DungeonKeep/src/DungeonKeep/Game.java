@@ -57,19 +57,19 @@ public class Game {
 		boolean result = true;
 
 		switch (movement) {
-		case 1:
+		case 1:	//cima
 			if (b.board[level][x][y - 1] == 'X' || b.board[level][x][y - 1] == 'I')
 				result = false;
 			break;
-		case 2:
+		case 2:	//baixo
 			if (b.board[level][x][y + 1] == 'X' || b.board[level][x][y + 1] == 'I')
 				result = false;
 			break;
-		case 3:
+		case 3:	//esq
 			if (b.board[level][x - 1][y] == 'X' || b.board[level][x - 1][y] == 'I')
 				result = false;
 			break;
-		case 4:
+		case 4:	//dir
 			if (b.board[level][x + 1][y] == 'X' || b.board[level][x + 1][y] == 'I')
 				result = false;
 			break;

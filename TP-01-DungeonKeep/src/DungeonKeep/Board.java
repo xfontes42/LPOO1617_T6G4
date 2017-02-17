@@ -1,7 +1,7 @@
 package DungeonKeep;
 
 public class Board {
-	char[][][] board = {{{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+	public char[][][] board = {{{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 						 { 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
 						 { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
 						 { 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, 
@@ -23,7 +23,7 @@ public class Board {
 						 { 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 						 { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } } };
 
-	int level;
+	public int level;
 	
 	public Board(int level){
 		this.level = level;
@@ -36,6 +36,11 @@ public class Board {
 			}
 			System.out.println();
 		}
+	}
+	
+	public void updateEntity(char entity, int oldX, int oldY, int newX, int newY, int level){
+		board[level][newX][newY] = entity;
+		board[level][oldX][oldY] = ' ';
 	}
 
 }
