@@ -54,17 +54,17 @@ public class Board {
 					hero.startAtPosition(i, j);
 				}
 
-				else if (board[level][i][j] == 'G') {
-					Guard guard = new Guard();
-					guard.startAtPosition(i, j);
-					entities.addElement(guard);
-				}
-
-				else if (board[level][i][j] == 'O') {
-					Ogre ogre = new Ogre();
-					ogre.startAtPosition(i, j);
-					entities.addElement(ogre);
-				}
+//				else if (board[level][i][j] == 'G') {
+//					Guard guard = new Guard();
+//					guard.startAtPosition(i, j);
+//					entities.addElement(guard);
+//				}
+//
+//				else if (board[level][i][j] == 'O') {
+//					Ogre ogre = new Ogre();
+//					ogre.startAtPosition(i, j);
+//					entities.addElement(ogre);
+//				}
 
 				else if (board[level][i][j] == 'k') {
 					Key key = new Key();

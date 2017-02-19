@@ -8,7 +8,7 @@ public class Game {
 	public int receiveCommand() {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Insert direction (u,d,l,r): ");
-		String movement = scan.nextLine();
+		String movement = scan.next();
 		scan.close();
 		int direction;
 
