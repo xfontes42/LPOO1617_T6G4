@@ -1,6 +1,6 @@
 package DungeonKeep;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Board {
 	public char[][][] board = { { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
@@ -26,7 +26,7 @@ public class Board {
 								  { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } } };
 
 	public int level;
-	public Vector<Entity> entities;
+	public ArrayList<Entity> entities;
 	public Hero hero = new Hero();
 
 	public Board(int level) {
@@ -48,6 +48,7 @@ public class Board {
 	}
 
 	public void startEntities(int level) {
+		entities = new ArrayList<Entity>();
 		for (int i = 0; i < board[level].length; i++) {
 			for (int j = 0; j < board[level].length; j++) {
 				if (board[level][i][j] == 'H') {
@@ -57,7 +58,7 @@ public class Board {
 				else if (board[level][i][j] == 'G') {
 					Guard guard = new Guard();
 					guard.startAtPosition(i, j);
-					entities.addElement((Entity) guard);	//TODO fix this
+					entities.add(/*(Entity)*/ guard);//TODO fix this
 				}
 //
 //				else if (board[level][i][j] == 'O') {
