@@ -40,7 +40,7 @@ public class Framework {
 				}
 			}
 			
-			//checking if lose
+			//checking for lose
 			if (game.checkIfLose(board0, level)){
 				board0.printBoard();
 				System.out.println('\n' + "You were caught! Game over.");

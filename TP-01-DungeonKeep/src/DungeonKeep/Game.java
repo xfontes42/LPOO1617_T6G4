@@ -76,6 +76,22 @@ public class Game {
 
 		return result;
 	}
+	
+	public boolean checkIfWin(Board board, int level, int newX, int newY){
+		if (board.board[level][newX][newY] == 'S')
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean checkForKey(Board board, int level, int newX, int newY){
+		if (board.board[level][newX][newY] == 'k') {
+			board.key.openDoors(board.hero);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public int calculateNewX(int movement, int x) {
 		int result;

@@ -7,6 +7,7 @@ public class Key extends Entity {
 	
 	public void openDoors(Hero hero){
 		sprite = 'K';
+		hero.hasKey = true;
 		
 	}
 }

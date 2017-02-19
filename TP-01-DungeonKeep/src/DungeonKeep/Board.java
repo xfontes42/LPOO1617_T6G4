@@ -4,30 +4,27 @@ import java.util.ArrayList;
 
 public class Board {
 	public char[][][] board = { { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
-								  { 'X', 'H', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, 
-								  { 'X', ' ', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
-								  { 'X', 'I', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
-								  { 'X', ' ', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, 
-								  { 'X', 'X', 'X', 'X', 'X', ' ', ' ', 'X', 'X', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', 'k', 'X' }, 
-								  { 'X', 'G', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } },
+			{ 'X', 'H', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'I', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
+			{ 'X', ' ', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', ' ', ' ', 'X', 'X', 'X' },
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', 'k', 'X' }, { 'X', 'G', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } },
 
-								{ { 'X', 'I', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'H', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', 'O', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', 'k', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } } };
+			{ { 'X', 'I', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'H', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'O', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'k', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } } };
 
 	public int level;
 	public ArrayList<Entity> entities;
 	public Hero hero = new Hero();
+	public Key key = new Key();
 
 	public Board(int level) {
 		this.level = level;
@@ -58,19 +55,17 @@ public class Board {
 				else if (board[level][i][j] == 'G') {
 					Guard guard = new Guard();
 					guard.startAtPosition(i, j);
-					entities.add(/*(Entity)*/ guard);//TODO fix this
+					entities.add(/* (Entity) */ guard);// TODO fix this
 				}
-//
-//				else if (board[level][i][j] == 'O') {
+ 
+// 				else if (board[level][i][j] == 'O') {
 //					Ogre ogre = new Ogre();
-//					ogre.startAtPosition(i, j);
-//					entities.addElement(ogre);
-//				}
+// 					ogre.startAtPosition(i, j);
+// 					entities.addElement(ogre);
+// 				}
 
 				else if (board[level][i][j] == 'k') {
-					Key key = new Key();
 					key.startAtPosition(i, j);
-
 				}
 			}
 		}
