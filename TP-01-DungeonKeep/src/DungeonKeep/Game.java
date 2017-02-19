@@ -5,11 +5,9 @@ import java.lang.Math;
 
 public class Game {
 
-	public int receiveCommand() {
-		Scanner scan = new Scanner(System.in);
+	public int receiveCommand(Scanner scan) {
 		System.out.print("Insert direction (u,d,l,r): ");
 		String movement = scan.next();
-		scan.close();
 		int direction;
 
 		switch (movement) {

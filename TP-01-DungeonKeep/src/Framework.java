@@ -1,8 +1,12 @@
+import java.util.Scanner;
+import java.lang.Math;
+
 import DungeonKeep.*;
 
 public class Framework {
 
 	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
 		int level = 0;
 		Board board0 = new Board(level);
 		Game game = new Game();
@@ -10,7 +14,7 @@ public class Framework {
 		//TODO fazer uma condição de terminação para o ciclo
 		/*while (!fim)	<-- É PRECISO ATUALIZAR A CONDIÇÃO
 		 * lê movimento (feito)
-		 * processa
+		 * processa (feito (por agora))
 		 * aplica regras
 		 * avalia estado
 		 */
@@ -21,8 +25,11 @@ public class Framework {
 			//processing player input
 			boolean validMove = false;
 			while (!validMove) {
-				int command = game.receiveCommand();
+				int command = game.receiveCommand(scan);
+				System.out.println(command);
+				System.out.println(game.checkMove(command, board0.hero.coordX, board0.hero.coordY, board0, level));
 				if (!game.checkMove(command, board0.hero.coordX, board0.hero.coordY, board0, level)) {
+					validMove = false;
 					System.out.println("Invalid command. Please try again.");
 				} else {
 					validMove = true;
@@ -40,6 +47,8 @@ public class Framework {
 //		System.out.println();
 //		Board b1 = new Board(1);
 //		b1.printBoard();
+		
+		scan.close();
 	}
 
 }
