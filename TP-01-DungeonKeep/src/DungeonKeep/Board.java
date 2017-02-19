@@ -3,26 +3,26 @@ package DungeonKeep;
 import java.util.Vector;
 
 public class Board {
-	public char[][][] board = { { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-								  { 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' }, 
-								  { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-								  { 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' }, 
-								  { 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
-								  { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
-								  { 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' }, 
-								  { 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
+	public char[][][] board = { { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
+								  { 'X', 'H', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, 
+								  { 'X', ' ', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
+								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, 
+								  { 'X', 'I', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
+								  { 'X', ' ', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, 
+								  { 'X', 'X', 'X', 'X', 'X', ' ', ' ', 'X', 'X', 'X' },
+								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', 'k', 'X' }, 
+								  { 'X', 'G', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 								  { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } },
 
-								{ { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-								  { 'I', ' ', ' ', ' ', 'O', ' ', ' ', ' ', 'k', 'X' },
+								{ { 'X', 'I', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'H', 'X' },
+								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+								  { 'X', 'O', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-								  { 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+								  { 'X', 'k', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 								  { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } } };
 
 	public int level;
@@ -36,7 +36,7 @@ public class Board {
 	public void printBoard() {
 		for (int i = 0; i < board[level].length; i++) {
 			for (int j = 0; j < board[level][i].length; j++) {
-				System.out.print((char) board[level][i][j] + " ");
+				System.out.print((char) board[level][j][i] + " ");
 			}
 			System.out.println();
 		}
@@ -54,11 +54,11 @@ public class Board {
 					hero.startAtPosition(i, j);
 				}
 
-//				else if (board[level][i][j] == 'G') {
-//					Guard guard = new Guard();
-//					guard.startAtPosition(i, j);
-//					entities.addElement(guard);
-//				}
+				else if (board[level][i][j] == 'G') {
+					Guard guard = new Guard();
+					guard.startAtPosition(i, j);
+					entities.addElement((Entity) guard);	//TODO fix this
+				}
 //
 //				else if (board[level][i][j] == 'O') {
 //					Ogre ogre = new Ogre();
