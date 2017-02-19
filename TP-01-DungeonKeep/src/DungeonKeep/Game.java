@@ -7,6 +7,8 @@ import java.util.Vector;
 
 public class Game {
 
+	public boolean won = false;
+	
 	public int receiveCommand(Scanner scan) {
 		System.out.print("Insert direction (u,d,l,r): ");
 		String movement = scan.next();

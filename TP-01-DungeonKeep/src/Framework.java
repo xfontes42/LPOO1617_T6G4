@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.lang.Math;
+//import java.lang.Math;
 
 import DungeonKeep.*;
 
@@ -19,7 +19,7 @@ public class Framework {
 		 * avalia estado
 		 */
 		
-		while (true) {
+		while (level < board0.board.length) {
 			board0.printBoard();
 			
 			//processing player input
@@ -39,7 +39,17 @@ public class Framework {
 					board0.hero.moveEntity(command);
 				}
 			}
+			//
+			if(board0.updateBoard() == true){ //won the game
+				System.out.println('\n' + "You won! Next Level.");
+				//instanciar nivel seguinte
+				level++;
+				board0 = new Board(level);
+				game = new Game();
+				board0.startEntities(level);
+				
 			
+			}
 			//checking for lose
 			if (game.checkIfLose(board0, level)){
 				board0.printBoard();

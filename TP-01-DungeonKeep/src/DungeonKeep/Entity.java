@@ -25,5 +25,9 @@ public class Entity {
 			break;
 		}
 	}
+	
+	public void move(int direction){
+		
+	}
 }
 	
