@@ -26,8 +26,8 @@ public class Framework {
 			boolean validMove = false;
 			while (!validMove) {
 				int command = game.receiveCommand(scan);
-				System.out.println(command);
-				System.out.println(game.checkMove(command, board0.hero.coordX, board0.hero.coordY, board0, level));
+//				System.out.println(command);
+//				System.out.println(game.checkMove(command, board0.hero.coordX, board0.hero.coordY, board0, level));
 				if (!game.checkMove(command, board0.hero.coordX, board0.hero.coordY, board0, level)) {
 					validMove = false;
 					System.out.println("Invalid command. Please try again.");
@@ -36,12 +36,16 @@ public class Framework {
 					int newX = game.calculateNewX(command, board0.hero.coordX);
 					int newY = game.calculateNewY(command, board0.hero.coordY);
 					board0.updateEntity('H', board0.hero.coordX, board0.hero.coordY, newX, newY, level);
+					board0.hero.moveEntity(command);
 				}
 			}
 			
 			//checking if lose
-			if (game.checkIfLose(board0, level))
+			if (game.checkIfLose(board0, level)){
+				board0.printBoard();
+				System.out.println('\n' + "You were caught! Game over.");
 				break;
+			}
 		}
 		
 //		System.out.println();
