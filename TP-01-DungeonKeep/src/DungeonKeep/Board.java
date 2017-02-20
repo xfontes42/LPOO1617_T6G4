@@ -82,7 +82,6 @@ public class Board {
 
 	public boolean updateBoard(Boolean lost) {
 
-		
 		if (key.coordX == hero.coordX && key.coordY == hero.coordY) {
 			board[level][key.coordX][key.coordY] = 'K';
 			key.openDoors(hero);
@@ -111,48 +110,61 @@ public class Board {
 			}
 
 		}
-		
-		//check if player lost before moving the enities
-		if(Game.checkIfLose(this, level)){
+
+		// check if player lost before moving the enities
+		if (Game.checkIfLose(this, level)) {
 			lost = true;
 			return false;
 		}
-		
-		//moving entities
-		Iterator<Entity> iterEnt = entities.iterator();
-		while (iterEnt.hasNext()) {
-			Entity element = iterEnt.next();
-			if ((element instanceof Guard) && level == 0){ //mexe guarda caminho predefinido
-				Guard guarda = (Guard)element;
+
+		// moving entities
+
+		for (int index_entities = 0; index_entities < entities.size(); index_entities++) {
+			Entity element = entities.get(index_entities);
+			if ((element instanceof Guard) && level == 0) { // mexe guarda
+															// caminho
+															// predefinido
+				Guard guarda = (Guard) element;
 				int comando = guarda.moves_pre2etermine2[guarda.nextMove];
-				guarda.nextMove = (guarda.nextMove + 1)%(guarda.moves_pre2etermine2.length);
+				guarda.nextMove = (guarda.nextMove + 1) % (guarda.moves_pre2etermine2.length);
 				int newX = Game.calculateNewX(comando, guarda.coordX);
 				int newY = Game.calculateNewY(comando, guarda.coordY);
 				this.updateEntity('G', guarda.coordX, guarda.coordY, newX, newY, level);
 				guarda.moveEntity(comando);
-				
-			} 
-			else if (element instanceof Guard){ //mexe guarda random 
-				
-			}
-			else if( element instanceof Ogre){ //mexe ogre random
-				//movimento ogre
-				Ogre shrek = (Ogre)element;
-				Random rand = new Random();
-				int comando =rand.nextInt(4)+1;
-				while(!Game.checkMove(comando,shrek.coordX , shrek.coordY, this , level)){
-					comando = rand.nextInt(4)+1;
+
+			} else if (element instanceof Guard) { // mexe guarda random
+
+//			} else if (element instanceof MassiveClub) {
+//				board[level][element.coordX][element.coordY] = ' ';
+//				entities.remove(element);
+			} else if (element instanceof Ogre) { // mexe ogre random
+				// movimento ogre
+				Ogre shrek = (Ogre) element;
+
+				int comando = shrek.generateMovement();
+				while (!Game.checkMove(comando, shrek.coordX, shrek.coordY, this, level)) {
+					comando = shrek.generateMovement();
 				}
 				int newX = Game.calculateNewX(comando, shrek.coordX);
 				int newY = Game.calculateNewY(comando, shrek.coordY);
 				this.updateEntity('O', shrek.coordX, shrek.coordY, newX, newY, level);
 				shrek.moveEntity(comando);
+
+				// shrek's club
+//				shrek.mclub.startAtPosition(shrek.coordX, shrek.coordY);
+//				comando = shrek.generateMovement();
+//				while (!Game.checkMove(comando, shrek.mclub.coordX, shrek.mclub.coordY, this, level)) {
+//					comando = shrek.generateMovement();
+//				}
+//				newX = Game.calculateNewX(comando, shrek.mclub.coordX);
+//				newY = Game.calculateNewY(comando, shrek.mclub.coordY);
+//				this.updateEntity('*', shrek.mclub.coordX, shrek.mclub.coordY, newX, newY, level);
+//				shrek.mclub.moveEntity(comando);
+//				entities.add(0, shrek.mclub);
+//				index_entities--;      //to compensate for the offset made by the previous instruction
+			} // mais tipos de adversarios basta acomodar este if e a funcao de
 				
-				
-			} //mais tipos de adversarios basta acomodar este if e a funcao de start entities
 		}
-		
-		//System.out.println(hero.hasKey);
 
 		return false;
 
