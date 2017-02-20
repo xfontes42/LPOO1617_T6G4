@@ -41,12 +41,15 @@ public class Framework {
 			}
 			//
 			if(board0.updateBoard() == true){ //won the game
-				System.out.println('\n' + "You won! Next Level.");
-				//instanciar nivel seguinte
-				level++;
-				board0 = new Board(level);
-				game = new Game();
-				board0.startEntities(level);
+				if (++level < board0.board.length) {
+					System.out.println('\n' + "You won! Next Level.");
+					// instanciar nivel seguinte
+					board0 = new Board(level);
+					game = new Game();
+					board0.startEntities(level);
+				} else {
+					System.out.println('\n' + "You won the game! Congratulations!");
+				}
 				
 			
 			}

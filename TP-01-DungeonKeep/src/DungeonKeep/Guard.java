@@ -2,8 +2,7 @@ package DungeonKeep;
 
 public class Guard extends Entity {
 	public char sprite = 'G';
-	public char moves_predetermined[] = { 'l', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'r', 'r', 'r',
-			'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u' };
+	public int moves_pre2etermine2[] = { 3, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1 };
 	public int nextMove = 0;
 	
 	public void move(int direction){ //0 if predetermined, not-zero otherwise

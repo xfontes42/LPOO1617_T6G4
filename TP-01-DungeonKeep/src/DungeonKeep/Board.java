@@ -98,14 +98,20 @@ public class Board {
 			board[level][key.coordX][key.coordY] = 'k';
 		}
 
-		// update das keys
+		// update das keys --> assume que a porta está na parede da esquerda
 		if (hero.hasKey) {
-			for (int index1 = 0; index1 < board[level].length; index1++) {
-				for (int index2 = 0; index2 < board[level][index1].length; index2++) {
-					if (board[level][index1][index2] == 'I')
-						board[level][index1][index2] = 'S';
-				}
+			for (int i = 0; i < board[level][0].length; i++){
+				if (board[level][0][i] == 'I')
+					board[level][0][i] = 'S';
 			}
+			
+//			for (int index1 = 0; index1 < board[level].length; index1++) {
+//				for (int index2 = 0; index2 < board[level][index1].length; index2++) {
+//					if (board[level][index1][index2] == 'I' && index1 == 0)
+//						board[level][index1][index2] = 'S';
+//				}
+//			}
+			
 			for (int i = 0; i < doors.size(); i++) {
 				if(hero.coordX == doors.get(i).coordX && hero.coordY == doors.get(i).coordY)
 					return true;
