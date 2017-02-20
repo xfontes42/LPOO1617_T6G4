@@ -140,7 +140,12 @@ public class Board {
 			} else if (element instanceof Ogre) { // mexe ogre random
 				// movimento ogre
 				Ogre shrek = (Ogre) element;
-
+				//clean club
+//				if(shrek.hasClub){
+//					board[level][shrek.mclub.coordX][shrek.mclub.coordY] = ' ';
+//				}
+				
+				
 				int comando = shrek.generateMovement();
 				while (!Game.checkMove(comando, shrek.coordX, shrek.coordY, this, level)) {
 					comando = shrek.generateMovement();
@@ -151,17 +156,27 @@ public class Board {
 				shrek.moveEntity(comando);
 
 				// shrek's club
-//				shrek.mclub.startAtPosition(shrek.coordX, shrek.coordY);
+//				shrek.hasClub = true; //a partir daqui tem sempre massive club
+//				shrek.mclub.startAtPosition(newX, newY);
 //				comando = shrek.generateMovement();
 //				while (!Game.checkMove(comando, shrek.mclub.coordX, shrek.mclub.coordY, this, level)) {
 //					comando = shrek.generateMovement();
 //				}
 //				newX = Game.calculateNewX(comando, shrek.mclub.coordX);
 //				newY = Game.calculateNewY(comando, shrek.mclub.coordY);
-//				this.updateEntity('*', shrek.mclub.coordX, shrek.mclub.coordY, newX, newY, level);
+//				board[level][shrek.mclub.coordX][shrek.mclub.coordY] = '*';
+//				//this.updateEntity('*', shrek.mclub.coordX, shrek.mclub.coordY, newX, newY, level);
 //				shrek.mclub.moveEntity(comando);
-//				entities.add(0, shrek.mclub);
-//				index_entities--;      //to compensate for the offset made by the previous instruction
+//				
+//				//checks if it hit the player
+//				if (this.hero.coordX == shrek.mclub.coordX) {
+//					if (Math.abs(this.hero.coordY - shrek.mclub.coordY) == 1)
+//						lost = true;
+//				} else if (this.hero.coordY == shrek.mclub.coordY) {
+//					if (Math.abs(this.hero.coordX - shrek.mclub.coordX) == 1)
+//						lost = true;
+//				}
+				
 			} // mais tipos de adversarios basta acomodar este if e a funcao de
 				
 		}
