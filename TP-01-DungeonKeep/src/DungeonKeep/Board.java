@@ -80,17 +80,9 @@ public class Board {
 		}
 	}
 
-	public boolean updateBoard() {
-		// Iterator<Entity> iterEnt = entities.iterator();
-		// while(iterEnt.hasNext()){
-		// Entity element = iterEnt.next();
-		// if((element instanceof Key) && (element.coordX == hero.coordX)
-		// && (element.coordY == hero.coordY))
-		// hero.hasKey = true;
-		// //((Key)element).openDoors(hero);
-		// }
-		// System.out.println(hero.hasKey);
+	public boolean updateBoard(Boolean lost) {
 
+		
 		if (key.coordX == hero.coordX && key.coordY == hero.coordY) {
 			board[level][key.coordX][key.coordY] = 'K';
 			key.openDoors(hero);
@@ -100,27 +92,68 @@ public class Board {
 
 		// update das keys --> assume que a porta está na parede da esquerda
 		if (hero.hasKey) {
-			for (int i = 0; i < board[level][0].length; i++){
+			for (int i = 0; i < board[level][0].length; i++) {
 				if (board[level][0][i] == 'I')
 					board[level][0][i] = 'S';
 			}
-			
-//			for (int index1 = 0; index1 < board[level].length; index1++) {
-//				for (int index2 = 0; index2 < board[level][index1].length; index2++) {
-//					if (board[level][index1][index2] == 'I' && index1 == 0)
-//						board[level][index1][index2] = 'S';
-//				}
-//			}
-			
+
+			// for (int index1 = 0; index1 < board[level].length; index1++) {
+			// for (int index2 = 0; index2 < board[level][index1].length;
+			// index2++) {
+			// if (board[level][index1][index2] == 'I' && index1 == 0)
+			// board[level][index1][index2] = 'S';
+			// }
+			// }
+
 			for (int i = 0; i < doors.size(); i++) {
-				if(hero.coordX == doors.get(i).coordX && hero.coordY == doors.get(i).coordY)
+				if (hero.coordX == doors.get(i).coordX && hero.coordY == doors.get(i).coordY)
 					return true;
 			}
 
 		}
 		
+		//check if player lost before moving the enities
+		if(Game.checkIfLose(this, level)){
+			lost = true;
+			return false;
+		}
 		
+		//moving entities
+		Iterator<Entity> iterEnt = entities.iterator();
+		while (iterEnt.hasNext()) {
+			Entity element = iterEnt.next();
+			if ((element instanceof Guard) && level == 0){ //mexe guarda caminho predefinido
+				Guard guarda = (Guard)element;
+				int comando = guarda.moves_pre2etermine2[guarda.nextMove];
+				guarda.nextMove = (guarda.nextMove + 1)%(guarda.moves_pre2etermine2.length);
+				int newX = Game.calculateNewX(comando, guarda.coordX);
+				int newY = Game.calculateNewY(comando, guarda.coordY);
+				this.updateEntity('G', guarda.coordX, guarda.coordY, newX, newY, level);
+				guarda.moveEntity(comando);
+				
+			} 
+			else if (element instanceof Guard){ //mexe guarda random 
+				
+			}
+			else if( element instanceof Ogre){ //mexe ogre random
+				//movimento ogre
+				Ogre shrek = (Ogre)element;
+				Random rand = new Random();
+				int comando =rand.nextInt(4)+1;
+				while(!Game.checkMove(comando,shrek.coordX , shrek.coordY, this , level)){
+					comando = rand.nextInt(4)+1;
+				}
+				int newX = Game.calculateNewX(comando, shrek.coordX);
+				int newY = Game.calculateNewY(comando, shrek.coordY);
+				this.updateEntity('O', shrek.coordX, shrek.coordY, newX, newY, level);
+				shrek.moveEntity(comando);
+				
+				
+			} //mais tipos de adversarios basta acomodar este if e a funcao de start entities
+		}
 		
+		//System.out.println(hero.hasKey);
+
 		return false;
 
 	}

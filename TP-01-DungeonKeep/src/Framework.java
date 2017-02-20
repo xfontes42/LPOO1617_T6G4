@@ -7,7 +7,7 @@ public class Framework {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		int level = 0;
+		int level = 1; //meter zero para começar no primeiro nivel 
 		Board board0 = new Board(level);
 		Game game = new Game();
 		board0.startEntities(level);
@@ -18,7 +18,7 @@ public class Framework {
 		 * aplica regras
 		 * avalia estado
 		 */
-		
+		Boolean lost_game = false;
 		while (level < board0.board.length) {
 			board0.printBoard();
 			
@@ -40,7 +40,7 @@ public class Framework {
 				}
 			}
 			//
-			if(board0.updateBoard() == true){ //won the game
+			if(board0.updateBoard(lost_game) == true){ //won the game
 				if (++level < board0.board.length) {
 					System.out.println('\n' + "You won! Next Level.");
 					// instanciar nivel seguinte
@@ -51,7 +51,12 @@ public class Framework {
 					System.out.println('\n' + "You won the game! Congratulations!");
 				}
 				
-			
+			} else {
+				if(lost_game.booleanValue() == true){
+					board0.printBoard();
+					System.out.println('\n' + "You were caught! Game over.");
+					break;
+				}
 			}
 			//checking for lose
 			if (game.checkIfLose(board0, level)){

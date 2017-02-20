@@ -35,7 +35,7 @@ public class Game {
 		return direction;
 	}
 
-	public boolean checkMove(int movement, int x, int y, Board b, int level) {
+	public static boolean checkMove(int movement, int x, int y, Board b, int level) {
 		boolean result = true;
 
 		switch (movement) {
@@ -63,7 +63,7 @@ public class Game {
 		return result;
 	}
 
-	public boolean checkIfLose(Board board, int level) {
+	public static boolean checkIfLose(Board board, int level) {
 		boolean result = false;
 		for (int i = 0; i < board.entities.size(); i++) {
 			if (board.hero.coordX == board.entities.get(i).coordX) {
@@ -95,7 +95,7 @@ public class Game {
 		}
 	}
 
-	public int calculateNewX(int movement, int x) {
+	public static int calculateNewX(int movement, int x) {
 		int result;
 		switch (movement) {
 		case 1: // cima
@@ -118,7 +118,7 @@ public class Game {
 		return result;
 	}
 
-	public int calculateNewY(int movement, int y) {
+	public static int calculateNewY(int movement, int y) {
 		int result;
 		switch (movement) {
 		case 1: // cima
