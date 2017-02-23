@@ -7,13 +7,13 @@ public class Framework {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		int level = 1; //meter zero para começar no primeiro nivel 
+		int level = 0; //meter zero para comeï¿½ar no primeiro nivel 
 		Board board0 = new Board(level);
 		Game game = new Game();
 		board0.startEntities(level);
-		//TODO fazer uma condição de terminação para o ciclo
-		/*while (!fim)	<-- É PRECISO ATUALIZAR A CONDIÇÃO
-		 * lê movimento (feito)
+		//TODO fazer uma condiï¿½ï¿½o de terminaï¿½ï¿½o para o ciclo
+		/*while (!fim)	<-- ï¿½ PRECISO ATUALIZAR A CONDIï¿½ï¿½O
+		 * lï¿½ movimento (feito)
 		 * processa (feito (por agora))
 		 * aplica regras
 		 * avalia estado
@@ -49,6 +49,7 @@ public class Framework {
 					board0.startEntities(level);
 				} else {
 					System.out.println('\n' + "You won the game! Congratulations!");
+					break;
 				}
 				
 			} else {
