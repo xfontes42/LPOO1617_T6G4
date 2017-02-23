@@ -45,6 +45,15 @@ public class Board {
 		board[level][newX][newY] = entity;
 		board[level][oldX][oldY] = ' ';
 	}
+	
+	public void printClub(int newX, int newY, int level) {
+		for (int i = 0; i < board[level].length; i++){
+			for (int j = 0; j < board[level][i].length; j++)
+				if (board[level][i][j] == '*')
+					board[level][i][j] = ' ';
+		}
+		board[level][newX][newY] = '*';
+	}
 
 	public void startEntities(int level) {
 
@@ -89,7 +98,7 @@ public class Board {
 			board[level][key.coordX][key.coordY] = 'k';
 		}
 
-		// update das keys --> assume que a porta está na parede da esquerda
+		// update das keys --> assume que a porta estï¿½ na parede da esquerda
 		if (hero.hasKey) {
 			for (int i = 0; i < board[level][0].length; i++) {
 				if (board[level][0][i] == 'I')
@@ -111,7 +120,7 @@ public class Board {
 
 		}
 
-		// check if player lost before moving the enities
+		// check if player lost before moving the entities
 		if (Game.checkIfLose(this, level)) {
 			lost = true;
 			return false;
@@ -154,6 +163,19 @@ public class Board {
 				int newY = Game.calculateNewY(comando, shrek.coordY);
 				this.updateEntity('O', shrek.coordX, shrek.coordY, newX, newY, level);
 				shrek.moveEntity(comando);
+				
+				if (shrek.hasClub){
+					shrek.mclub = new MassiveClub();
+					int comClub = shrek.generateMovement();
+					while (!Game.checkMove(comClub, shrek.coordX, shrek.coordY, this, level)){
+						comClub = shrek.generateMovement();
+					}
+					int clubX = Game.calculateNewX(comClub, shrek.coordX);
+					int clubY = Game.calculateNewY(comClub, shrek.coordY)
+					shrek.mclub.startAtPosition(clubX, clubY);
+					this.printClub(clubX, clubY, level);
+					
+				}
 
 				// shrek's club
 //				shrek.hasClub = true; //a partir daqui tem sempre massive club
