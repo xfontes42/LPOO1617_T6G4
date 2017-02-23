@@ -163,6 +163,7 @@ public class Board {
 				int newY = Game.calculateNewY(comando, shrek.coordY);
 				this.updateEntity('O', shrek.coordX, shrek.coordY, newX, newY, level);
 				shrek.moveEntity(comando);
+				shrek.hasClub = true;
 				
 				if (shrek.hasClub){
 					shrek.mclub = new MassiveClub();
@@ -171,7 +172,7 @@ public class Board {
 						comClub = shrek.generateMovement();
 					}
 					int clubX = Game.calculateNewX(comClub, shrek.coordX);
-					int clubY = Game.calculateNewY(comClub, shrek.coordY)
+					int clubY = Game.calculateNewY(comClub, shrek.coordY);
 					shrek.mclub.startAtPosition(clubX, clubY);
 					this.printClub(clubX, clubY, level);
 					

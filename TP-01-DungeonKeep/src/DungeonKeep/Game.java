@@ -75,10 +75,25 @@ public class Game {
 			}
 
 		}
+		
+		if (adjacentToClub(board, level))
+			result = true;
 
 		return result;
 	}
 	
+	public static boolean adjacentToClub(Board board, int level) {
+		boolean result = false;
+
+		int x = board.hero.coordX;
+		int y = board.hero.coordY;
+		if (board.board[level][x - 1][y] == '*' || board.board[level][x + 1][y] == '*'
+				|| board.board[level][x][y - 1] == '*' || board.board[level][x][y + 1] == '*')
+			result = true;
+
+		return result;
+	}
+
 	public boolean checkIfWin(Board board, int level, int newX, int newY){
 		if (board.board[level][newX][newY] == 'S')
 			return true;
