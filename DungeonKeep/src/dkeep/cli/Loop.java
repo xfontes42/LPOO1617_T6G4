@@ -32,11 +32,16 @@ public class Loop {
 		
 	}
 	
+	/**
+	 * @brief Receives a move using the command line.
+	 * @param scan The input buffer
+	 * @return 1 if player goes up, 2 if down, 3 if left, 4 if right, 5 if no-move and 0 for invalid inputs.
+	 */
 	public int getCommand(Scanner scan){
 		String resultString;
 		int resultInt;
 		
-		System.out.print("Insert command (u,d,l,r): ");
+		System.out.print("Insert command (u,d,l,r,s): ");
 		resultString = scan.next();
 		
 		switch (resultString) {
@@ -51,6 +56,9 @@ public class Loop {
 			break;
 		case "r":
 			resultInt = 4;
+			break;
+		case "s":
+			resultInt = 5;
 			break;
 		default:
 			resultInt = 0;
