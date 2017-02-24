@@ -41,23 +41,31 @@ public class Loop {
 		String resultString;
 		int resultInt;
 		
-		System.out.print("Insert command (u,d,l,r,s): ");
+		System.out.print("Insert command (up, down, left, right, stay): ");
 		resultString = scan.next();
 		
 		switch (resultString) {
 		case "u":
+		case "up":
 			resultInt = 1;
 			break;
 		case "d":
+		case "dn":
+		case "down":
 			resultInt = 2;
 			break;
 		case "l":
+		case "left":
+		case "lt":
 			resultInt = 3;
 			break;
 		case "r":
+		case "right":
+		case "rt":
 			resultInt = 4;
 			break;
 		case "s":
+		case "stay":
 			resultInt = 5;
 			break;
 		default:
