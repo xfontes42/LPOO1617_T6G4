@@ -1,8 +1,12 @@
 package dkeep.cli;
 
+import java.util.Scanner;
+import dkeep.logic.*;
+
 public class Loop {
 
 	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
 		welcomeMessage();
 		
 		/*TODO Criar loop:
@@ -10,6 +14,8 @@ public class Loop {
 		 * 2. invocar logica do jogo
 		 * 3. mostrar o tabuleiro
 		 */
+		
+		scan.close();
 		
 	}
 	
@@ -25,5 +31,35 @@ public class Loop {
 		
 		
 	}
+	
+	public int getCommand(Scanner scan){
+		String resultString;
+		int resultInt;
+		
+		System.out.print("Insert command (u,d,l,r): ");
+		resultString = scan.next();
+		
+		switch (resultString) {
+		case "u":
+			resultInt = 1;
+			break;
+		case "d":
+			resultInt = 2;
+			break;
+		case "l":
+			resultInt = 3;
+			break;
+		case "r":
+			resultInt = 4;
+			break;
+		default:
+			resultInt = 0;
+			break;
+		}
+		
+		return resultInt;
+	}
+	
+	
 
 }
