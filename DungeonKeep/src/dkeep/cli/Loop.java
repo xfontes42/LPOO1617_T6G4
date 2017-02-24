@@ -45,29 +45,40 @@ public class Loop {
 		resultString = scan.next();
 		
 		switch (resultString) {
+		//up --> 1
 		case "u":
 		case "up":
 			resultInt = 1;
 			break;
+
+		//down --> 2
 		case "d":
 		case "dn":
 		case "down":
 			resultInt = 2;
 			break;
+			
+		//left --> 3
 		case "l":
 		case "left":
 		case "lt":
 			resultInt = 3;
 			break;
+		
+		//right --> 4
 		case "r":
 		case "right":
 		case "rt":
 			resultInt = 4;
 			break;
+		
+		//stay in place --> 5
 		case "s":
 		case "stay":
 			resultInt = 5;
 			break;
+			
+		//error (or undefined) --> 0
 		default:
 			resultInt = 0;
 			break;
