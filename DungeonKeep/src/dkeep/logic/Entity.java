@@ -1,15 +1,35 @@
 package dkeep.logic;
 
 public class Entity {
-	int coordX=0, coordY=0;
-	char sprite = '?';
+	private int coordX, coordY;
+	private char sprite = '?';
+	private Behavior behavior;
+	public Entity(int x, int y, char spr){
+		coordX = x;
+		coordY = y;
+		sprite = spr;
+	}
+	
+	public int getX(){
+		return coordX;
+	}
+	
+	public int getY(){
+		return coordY;
+	}
+	
+	public int getSprite(){
+		return sprite;
+	}
 	
 	public int movement() {
-		int result;
+		int result = 0;
 		
 		
-		return 0;
+		return result;
 	}
+	
+	
 	
 
 }
