@@ -13,4 +13,13 @@ public class State {
 	public Vector<Door> doors = new Vector<Door>();
 	public Hero hero = new Hero();
 	public Key key = new Key();
+	
+	public void printBoard() {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				System.out.print((char) board[j][i] + " ");
+			}
+			System.out.println();
+		}
+	}
 }
