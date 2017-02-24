@@ -4,8 +4,13 @@ public class Loop {
 
 	public static void main(String[] args) {
 		welcomeMessage();
-		// TODO Auto-generated method stub
-
+		
+		/*TODO Criar loop:
+		 * 1. perguntar direcao
+		 * 2. invocar logica do jogo
+		 * 3. mostrar o tabuleiro
+		 */
+		
 	}
 	
 	public static void welcomeMessage(){
