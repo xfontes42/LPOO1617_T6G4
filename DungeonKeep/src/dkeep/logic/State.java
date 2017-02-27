@@ -2,10 +2,10 @@ package dkeep.logic;
 
 import java.util.Vector;
 
-import DungeonKeep.Door;
-import DungeonKeep.Entity;
-import DungeonKeep.Hero;
-import DungeonKeep.Key;
+import dkeep.logic.Door;
+import dkeep.logic.Entity;
+import dkeep.logic.Hero;
+import dkeep.logic.Key;
 
 public class State {
 	char[][] board = new char[10][10];

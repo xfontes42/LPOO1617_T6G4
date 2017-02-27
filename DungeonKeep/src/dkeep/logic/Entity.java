@@ -5,6 +5,11 @@ public class Entity {
 	private int coordX, coordY;
 	private char sprite = '?';
 	private Behavior behavior;
+	
+	public Entity(){
+		
+	}
+	
 	public Entity(int x, int y, char spr){
 		coordX = x;
 		coordY = y;
