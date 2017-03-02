@@ -1,7 +1,7 @@
 package dkeep.logic;
 
+import java.util.Random;
 import java.util.Vector;
-
 
 import dkeep.logic.Door;
 import dkeep.logic.Entity;
@@ -11,26 +11,26 @@ import dkeep.logic.Key;
 
 public class State {
 	public boolean won = false;
-	
+
 	public char[][] board = new char[10][10];
 	public Vector<Entity> entities = new Vector<Entity>();
 	public Vector<Door> doors = new Vector<Door>();
 	public Hero hero = new Hero();
 	public Key key = new Key();
-	
-	public State(char[][] nivel){
+
+	public State(char[][] nivel) {
 		board = nivel.clone();
 		startEntities();
 	}
-	
+
 	public void updateEntity(char entity, int oldX, int oldY, int newX, int newY) {
 		board[oldX][oldY] = ' ';
 		board[newX][newY] = entity;
-		//board[oldX][oldY] = ' ';
+		// board[oldX][oldY] = ' ';
 	}
-	
+
 	public void printClub(int newX, int newY) {
-		for (int i = 0; i < board.length; i++){
+		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++)
 				if (board[i][j] == '*')
 					board[i][j] = ' ';
@@ -53,9 +53,16 @@ public class State {
 				}
 
 				else if (board[i][j] == 'O') {
-					Ogre ogre = new Ogre();
-					ogre.startAtPosition(i, j);
-					entities.add(ogre);
+					// add a random number of ogres
+					hero.setSprite('A');
+					Random rand = new Random();
+					int numberOfOgres = rand.nextInt(3) + 1;
+					for (int in = 1; in <= numberOfOgres; in++) {
+						Ogre ogre = new Ogre();
+						ogre.startAtPosition(i, j);
+						entities.add(ogre);
+					}
+
 				}
 
 				else if (board[i][j] == 'k') {
@@ -114,9 +121,9 @@ public class State {
 		for (int index_entities = 0; index_entities < entities.size(); index_entities++) {
 			Entity element = entities.get(index_entities);
 			if ((element instanceof Guard)) { // mexe guarda
-															// caminho
-															// predefinido
-				//TODO fix dis kthxbai
+												// caminho
+												// predefinido
+				// TODO fix dis kthxbai
 				Guard guarda = (Guard) element;
 				int comando = guarda.movement();
 				int newX = calculateNewX(comando, guarda.getX());
@@ -128,23 +135,22 @@ public class State {
 					guarda.setSprite('G');
 
 				this.updateEntity(guarda.getSprite(), guarda.getX(), guarda.getY(), newX, newY);
-				
+
 				guarda.moveEntity(comando);
 
 			} else if (element instanceof Guard) { // mexe guarda random
 
-//			} else if (element instanceof MassiveClub) {
-//				board[level][element.getX()][element.getY()] = ' ';
-//				entities.remove(element);
+				// } else if (element instanceof MassiveClub) {
+				// board[level][element.getX()][element.getY()] = ' ';
+				// entities.remove(element);
 			} else if (element instanceof Ogre) { // mexe ogre random
 				// movimento ogre
 				Ogre shrek = (Ogre) element;
-				//clean club
-//				if(shrek.hasClub){
-//					board[level][shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
-//				}
-				
-				
+				// clean club
+				// if(shrek.hasClub){
+				// board[level][shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
+				// }
+
 				int comando = shrek.generateMovement();
 				while (!checkMove(comando, shrek.getX(), shrek.getY())) {
 					comando = shrek.generateMovement();
@@ -153,51 +159,54 @@ public class State {
 				int newY = calculateNewY(comando, shrek.getY());
 				this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
 				shrek.moveEntity(comando);
-				shrek.hasClub = true;
-				
-				if (shrek.hasClub){
-					shrek.mclub = new MassiveClub();
-					int comClub = shrek.generateMovement();
-					while (!checkMove(comClub, shrek.getX(), shrek.getY())){
-						comClub = shrek.generateMovement();
-					}
-					int clubX = calculateNewX(comClub, shrek.getX());
-					int clubY = calculateNewY(comClub, shrek.getY());
-					shrek.mclub.startAtPosition(clubX, clubY);
-					printClub(clubX, clubY);
-					
+				// shrek.hasClub = true;
+
+				// if (shrek.hasClub){
+				shrek.mclub = new MassiveClub();
+				int comClub = shrek.generateMovement();
+				while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
+					comClub = shrek.generateMovement();
 				}
+				int clubX = calculateNewX(comClub, shrek.getX());
+				int clubY = calculateNewY(comClub, shrek.getY());
+				shrek.mclub.startAtPosition(clubX, clubY);
+				printClub(clubX, clubY);
+
+				// }
 
 				// shrek's club
-//				shrek.hasClub = true; //a partir daqui tem sempre massive club
-//				shrek.mclub.startAtPosition(newX, newY);
-//				comando = shrek.generateMovement();
-//				while (!Game.checkMove(comando, shrek.mclub.getX(), shrek.mclub.getY(), this, level)) {
-//					comando = shrek.generateMovement();
-//				}
-//				newX = Game.calculateNewX(comando, shrek.mclub.getX());
-//				newY = Game.calculateNewY(comando, shrek.mclub.getY());
-//				board[level][shrek.mclub.getX()][shrek.mclub.getY()] = '*';
-//				//this.updateEntity('*', shrek.mclub.getX(), shrek.mclub.getY(), newX, newY, level);
-//				shrek.mclub.moveEntity(comando);
-//				
-//				//checks if it hit the player
-//				if (this.hero.getX() == shrek.mclub.getX()) {
-//					if (Math.abs(this.hero.getY() - shrek.mclub.getY()) == 1)
-//						lost = true;
-//				} else if (this.hero.getY() == shrek.mclub.getY()) {
-//					if (Math.abs(this.hero.getX() - shrek.mclub.getX()) == 1)
-//						lost = true;
-//				}
-				
+				// shrek.hasClub = true; //a partir daqui tem sempre massive
+				// club
+				// shrek.mclub.startAtPosition(newX, newY);
+				// comando = shrek.generateMovement();
+				// while (!Game.checkMove(comando, shrek.mclub.getX(),
+				// shrek.mclub.getY(), this, level)) {
+				// comando = shrek.generateMovement();
+				// }
+				// newX = Game.calculateNewX(comando, shrek.mclub.getX());
+				// newY = Game.calculateNewY(comando, shrek.mclub.getY());
+				// board[level][shrek.mclub.getX()][shrek.mclub.getY()] = '*';
+				// //this.updateEntity('*', shrek.mclub.getX(),
+				// shrek.mclub.getY(), newX, newY, level);
+				// shrek.mclub.moveEntity(comando);
+				//
+				// //checks if it hit the player
+				// if (this.hero.getX() == shrek.mclub.getX()) {
+				// if (Math.abs(this.hero.getY() - shrek.mclub.getY()) == 1)
+				// lost = true;
+				// } else if (this.hero.getY() == shrek.mclub.getY()) {
+				// if (Math.abs(this.hero.getX() - shrek.mclub.getX()) == 1)
+				// lost = true;
+				// }
+
 			} // mais tipos de adversarios basta acomodar este if e a funcao de
-				
+
 		}
 
 		return false;
 
 	}
-	
+
 	public void printBoard() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -206,7 +215,7 @@ public class State {
 			System.out.println();
 		}
 	}
-	
+
 	public boolean checkMove(int movement, int x, int y) {
 		boolean result = true;
 
@@ -236,8 +245,8 @@ public class State {
 
 		return result;
 	}
-	
-	public  boolean checkIfLose() {
+
+	public boolean checkIfLose() {
 		boolean result = false;
 		for (int i = 0; i < entities.size(); i++) {
 			if (hero.getX() == entities.get(i).getX()) {
@@ -249,33 +258,32 @@ public class State {
 			}
 
 		}
-		
+
 		if (adjacentToClub())
 			result = true;
 
 		return result;
 	}
-	
-	public  boolean adjacentToClub() {
+
+	public boolean adjacentToClub() {
 		boolean result = false;
 
 		int x = hero.getX();
 		int y = hero.getY();
-		if (board[x - 1][y] == '*' || board[x + 1][y] == '*'
-				|| board[x][y - 1] == '*' || board[x][y + 1] == '*')
+		if (board[x - 1][y] == '*' || board[x + 1][y] == '*' || board[x][y - 1] == '*' || board[x][y + 1] == '*')
 			result = true;
 
 		return result;
 	}
-	
-	public boolean checkIfWin(int newX, int newY){
+
+	public boolean checkIfWin(int newX, int newY) {
 		if (board[newX][newY] == 'S')
 			return true;
 		else
 			return false;
 	}
-	
-	public boolean checkForKey(int newX, int newY){
+
+	public boolean checkForKey(int newX, int newY) {
 		if (board[newX][newY] == 'k') {
 			key.openDoors(hero);
 			return true;
@@ -284,7 +292,7 @@ public class State {
 		}
 	}
 
-	public  int calculateNewX(int movement, int x) {
+	public int calculateNewX(int movement, int x) {
 		int result;
 		switch (movement) {
 		case 1: // cima
