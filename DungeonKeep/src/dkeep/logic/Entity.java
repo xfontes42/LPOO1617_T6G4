@@ -10,6 +10,22 @@ public class Entity {
 		
 	}
 	
+	public void moveEntity(int direction){
+		switch(direction){
+		case 1:
+			coordY--;
+			break;
+		case 2:
+			coordY++;
+			break;
+		case 3:
+			coordX--;
+			break;
+		case 4:
+			coordX++;
+			break;
+		}
+	}
 	
 	public Entity(int x, int y, char spr){
 		coordX = x;

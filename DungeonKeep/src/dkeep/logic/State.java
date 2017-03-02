@@ -117,43 +117,43 @@ public class State {
 				Guard guarda = (Guard) element;
 				int comando = guarda.moves_pre2etermine2[guarda.nextMove];
 				guarda.nextMove = (guarda.nextMove + 1) % (guarda.moves_pre2etermine2.length);
-				int newX = calculateNewX(comando, guarda.coordX);
-				int newY = calculateNewY(comando, guarda.coordY);
-				this.updateEntity('G', guarda.coordX, guarda.coordY, newX, newY);
+				int newX = calculateNewX(comando, guarda.getX());
+				int newY = calculateNewY(comando, guarda.getY());
+				this.updateEntity('G', guarda.getX(), guarda.getY(), newX, newY);
 				guarda.moveEntity(comando);
 
 			} else if (element instanceof Guard) { // mexe guarda random
 
 //			} else if (element instanceof MassiveClub) {
-//				board[level][element.coordX][element.coordY] = ' ';
+//				board[level][element.getX()][element.getY()] = ' ';
 //				entities.remove(element);
 			} else if (element instanceof Ogre) { // mexe ogre random
 				// movimento ogre
 				Ogre shrek = (Ogre) element;
 				//clean club
 //				if(shrek.hasClub){
-//					board[level][shrek.mclub.coordX][shrek.mclub.coordY] = ' ';
+//					board[level][shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
 //				}
 				
 				
 				int comando = shrek.generateMovement();
-				while (!checkMove(comando, shrek.coordX, shrek.coordY)) {
+				while (!checkMove(comando, shrek.getX(), shrek.getY())) {
 					comando = shrek.generateMovement();
 				}
-				int newX = calculateNewX(comando, shrek.coordX);
-				int newY = calculateNewY(comando, shrek.coordY);
-				this.updateEntity('O', shrek.coordX, shrek.coordY, newX, newY);
+				int newX = calculateNewX(comando, shrek.getX());
+				int newY = calculateNewY(comando, shrek.getY());
+				this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
 				shrek.moveEntity(comando);
 				shrek.hasClub = true;
 				
 				if (shrek.hasClub){
 					shrek.mclub = new MassiveClub();
 					int comClub = shrek.generateMovement();
-					while (!checkMove(comClub, shrek.coordX, shrek.coordY)){
+					while (!checkMove(comClub, shrek.getX(), shrek.getY())){
 						comClub = shrek.generateMovement();
 					}
-					int clubX = calculateNewX(comClub, shrek.coordX);
-					int clubY = calculateNewY(comClub, shrek.coordY);
+					int clubX = calculateNewX(comClub, shrek.getX());
+					int clubY = calculateNewY(comClub, shrek.getY());
 					shrek.mclub.startAtPosition(clubX, clubY);
 					printClub(clubX, clubY);
 					
@@ -163,21 +163,21 @@ public class State {
 //				shrek.hasClub = true; //a partir daqui tem sempre massive club
 //				shrek.mclub.startAtPosition(newX, newY);
 //				comando = shrek.generateMovement();
-//				while (!Game.checkMove(comando, shrek.mclub.coordX, shrek.mclub.coordY, this, level)) {
+//				while (!Game.checkMove(comando, shrek.mclub.getX(), shrek.mclub.getY(), this, level)) {
 //					comando = shrek.generateMovement();
 //				}
-//				newX = Game.calculateNewX(comando, shrek.mclub.coordX);
-//				newY = Game.calculateNewY(comando, shrek.mclub.coordY);
-//				board[level][shrek.mclub.coordX][shrek.mclub.coordY] = '*';
-//				//this.updateEntity('*', shrek.mclub.coordX, shrek.mclub.coordY, newX, newY, level);
+//				newX = Game.calculateNewX(comando, shrek.mclub.getX());
+//				newY = Game.calculateNewY(comando, shrek.mclub.getY());
+//				board[level][shrek.mclub.getX()][shrek.mclub.getY()] = '*';
+//				//this.updateEntity('*', shrek.mclub.getX(), shrek.mclub.getY(), newX, newY, level);
 //				shrek.mclub.moveEntity(comando);
 //				
 //				//checks if it hit the player
-//				if (this.hero.coordX == shrek.mclub.coordX) {
-//					if (Math.abs(this.hero.coordY - shrek.mclub.coordY) == 1)
+//				if (this.hero.getX() == shrek.mclub.getX()) {
+//					if (Math.abs(this.hero.getY() - shrek.mclub.getY()) == 1)
 //						lost = true;
-//				} else if (this.hero.coordY == shrek.mclub.coordY) {
-//					if (Math.abs(this.hero.coordX - shrek.mclub.coordX) == 1)
+//				} else if (this.hero.getY() == shrek.mclub.getY()) {
+//					if (Math.abs(this.hero.getX() - shrek.mclub.getX()) == 1)
 //						lost = true;
 //				}
 				
