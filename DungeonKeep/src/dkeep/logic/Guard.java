@@ -1,10 +1,11 @@
 package dkeep.logic;
 
 import java.util.Random;
+import java.util.Vector;
 
 public class Guard extends Entity {
-	public Behavior behavior;
-
+	//public Vector<Behavior> behavior = new Vector<Behavior>(0);
+	public Behavior behavior = new BehaviorGuard();
 	public enum GuardType {rookie, drunken, suspicious};
 	
 	public GuardType type;
@@ -19,14 +20,17 @@ public class Guard extends Entity {
 		int n = rand.nextInt(3);
 		switch (n) {
 		case 0:
+			//behavior.add(new BehaviorRookie());
 			behavior = new BehaviorRookie();
 			type = GuardType.rookie;
 			break;
 		case 1:
+			//behavior.add(new BehaviorDrunken());
 			behavior = new BehaviorDrunken();
 			type = GuardType.drunken;
 			break;
 		case 2:
+			//behavior.add(new BehaviorSuspicious());
 			behavior = new BehaviorSuspicious();
 			type = GuardType.suspicious;
 			break;
@@ -37,23 +41,25 @@ public class Guard extends Entity {
 		switch (n) {
 
 		case 1:
+			//behavior.add(new BehaviorDrunken());
 			behavior = new BehaviorDrunken();
 			type = GuardType.drunken;
 			break;
 		case 2:
+			//behavior.add(new BehaviorSuspicious());
 			behavior = new BehaviorSuspicious();
 			type = GuardType.suspicious;
 			break;
 		default:
+			//behavior.add(new BehaviorRookie());
 			behavior = new BehaviorRookie();
 			type = GuardType.rookie;
 			break;
 		}
 	}
 
-	public void move(int direction) { // 0 if predetermined, not-zero otherwise
-		if (direction == 0) {
-
-		}
-	} // think this through
+	public int movement() {
+		//return behavior.get(0).movement();
+		return behavior.movement();
+	}
 }

@@ -3,7 +3,7 @@ package dkeep.logic;
 public class Entity {
 	private int coordX, coordY;
 	private char sprite = '?';
-	private Behavior behavior = new BehaviorGuard();
+	//private Behavior behavior = new BehaviorGuard();
 
 	public Entity() {
 
@@ -64,7 +64,7 @@ public class Entity {
 	}
 
 	public int movement() {
-		return behavior.movement();
+		return 5;
 	}
 
 }
