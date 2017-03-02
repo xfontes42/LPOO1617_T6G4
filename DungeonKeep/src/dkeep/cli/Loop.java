@@ -32,7 +32,7 @@ public class Loop {
 					validMove = true;
 					int newX = gameplay.calculateNewX(command, gameplay.hero.getX());
 					int newY = gameplay.calculateNewY(command, gameplay.hero.getY());
-					gameplay.updateEntity('H', gameplay.hero.getX(), gameplay.hero.getY(), newX, newY);
+					gameplay.updateEntity(gameplay.hero.getSprite(), gameplay.hero.getX(), gameplay.hero.getY(), newX, newY);
 					gameplay.hero.moveEntity(command);
 				}
 			}

@@ -59,7 +59,7 @@ public class Entity {
 		return coordY;
 	}
 
-	public int getSprite() {
+	public char getSprite() {
 		return sprite;
 	}
 
