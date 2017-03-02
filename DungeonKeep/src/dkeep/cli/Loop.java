@@ -13,11 +13,7 @@ public class Loop {
 		Scanner scan = new Scanner(System.in);
 		welcomeMessage();
 		
-		/*TODO Criar loop:
-		 * 1. perguntar direcao
-		 * 2. invocar logica do jogo
-		 * 3. mostrar o tabuleiro
-		 */
+		
 		GameLevels library = new GameLevels();
 		int level = 1;
 		State gameplay = new State(library.getLevel(level));
