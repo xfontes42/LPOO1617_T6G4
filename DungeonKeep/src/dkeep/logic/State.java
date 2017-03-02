@@ -23,8 +23,9 @@ public class State {
 	}
 	
 	public void updateEntity(char entity, int oldX, int oldY, int newX, int newY) {
-		board[newX][newY] = entity;
 		board[oldX][oldY] = ' ';
+		board[newX][newY] = entity;
+		//board[oldX][oldY] = ' ';
 	}
 	
 	public void printClub(int newX, int newY) {
@@ -217,6 +218,8 @@ public class State {
 		case 4: // dir
 			if (board[x + 1][y] == 'X' || board[x + 1][y] == 'I')
 				result = false;
+			break;
+		case 5:
 			break;
 		default:
 			result = false;
