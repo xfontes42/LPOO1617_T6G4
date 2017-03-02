@@ -11,7 +11,7 @@ import dkeep.logic.Key;
 public class State {
 	public boolean won = false;
 	
-	char[][] board = new char[10][10];
+	public char[][] board = new char[10][10];
 	public Vector<Entity> entities = new Vector<Entity>();
 	public Vector<Door> doors = new Vector<Door>();
 	public Hero hero = new Hero();
@@ -19,7 +19,7 @@ public class State {
 	
 	public State(char[][] nivel){
 		board = nivel.clone();
-		//TODO START ENTITIES
+		startEntities();
 	}
 	
 	public void updateEntity(char entity, int oldX, int oldY, int newX, int newY) {
@@ -36,10 +36,10 @@ public class State {
 		board[newX][newY] = '*';
 	}
 
-	public void startEntities(int level) {
+	public void startEntities() {
 
-		for (int i = 0; i < board[level].length; i++) {
-			for (int j = 0; j < board[level].length; j++) {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] == 'H') {
 					hero.startAtPosition(i, j);
 				}

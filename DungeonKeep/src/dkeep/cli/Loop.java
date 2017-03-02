@@ -1,11 +1,15 @@
 package dkeep.cli;
 
 import java.util.Scanner;
+
+
 import dkeep.logic.*;
 
 public class Loop {
-
+	
+	
 	public static void main(String[] args) {
+		
 		Scanner scan = new Scanner(System.in);
 		welcomeMessage();
 		
@@ -14,6 +18,56 @@ public class Loop {
 		 * 2. invocar logica do jogo
 		 * 3. mostrar o tabuleiro
 		 */
+		GameLevels library = new GameLevels();
+		int level = 1;
+		State gameplay = new State(library.getLevel(level));
+		Boolean lost_game = false;
+		while(level <= library.getNumberOfLevels()){
+			gameplay.printBoard();
+			
+			boolean validMove = false;
+			while (!validMove) {
+				int command = getCommand(scan);
+				
+				if (!gameplay.checkMove(command, gameplay.hero.getX(), gameplay.hero.getY())) {
+					validMove = false;
+					System.out.println("Invalid command. Please try again.");
+				} else {
+					validMove = true;
+					int newX = gameplay.calculateNewX(command, gameplay.hero.getX());
+					int newY = gameplay.calculateNewY(command, gameplay.hero.getY());
+					gameplay.updateEntity('H', gameplay.hero.getX(), gameplay.hero.getY(), newX, newY);
+					gameplay.hero.moveEntity(command);
+				}
+			}
+			
+			
+			if(gameplay.updateBoard(lost_game) == true){ //won the game
+				if (++level <= library.getNumberOfLevels()) {
+					System.out.println('\n' + "You won! Next Level.");
+					// instanciar nivel seguinte
+					gameplay = new State(library.getLevel(level));
+					
+				} else {
+					System.out.println('\n' + "You won the game! Congratulations!");
+					break;
+				}
+				
+			} else {
+				if(lost_game.booleanValue() == true){
+					gameplay.printBoard();
+					System.out.println('\n' + "You were caught! Game over.");
+					break;
+				}
+			}
+			//checking for lose
+			if (gameplay.checkIfLose()){
+				gameplay.printBoard();
+				System.out.println('\n' + "You were caught! Game over.");
+				break;
+			}
+		}
+			
 		
 		scan.close();
 		
@@ -37,7 +91,7 @@ public class Loop {
 	 * @param scan The input buffer
 	 * @return 1 if player goes up, 2 if down, 3 if left, 4 if right, 5 if no-move and 0 for invalid inputs.
 	 */
-	public int getCommand(Scanner scan){
+	public static int getCommand(Scanner scan){
 		String resultString;
 		int resultInt;
 		
