@@ -10,10 +10,16 @@ public class Entity {
 		
 	}
 	
+	
 	public Entity(int x, int y, char spr){
 		coordX = x;
 		coordY = y;
 		sprite = spr;
+	}
+	
+	public void startAtPosition(int x, int y){
+		coordX = x;
+		coordY = y;
 	}
 	
 	public void setX(int x){
