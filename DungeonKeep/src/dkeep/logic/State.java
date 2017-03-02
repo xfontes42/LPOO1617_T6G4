@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import dkeep.logic.Door;
 import dkeep.logic.Entity;
+import dkeep.logic.Guard.GuardType;
 import dkeep.logic.Hero;
 import dkeep.logic.Key;
 
@@ -46,7 +47,7 @@ public class State {
 				}
 
 				else if (board[i][j] == 'G') {
-					Guard guard = new Guard(2);
+					Guard guard = new Guard();
 					guard.startAtPosition(i, j);
 					entities.add(guard);
 				}
@@ -120,7 +121,12 @@ public class State {
 				int comando = guarda.movement();
 				int newX = calculateNewX(comando, guarda.getX());
 				int newY = calculateNewY(comando, guarda.getY());
-				this.updateEntity('G', guarda.getX(), guarda.getY(), newX, newY);
+				
+				if (guarda.type == GuardType.drunken && ((BehaviorDrunken) guarda.getBehavior()).sleeping)
+					this.updateEntity('g', guarda.getX(), guarda.getY(), newX, newY);
+				else
+					this.updateEntity('G', guarda.getX(), guarda.getY(), newX, newY);
+				
 				guarda.moveEntity(comando);
 
 			} else if (element instanceof Guard) { // mexe guarda random

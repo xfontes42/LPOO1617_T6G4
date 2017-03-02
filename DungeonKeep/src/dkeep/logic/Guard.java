@@ -62,4 +62,8 @@ public class Guard extends Entity {
 		//return behavior.get(0).movement();
 		return behavior.movement();
 	}
+	
+	public Behavior getBehavior(){
+		return behavior;
+	}
 }

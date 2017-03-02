@@ -65,5 +65,6 @@ public class BehaviorGuard implements Behavior {
 		else
 			return false;
 	}
+	
 
 }
