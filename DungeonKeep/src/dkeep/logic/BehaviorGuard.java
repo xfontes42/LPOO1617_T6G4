@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class BehaviorGuard extends Behavior {
 
-	private int moves_pre2etermine2[] = { 3, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1 };
-	private int nextMove = 0;
-	private boolean reversing = false;
-	private int reverseProb = 0;
+	protected int moves_pre2etermine2[] = { 3, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1 };
+	protected int nextMove = 0;
+	protected boolean reversing = false;
+	protected int reverseProb = 0;
 	
 //	Guard guarda = (Guard) element;
 //	int comando = guarda.moves_pre2etermine2[guarda.nextMove];
