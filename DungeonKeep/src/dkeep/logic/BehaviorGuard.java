@@ -2,7 +2,7 @@ package dkeep.logic;
 
 import java.util.Random;
 
-public class BehaviorGuard extends Behavior {
+public class BehaviorGuard implements Behavior {
 
 	protected int moves_pre2etermine2[] = { 3, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1 };
 	protected int nextMove = 0;

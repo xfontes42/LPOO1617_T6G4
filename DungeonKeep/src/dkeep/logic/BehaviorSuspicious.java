@@ -9,6 +9,7 @@ public class BehaviorSuspicious extends BehaviorGuard {
 	}
 
 	public int movement() {
+		System.out.println("\n wat");
 		int result;
 		if (!reversing) {
 			result = moves_pre2etermine2[nextMove];

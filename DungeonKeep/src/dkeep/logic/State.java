@@ -46,7 +46,7 @@ public class State {
 				}
 
 				else if (board[i][j] == 'G') {
-					Guard guard = new Guard();
+					Guard guard = new Guard(2);
 					guard.startAtPosition(i, j);
 					entities.add(guard);
 				}
@@ -115,6 +115,7 @@ public class State {
 			if ((element instanceof Guard)) { // mexe guarda
 															// caminho
 															// predefinido
+				//TODO fix dis kthxbai
 				Guard guarda = (Guard) element;
 				int comando = guarda.movement();
 				int newX = calculateNewX(comando, guarda.getX());

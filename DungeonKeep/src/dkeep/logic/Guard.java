@@ -3,7 +3,7 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Guard extends Entity {
-	public BehaviorGuard behavior/* = new BehaviorGuard()*/;
+	public Behavior behavior;
 
 	public enum GuardType {rookie, drunken, suspicious};
 	
