@@ -41,12 +41,12 @@ public class BehaviorDrunken extends BehaviorGuard {
 			}
 
 			// calculates if falling asleep
-			if (setReverse(sleepProb))
+			if (setReverse(sleepProb)) {
 				sleeping = true;
 
+			}
 		}
-
 		return result;
 	}
-	
+
 }

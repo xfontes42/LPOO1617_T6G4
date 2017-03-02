@@ -121,11 +121,13 @@ public class State {
 				int comando = guarda.movement();
 				int newX = calculateNewX(comando, guarda.getX());
 				int newY = calculateNewY(comando, guarda.getY());
-				
+
 				if (guarda.type == GuardType.drunken && ((BehaviorDrunken) guarda.getBehavior()).sleeping)
-					this.updateEntity('g', guarda.getX(), guarda.getY(), newX, newY);
+					guarda.setSprite('g');
 				else
-					this.updateEntity('G', guarda.getX(), guarda.getY(), newX, newY);
+					guarda.setSprite('G');
+
+				this.updateEntity(guarda.getSprite(), guarda.getX(), guarda.getY(), newX, newY);
 				
 				guarda.moveEntity(comando);
 
