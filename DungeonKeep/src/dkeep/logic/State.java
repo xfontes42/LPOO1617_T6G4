@@ -116,8 +116,7 @@ public class State {
 															// caminho
 															// predefinido
 				Guard guarda = (Guard) element;
-				int comando = guarda.moves_pre2etermine2[guarda.nextMove];
-				guarda.nextMove = (guarda.nextMove + 1) % (guarda.moves_pre2etermine2.length);
+				int comando = guarda.movement();
 				int newX = calculateNewX(comando, guarda.getX());
 				int newY = calculateNewY(comando, guarda.getY());
 				this.updateEntity('G', guarda.getX(), guarda.getY(), newX, newY);
