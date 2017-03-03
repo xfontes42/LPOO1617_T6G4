@@ -95,12 +95,37 @@ public class TestDungeonGameLogic {
 		assertEquals(2, game.hero.getY());
 	}
 	
-//	@Test
-//	public void testHeroFlipsLever(){
-//		
-//		
-//	}
-//	
+	@Test
+	public void testHeroFlipsLever(){
+		State game = new State(testMap);
+		game.startEntities();
+		
+		//tests correct starting position (1,1)
+		assertEquals(1, game.hero.getX());
+		assertEquals(1, game.hero.getY());
+		
+		//tries moving down twice
+		if (game.checkMove(2, game.hero.getX(), game.hero.getY())) {
+			game.hero.moveEntity(2);
+			game.updateEntity(game.hero.sprite, 1, 1, game.hero.getX(), game.hero.getX());
+			if (game.checkMove(2, game.hero.getX(), game.hero.getY())){
+				game.hero.moveEntity(2);
+				game.updateEntity(game.hero.sprite, 1, 2, game.hero.getX(), game.hero.getX());
+			}
+		}
+
+		assertEquals(1, game.hero.getX());
+		assertEquals(3, game.hero.getY());
+		
+		//tries going into the door
+		if (game.checkMove(3, game.hero.getX(), game.hero.getY())){
+			game.hero.moveEntity(3);
+		}	
+		assertEquals(1, game.hero.getX());
+		assertEquals(3, game.hero.getY());
+		
+	}
+	
 //	@Test
 //	public void testHeroLeavesDungeon(){
 //		
