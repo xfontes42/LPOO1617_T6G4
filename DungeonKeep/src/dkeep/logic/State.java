@@ -11,6 +11,7 @@ import dkeep.logic.Key;
 
 public class State {
 	public boolean won = false;
+	public boolean lever = false;
 
 	public char[][] board = new char[10][10];
 	public Vector<Entity> entities = new Vector<Entity>();
@@ -70,18 +71,21 @@ public class State {
 					Guard guard = new Guard();
 					guard.startAtPosition(i, j);
 					entities.add(guard);
+					lever = true;
 				}
 
 				else if (board[i][j] == 'O') {
 					// add a random number of ogres
 					hero.setSprite('A');
 					Random rand = new Random();
-					int numberOfOgres = rand.nextInt(3) + 1;
+					int numberOfOgres = rand.nextInt(1) + 1;
 					for (int in = 1; in <= numberOfOgres; in++) {
 						Ogre ogre = new Ogre();
 						ogre.startAtPosition(i, j);
 						entities.add(ogre);
 					}
+
+					lever = false;
 
 				}
 
@@ -108,20 +112,26 @@ public class State {
 			board[key.getX()][key.getY()] = 'k';
 		}
 
-		// update das keys --> assume que a porta est� na parede da esquerda
-		if (hero.hasKey) {
-			for (int i = 0; i < board[0].length; i++) {
-				if (board[0][i] == 'I')
-					board[0][i] = 'S';
-			}
+		if (lever == true) {
+			if (hero.hasKey) {
+				for (int i = 0; i < board[0].length; i++) {
+					if (board[0][i] == 'I')
+						board[0][i] = 'S';
+				}
 
-			// for (int index1 = 0; index1 < board[level].length; index1++) {
-			// for (int index2 = 0; index2 < board[level][index1].length;
-			// index2++) {
-			// if (board[level][index1][index2] == 'I' && index1 == 0)
-			// board[level][index1][index2] = 'S';
-			// }
-			// }
+				for (int i = 0; i < doors.size(); i++) {
+					if (hero.getX() == doors.get(i).getX() && hero.getY() == doors.get(i).getY())
+						return true;
+				}
+
+			}
+		} else {
+			if (hero.hasKey && hero.getX() == 1) {
+				for (int i = 0; i < board[0].length; i++) {
+					if (board[0][i] == 'I' && hero.getY() == i)
+						board[0][i] = 'S';
+				}
+			}
 
 			for (int i = 0; i < doors.size(); i++) {
 				if (hero.getX() == doors.get(i).getX() && hero.getY() == doors.get(i).getY())
@@ -129,6 +139,8 @@ public class State {
 			}
 
 		}
+
+		
 
 		// check if player lost before moving the entities
 		if (checkIfLose()) {
@@ -165,10 +177,10 @@ public class State {
 				// // entities.remove(element);
 			} else if (element instanceof Ogre) { // mexe ogre random
 				// movimento ogre
-				
+
 				Ogre shrek = (Ogre) element;
 				if (!shrek.hasClub) {
-					// mexe ogre 
+					// mexe ogre
 					int comando = shrek.generateMovement();
 					while (!checkMove(comando, shrek.getX(), shrek.getY())) {
 						comando = shrek.generateMovement();
@@ -178,7 +190,7 @@ public class State {
 					this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
 					shrek.moveEntity(comando);
 					//
-					
+
 					shrek.mclub = new MassiveClub();
 					int comClub = shrek.generateMovement();
 					while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
@@ -201,7 +213,7 @@ public class State {
 							break;
 						}
 
-					// mexe ogre 
+					// mexe ogre
 					int comando = shrek.generateMovement();
 					while (!checkMove(comando, shrek.getX(), shrek.getY())) {
 						comando = shrek.generateMovement();
@@ -211,8 +223,7 @@ public class State {
 					this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
 					shrek.moveEntity(comando);
 					//
-					
-					
+
 					int comClub = shrek.generateMovement();
 					while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
 						comClub = shrek.generateMovement();
@@ -224,7 +235,6 @@ public class State {
 					board[clubX][clubY] = '*';
 				}
 				shrek.hasClub = true;
-
 
 				// shrek's club
 				// shrek.hasClub = true; //a partir daqui tem sempre massive
