@@ -99,6 +99,7 @@ public class TestDungeonGameLogic {
 	public void testHeroFlipsLever(){
 		State game = new State(testMap);
 		game.startEntities();
+		game.entities.clear();
 		
 		//tests correct starting position (1,1)
 		assertEquals(1, game.hero.getX());
@@ -116,20 +117,45 @@ public class TestDungeonGameLogic {
 
 		assertEquals(1, game.hero.getX());
 		assertEquals(3, game.hero.getY());
+		assertTrue(game.checkForKey(game.hero.getX(), game.hero.getY()));
+		game.updateBoard(false);
 		
-		//tries going into the door
-		if (game.checkMove(3, game.hero.getX(), game.hero.getY())){
-			game.hero.moveEntity(3);
-		}	
-		assertEquals(1, game.hero.getX());
-		assertEquals(3, game.hero.getY());
-		
+		//checks if the doors are open
+		assertEquals('S', game.board[0][2]);
+		assertEquals('S', game.board[0][3]);
+
 	}
 	
-//	@Test
-//	public void testHeroLeavesDungeon(){
-//		
-//		
-//	}
+	@Test
+	public void testHeroLeavesDungeon(){
+		State game = new State(testMap);
+		game.startEntities();
+		game.entities.clear();
+		
+		//tests correct starting position (1,1)
+		assertEquals(1, game.hero.getX());
+		assertEquals(1, game.hero.getY());
+		
+		//tries moving down twice
+		if (game.checkMove(2, game.hero.getX(), game.hero.getY())) {
+			game.hero.moveEntity(2);
+			game.updateEntity(game.hero.sprite, 1, 1, game.hero.getX(), game.hero.getX());
+			if (game.checkMove(2, game.hero.getX(), game.hero.getY())){
+				game.hero.moveEntity(2);
+				game.updateEntity(game.hero.sprite, 1, 2, game.hero.getX(), game.hero.getX());
+			}
+		}
+
+		assertTrue(game.checkForKey(game.hero.getX(), game.hero.getY()));
+		game.updateBoard(false);
+		
+		if (game.checkMove(3, game.hero.getX(), game.hero.getY())){
+			game.hero.moveEntity(3);
+			game.updateEntity(game.hero.sprite, 1, 3, game.hero.getX(), game.hero.getX());
+		}
+		
+		assertTrue(game.checkIfWin(game.hero.getX(), game.hero.getY()));
+		
+	}
 
 }
