@@ -297,6 +297,14 @@ public class State {
 
 		return result;
 	}
+	
+	public boolean stunOgre(Ogre ogre){
+		if (adjacent(hero.getX(), hero.getY(), ogre.getX(), ogre.getY()) && hero.hasClub){
+			ogre.stunnedForNTurns = 2;
+			return true;
+		}else
+			return false;	
+	}
 
 	public boolean adjacentToClub() {
 		boolean result = false;
