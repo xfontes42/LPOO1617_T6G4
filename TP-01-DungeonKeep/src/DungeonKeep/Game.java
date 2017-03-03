@@ -2,7 +2,6 @@ package DungeonKeep;
 
 import java.util.Scanner;
 import java.lang.Math;
-import java.util.Vector;
 
 
 public class Game {

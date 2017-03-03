@@ -1,7 +1,6 @@
 package dkeep.logic;
 
 import java.util.Random;
-import java.util.Vector;
 
 public class Guard extends Entity {
 	//public Vector<Behavior> behavior = new Vector<Behavior>(0);
