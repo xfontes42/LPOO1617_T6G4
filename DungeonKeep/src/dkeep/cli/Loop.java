@@ -15,7 +15,7 @@ public class Loop {
 		
 		
 		GameLevels library = new GameLevels();
-		int level = 2;//1;
+		int level = 1;//1;
 		State gameplay = new State(library.getLevel(level));
 		Boolean lost_game = false;
 		while(level <= library.getNumberOfLevels()){
