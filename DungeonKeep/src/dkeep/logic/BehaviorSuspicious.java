@@ -5,7 +5,7 @@ public class BehaviorSuspicious extends BehaviorGuard {
 	protected int reverseProb = 6;
 
 	public BehaviorSuspicious() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public int movement() {

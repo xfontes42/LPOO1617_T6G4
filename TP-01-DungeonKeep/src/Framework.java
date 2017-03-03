@@ -11,7 +11,7 @@ public class Framework {
 		Board board0 = new Board(level);
 		Game game = new Game();
 		board0.startEntities(level);
-		//TODO fazer uma condi��o de termina��o para o ciclo
+		//TO DO fazer uma condi��o de termina��o para o ciclo
 		/*while (!fim)	<-- � PRECISO ATUALIZAR A CONDI��O
 		 * l� movimento (feito)
 		 * processa (feito (por agora))

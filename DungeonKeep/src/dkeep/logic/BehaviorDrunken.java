@@ -8,7 +8,7 @@ public class BehaviorDrunken extends BehaviorGuard {
 	protected int awakeProb = 5; // prob = 1/5 = 20%
 
 	public BehaviorDrunken() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public int movement() {
