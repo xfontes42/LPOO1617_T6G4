@@ -10,6 +10,7 @@ import dkeep.logic.Hero;
 import dkeep.logic.Key;
 
 public class State {
+	private int MAX_OGRES = 3;
 	public boolean won = false;
 	public boolean lever = false;
 
@@ -78,7 +79,7 @@ public class State {
 					// add a random number of ogres
 					hero.setSprite('A');
 					Random rand = new Random();
-					int numberOfOgres = rand.nextInt(1) + 1;
+					int numberOfOgres = rand.nextInt(MAX_OGRES) + 1;
 					for (int in = 1; in <= numberOfOgres; in++) {
 						Ogre ogre = new Ogre();
 						ogre.startAtPosition(i, j);
@@ -170,11 +171,6 @@ public class State {
 
 				guarda.moveEntity(comando);
 
-				// } else if (element instanceof Guard) { // mexe guarda random
-				//
-				// // } else if (element instanceof MassiveClub) {
-				// // board[level][element.getX()][element.getY()] = ' ';
-				// // entities.remove(element);
 			} else if (element instanceof Ogre) { // mexe ogre random
 				// movimento ogre
 
@@ -206,7 +202,7 @@ public class State {
 					// apaga current club
 					board[shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
 					for (int i = 0; i < allClubs.size(); i++)
-						if (shrek.mclub == allClubs.get(i)) { // vÊ se são a
+						if (shrek.mclub == allClubs.get(i)) { // vï¿½ se sï¿½o a
 																// mesma
 																// referencia
 							allClubs.removeElementAt(i);
@@ -235,31 +231,6 @@ public class State {
 					board[clubX][clubY] = '*';
 				}
 				shrek.hasClub = true;
-
-				// shrek's club
-				// shrek.hasClub = true; //a partir daqui tem sempre massive
-				// club
-				// shrek.mclub.startAtPosition(newX, newY);
-				// comando = shrek.generateMovement();
-				// while (!Game.checkMove(comando, shrek.mclub.getX(),
-				// shrek.mclub.getY(), this, level)) {
-				// comando = shrek.generateMovement();
-				// }
-				// newX = Game.calculateNewX(comando, shrek.mclub.getX());
-				// newY = Game.calculateNewY(comando, shrek.mclub.getY());
-				// board[level][shrek.mclub.getX()][shrek.mclub.getY()] = '*';
-				// //this.updateEntity('*', shrek.mclub.getX(),
-				// shrek.mclub.getY(), newX, newY, level);
-				// shrek.mclub.moveEntity(comando);
-				//
-				// //checks if it hit the player
-				// if (this.hero.getX() == shrek.mclub.getX()) {
-				// if (Math.abs(this.hero.getY() - shrek.mclub.getY()) == 1)
-				// lost = true;
-				// } else if (this.hero.getY() == shrek.mclub.getY()) {
-				// if (Math.abs(this.hero.getX() - shrek.mclub.getX()) == 1)
-				// lost = true;
-				// }
 
 			} // mais tipos de adversarios basta acomodar este if e a funcao de
 
