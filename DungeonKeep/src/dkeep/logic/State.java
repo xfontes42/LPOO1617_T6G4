@@ -104,47 +104,8 @@ public class State {
 	}
 	
 	public void startEntities() {
-
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				if (board[i][j] == 'H') {
-					hero.startAtPosition(i, j);
-				}
-
-				else if (board[i][j] == 'G') {
-					Guard guard = new Guard();
-					guard.startAtPosition(i, j);
-					entities.add(guard);
-					lever = true;
-				}
-
-				else if (board[i][j] == 'O') {
-					// add a random number of ogres
-					hero.setSprite('A');
-					Random rand = new Random();
-					int numberOfOgres = rand.nextInt(MAX_OGRES) + 1;
-					for (int in = 1; in <= numberOfOgres; in++) {
-						Ogre ogre = new Ogre();
-						ogre.startAtPosition(i, j);
-						entities.add(ogre);
-					}
-
-					lever = false;
-
-				}
-
-				else if (board[i][j] == 'k') {
-					key.startAtPosition(i, j);
-
-				}
-
-				else if (board[i][j] == 'I') {
-					Door door = new Door();
-					door.startAtPosition(i, j);
-					doors.add(door);
-				}
-			}
-		}
+		Random rand = new Random();
+		startEntities(rand.nextInt(3), rand.nextInt(MAX_OGRES)+1);
 	}
 
 	public boolean updateBoard(Boolean lost) {

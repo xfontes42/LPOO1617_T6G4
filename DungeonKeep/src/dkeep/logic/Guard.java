@@ -12,7 +12,8 @@ public class Guard extends Entity {
 	public char sprite = 'G';
 	public int moves_pre2etermine2[] = { 3, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1 };
 	public int nextMove = 0;
-
+	
+	/*
 	public Guard() {
 		Random rand = new Random();
 
@@ -34,7 +35,7 @@ public class Guard extends Entity {
 			type = GuardType.suspicious;
 			break;
 		}
-	}
+	}*/
 
 	public Guard(int n) {
 		switch (n) {
