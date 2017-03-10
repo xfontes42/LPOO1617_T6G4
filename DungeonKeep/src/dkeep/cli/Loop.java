@@ -15,7 +15,7 @@ public class Loop {
 		
 		
 		GameLevels library = new GameLevels();
-		int level = 1;//1;
+		int level = 2;//1;
 		State gameplay = new State(library.getLevel(level));
 		Boolean lost_game = false;
 		while(level <= library.getNumberOfLevels()){
@@ -59,7 +59,7 @@ public class Loop {
 			//checking for lose
 			if (gameplay.checkIfLose()){
 				gameplay.printBoard();
-				System.out.println('\n' + "You were caught! Game over.");
+				System.out.println('\n' + "You were caughterino! Game over.");
 				break;
 			}
 		}
@@ -69,6 +69,9 @@ public class Loop {
 		
 	}
 	
+	/**
+	 * @brief Prints out a simple game logo.
+	 */
 	public static void welcomeMessage(){
 		
 		System.out.println("   __________________");

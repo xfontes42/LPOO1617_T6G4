@@ -10,7 +10,7 @@ import dkeep.logic.Hero;
 import dkeep.logic.Key;
 
 public class State {
-	private int MAX_OGRES = 5;
+	private int MAX_OGRES = 1/*5*/;
 	public boolean won = false;
 	public boolean lever = false;
 
@@ -151,6 +151,11 @@ public class State {
 		}
 
 		// check if player lost before moving the entities
+		for (int indexEntities = 0; indexEntities < entities.size(); indexEntities++){
+			if (entities.get(indexEntities) instanceof Ogre)
+				stunOgre((Ogre)entities.get(indexEntities));
+		}
+		
 		if (checkIfLose()) {
 			lost = true;
 			return false;
@@ -182,6 +187,12 @@ public class State {
 				// movimento ogre
 
 				Ogre shrek = (Ogre) element;
+				if (shrek.stunnedForNTurns != 0){
+					shrek.sprite = '8';
+					shrek.stunnedForNTurns--;
+				} else
+					shrek.sprite = 'O';
+				
 				if (!shrek.hasClub) {
 					// mexe ogre
 					int comando = shrek.generateMovement();
@@ -298,7 +309,7 @@ public class State {
 						result = true;
 				}
 			} else {
-				boolean stunned = ((Ogre) entities.get(i)).stunnedForNTurns != 0;
+				boolean stunned = (((Ogre) entities.get(i)).stunnedForNTurns != 0);
 				if (hero.getX() == entities.get(i).getX() && !stunned) {
 					if (Math.abs(hero.getY() - entities.get(i).getY()) == 1)
 						result = true;
@@ -318,11 +329,12 @@ public class State {
 	public boolean stunOgre(Ogre ogre) {
 		if (adjacent(hero.getX(), hero.getY(), ogre.getX(), ogre.getY()) && hero.hasClub) {
 			ogre.stunnedForNTurns = 2;
+			ogre.sprite = '8';
 			return true;
 		} else
 			return false;
 	}
-
+	
 	public boolean adjacentToClub() {
 		boolean result = false;
 
