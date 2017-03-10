@@ -10,7 +10,7 @@ import dkeep.logic.Hero;
 import dkeep.logic.Key;
 
 public class State {
-	private int MAX_OGRES = 3;
+	private int MAX_OGRES = 5;
 	public boolean won = false;
 	public boolean lever = false;
 
@@ -60,6 +60,49 @@ public class State {
 
 	}
 
+	public void startEntities(int guards, int ogres){
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == 'H') {
+					hero.startAtPosition(i, j);
+				}
+
+				else if (board[i][j] == 'G') {
+					Guard guard = new Guard(guards);
+					guard.startAtPosition(i, j);
+					entities.add(guard);
+					lever = true;
+				}
+
+				else if (board[i][j] == 'O') {
+					// add a random number of ogres
+					hero.setSprite('A');
+					Random rand = new Random();
+					int numberOfOgres = ogres;
+					for (int in = 1; in <= numberOfOgres; in++) {
+						Ogre ogre = new Ogre();
+						ogre.startAtPosition(i, j);
+						entities.add(ogre);
+					}
+
+					lever = false;
+
+				}
+
+				else if (board[i][j] == 'k') {
+					key.startAtPosition(i, j);
+
+				}
+
+				else if (board[i][j] == 'I') {
+					Door door = new Door();
+					door.startAtPosition(i, j);
+					doors.add(door);
+				}
+			}
+		}
+	}
+	
 	public void startEntities() {
 
 		for (int i = 0; i < board.length; i++) {
