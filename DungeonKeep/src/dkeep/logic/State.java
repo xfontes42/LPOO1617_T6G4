@@ -60,7 +60,14 @@ public class State {
 
 	}
 
-	public void startEntities(int guards, int ogres){
+	/**
+	 * @brief Starts the game entities existent in the game.
+	 * @param guards
+	 *            number of guards
+	 * @param ogres
+	 *            number of ogres
+	 */
+	public void startEntities(int guards, int ogres) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] == 'H') {
@@ -75,9 +82,7 @@ public class State {
 				}
 
 				else if (board[i][j] == 'O') {
-					// add a random number of ogres
 					hero.setSprite('A');
-					Random rand = new Random();
 					int numberOfOgres = ogres;
 					for (int in = 1; in <= numberOfOgres; in++) {
 						Ogre ogre = new Ogre();
@@ -102,10 +107,10 @@ public class State {
 			}
 		}
 	}
-	
+
 	public void startEntities() {
 		Random rand = new Random();
-		startEntities(rand.nextInt(3), rand.nextInt(MAX_OGRES)+1);
+		startEntities(rand.nextInt(3), rand.nextInt(MAX_OGRES) + 1);
 	}
 
 	public boolean updateBoard(Boolean lost) {
@@ -144,8 +149,6 @@ public class State {
 			}
 
 		}
-
-		
 
 		// check if player lost before moving the entities
 		if (checkIfLose()) {
@@ -286,14 +289,24 @@ public class State {
 	public boolean checkIfLose() {
 		boolean result = false;
 		for (int i = 0; i < entities.size(); i++) {
-			if (hero.getX() == entities.get(i).getX()) {
-				if (Math.abs(hero.getY() - entities.get(i).getY()) == 1)
-					result = true;
-			} else if (hero.getY() == entities.get(i).getY()) {
-				if (Math.abs(hero.getX() - entities.get(i).getX()) == 1)
-					result = true;
+			if (!(entities.get(i) instanceof Ogre)) {
+				if (hero.getX() == entities.get(i).getX()) {
+					if (Math.abs(hero.getY() - entities.get(i).getY()) == 1)
+						result = true;
+				} else if (hero.getY() == entities.get(i).getY()) {
+					if (Math.abs(hero.getX() - entities.get(i).getX()) == 1)
+						result = true;
+				}
+			} else {
+				boolean stunned = ((Ogre) entities.get(i)).stunnedForNTurns != 0;
+				if (hero.getX() == entities.get(i).getX() && !stunned) {
+					if (Math.abs(hero.getY() - entities.get(i).getY()) == 1)
+						result = true;
+				} else if (hero.getY() == entities.get(i).getY() && !stunned) {
+					if (Math.abs(hero.getX() - entities.get(i).getX()) == 1)
+						result = true;
+				}
 			}
-
 		}
 
 		if (adjacentToClub())
@@ -301,13 +314,13 @@ public class State {
 
 		return result;
 	}
-	
-	public boolean stunOgre(Ogre ogre){
-		if (adjacent(hero.getX(), hero.getY(), ogre.getX(), ogre.getY()) && hero.hasClub){
+
+	public boolean stunOgre(Ogre ogre) {
+		if (adjacent(hero.getX(), hero.getY(), ogre.getX(), ogre.getY()) && hero.hasClub) {
 			ogre.stunnedForNTurns = 2;
 			return true;
-		}else
-			return false;	
+		} else
+			return false;
 	}
 
 	public boolean adjacentToClub() {
