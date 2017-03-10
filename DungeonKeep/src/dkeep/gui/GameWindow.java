@@ -101,6 +101,7 @@ public class GameWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				String guardaEscolhido = (String) cbbGuardPersonality.getSelectedItem();
 				int numberOgres = 1;
+				
 				if (isValid(tflNumberOfOgres.getText())) {
 					if (Integer.parseInt(tflNumberOfOgres.getText()) < 6
 							&& Integer.parseInt(tflNumberOfOgres.getText()) > 0) {
@@ -134,7 +135,7 @@ public class GameWindow {
 						
 				tpnGameField.setText(jogo);
 				lblMessages.setText("You are now entering a mYsterious place...");
-
+				System.out.println(numberOgres);
 			}
 
 		});
