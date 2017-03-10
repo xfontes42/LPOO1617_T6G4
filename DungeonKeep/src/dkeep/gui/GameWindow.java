@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+import javax.swing.DefaultComboBoxModel;
 
 public class GameWindow {
 
@@ -43,57 +44,62 @@ public class GameWindow {
 	private void initialize() {
 		frmDungeonKeep = new JFrame();
 		frmDungeonKeep.setTitle("Dungeon Keep");
-		frmDungeonKeep.setBounds(100, 100, 510, 396);
+		frmDungeonKeep.setBounds(100, 100, 510, 490);
 		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDungeonKeep.getContentPane().setLayout(null);
 		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
-		lblNumberOfOgres.setBounds(24, 39, 143, 24);
+		lblNumberOfOgres.setBounds(20, 20, 110, 24);
 		frmDungeonKeep.getContentPane().add(lblNumberOfOgres);
 		
 		tflNumberOfOgres = new JTextField();
-		tflNumberOfOgres.setBounds(162, 42, 59, 19);
+		tflNumberOfOgres.setBounds(140, 22, 30, 20);
 		frmDungeonKeep.getContentPane().add(tflNumberOfOgres);
 		tflNumberOfOgres.setColumns(10);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
-		lblGuardPersonality.setBounds(24, 92, 143, 15);
+		lblGuardPersonality.setBounds(20, 50, 110, 24);
 		frmDungeonKeep.getContentPane().add(lblGuardPersonality);
 		
 		JComboBox cbbGuardPersonality = new JComboBox();
-		cbbGuardPersonality.setBounds(162, 87, 32, 24);
+		cbbGuardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		cbbGuardPersonality.setBounds(140, 50, 110, 22);
 		frmDungeonKeep.getContentPane().add(cbbGuardPersonality);
 		
 		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(348, 39, 117, 25);
+		btnNewGame.setBounds(345, 30, 120, 25);
 		frmDungeonKeep.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(348, 315, 117, 25);
+		btnExit.setBounds(348, 415, 117, 25);
 		frmDungeonKeep.getContentPane().add(btnExit);
 		
 		JTextPane tpnGameField = new JTextPane();
-		tpnGameField.setBounds(35, 139, 279, 212);
+		tpnGameField.setBounds(20, 110, 300, 300);
 		frmDungeonKeep.getContentPane().add(tpnGameField);
 		
 		JButton btnNewButton = new JButton("Up");
-		btnNewButton.setBounds(382, 161, 59, 24);
+		btnNewButton.setBounds(375, 150, 66, 24);
 		frmDungeonKeep.getContentPane().add(btnNewButton);
 		
 		JButton btnDown = new JButton("Down");
-		btnDown.setBounds(348, 276, 117, 25);
+		btnDown.setBounds(375, 224, 66, 25);
 		frmDungeonKeep.getContentPane().add(btnDown);
 		
 		JButton btnLeft = new JButton("Left");
-		btnLeft.setBounds(348, 139, 117, 25);
+		btnLeft.setBounds(334, 188, 70, 25);
 		frmDungeonKeep.getContentPane().add(btnLeft);
 		
 		JButton btnRight = new JButton("Right");
-		btnRight.setBounds(348, 239, 117, 25);
+		btnRight.setBounds(414, 188, 70, 25);
 		frmDungeonKeep.getContentPane().add(btnRight);
 		
 		JButton btnStay = new JButton("Stay");
-		btnStay.setBounds(348, 223, 117, 25);
+		btnStay.setBounds(375, 260, 66, 25);
 		frmDungeonKeep.getContentPane().add(btnStay);
+		
+		JLabel lblMessages = new JLabel("Welcome to our game!");
+		lblMessages.setBounds(20, 420, 300, 20);
+		frmDungeonKeep.getContentPane().add(lblMessages);
 	}
 }
