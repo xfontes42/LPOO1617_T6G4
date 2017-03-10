@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -43,6 +45,8 @@ public class GameWindow {
 	 */
 	public GameWindow() {
 
+		
+		
 		initialize();
 	}
 
@@ -66,6 +70,14 @@ public class GameWindow {
 		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDungeonKeep.getContentPane().setLayout(null);
 
+		 try {
+		     ClassLoader cl = this.getClass().getClassLoader();
+		     ImageIcon programIcon = new ImageIcon(cl.getResource("resources/images.jpg"));
+		     frmDungeonKeep.setIconImage(programIcon.getImage());
+		  } catch (Exception whoJackedMyIcon) {
+		     System.out.println("Could not load program icon.");
+		  }
+		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
 		lblNumberOfOgres.setBounds(20, 20, 110, 24);
 		frmDungeonKeep.getContentPane().add(lblNumberOfOgres);
