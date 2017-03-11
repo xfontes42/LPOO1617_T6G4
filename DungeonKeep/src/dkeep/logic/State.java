@@ -68,6 +68,7 @@ public class State {
 	 *            number of ogres
 	 */
 	public void startEntities(int guards, int ogres) {
+		entities.clear();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] == 'H') {

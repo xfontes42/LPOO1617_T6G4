@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class GameWindow {
 
@@ -65,6 +66,7 @@ public class GameWindow {
 	 */
 	private void initialize() {
 		frmDungeonKeep = new JFrame();
+		frmDungeonKeep.getContentPane().setBackground(Color.YELLOW);
 		frmDungeonKeep.setTitle("Dungeon Keep");
 		frmDungeonKeep.setBounds(100, 100, 510, 490);
 		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,7 +128,7 @@ public class GameWindow {
 						{ 'X', 'k', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 						{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }} ;
 				
-				String jogo ="";
+				String jogo =""; 
 				for(int i = 0; i < 10 ; i++){
 					for(int j = 0; j < 10; j++)
 						jogo += lole[j][i] + " ";
