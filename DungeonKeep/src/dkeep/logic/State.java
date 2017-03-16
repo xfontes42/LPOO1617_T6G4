@@ -24,6 +24,9 @@ public class State {
 	public Hero hero = new Hero();
 	public Key key = new Key();
 
+	public State(){
+		
+	}
 	public State(char[][] nivel) {
 		board = nivel.clone();
 		startEntities();
