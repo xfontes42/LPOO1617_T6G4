@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Ogre extends Entity {
 	public char sprite = 'O';
-	public MassiveClub mclub = new MassiveClub();
+	public MassiveClub mclub = null;//new MassiveClub();
 	public boolean hasClub = false;
 	public int stunnedForNTurns = 0;
 	public int generateMovement(){
