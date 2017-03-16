@@ -59,7 +59,7 @@ public class Loop {
 			//checking for lose
 			if (gameplay.checkIfLose()){
 				gameplay.printBoard();
-				System.out.println('\n' + "You were caughterino! Game over.");
+				System.out.println('\n' + "You were caught! Game over.");
 				break;
 			}
 		}

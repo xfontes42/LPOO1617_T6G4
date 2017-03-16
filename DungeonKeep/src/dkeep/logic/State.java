@@ -341,12 +341,10 @@ public class State {
 				boolean stunned = (((Ogre) entities.get(i)).stunnedForNTurns != 0);
 				if (hero.getX() == entities.get(i).getX() && !stunned) {
 					if (Math.abs(hero.getY() - entities.get(i).getY()) == 1) {
-						System.out.println("called stun ogre");
 						stunOgre((Ogre) entities.get(i)); // result = true;
 					}
 				} else if (hero.getY() == entities.get(i).getY() && !stunned) {
 					if (Math.abs(hero.getX() - entities.get(i).getX()) == 1) {
-						System.out.println("called stun ogre");
 						stunOgre((Ogre) entities.get(i)); // result = true;
 					}
 				}
@@ -360,12 +358,9 @@ public class State {
 	}
 
 	public boolean stunOgre(Ogre ogre) {
-		System.out.println("stunned was called");
-		System.out.println("hero has club = " + hero.hasClub);
 		if (adjacent(hero.getX(), hero.getY(), ogre.getX(), ogre.getY()) && hero.hasClub) {
 			ogre.stunnedForNTurns = 2;
 			ogre.sprite = '8';
-			System.out.println("adjacent");
 			return true;
 		} else
 			return false;
