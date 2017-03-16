@@ -10,7 +10,7 @@ import dkeep.logic.Hero;
 import dkeep.logic.Key;
 
 public class State {
-	private int MAX_OGRES = 1/*5*/;
+	private int MAX_OGRES = 1/* 5 */;
 	public boolean won = false;
 	public boolean lever = false;
 
@@ -87,6 +87,7 @@ public class State {
 
 				else if (board[i][j] == 'O') {
 					hero.setSprite('A');
+					hero.hasClub = true;
 					int numberOfOgres = ogres;
 					for (int in = 1; in <= numberOfOgres; in++) {
 						Ogre ogre = new Ogre();
@@ -155,11 +156,11 @@ public class State {
 		}
 
 		// check if player lost before moving the entities
-		for (int indexEntities = 0; indexEntities < entities.size(); indexEntities++){
+		for (int indexEntities = 0; indexEntities < entities.size(); indexEntities++) {
 			if (entities.get(indexEntities) instanceof Ogre)
-				stunOgre((Ogre)entities.get(indexEntities));
+				stunOgre((Ogre) entities.get(indexEntities));
 		}
-		
+
 		if (checkIfLose()) {
 			lost = true;
 			return false;
@@ -191,69 +192,71 @@ public class State {
 				// movimento ogre
 
 				Ogre shrek = (Ogre) element;
-				if (shrek.stunnedForNTurns != 0){
+				if (shrek.stunnedForNTurns != 0) {
 					shrek.sprite = '8';
 					shrek.stunnedForNTurns--;
-				} else
-					shrek.sprite = 'O';
-				
-				if (!shrek.hasClub) {
-					// mexe ogre
-					int comando = shrek.generateMovement();
-					while (!checkMove(comando, shrek.getX(), shrek.getY())) {
-						comando = shrek.generateMovement();
-					}
-					int newX = calculateNewX(comando, shrek.getX());
-					int newY = calculateNewY(comando, shrek.getY());
-					this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
-					shrek.moveEntity(comando);
-					//
-
-					shrek.mclub = new MassiveClub();
-					int comClub = shrek.generateMovement();
-					while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
-						comClub = shrek.generateMovement();
-					}
-					int clubX = calculateNewX(comClub, shrek.getX());
-					int clubY = calculateNewY(comClub, shrek.getY());
-					shrek.mclub.startAtPosition(clubX, clubY);
-					allClubs.addElement(shrek.mclub);
-					board[clubX][clubY] = '*';
 				} else {
+					shrek.sprite = 'O';
 
-					// apaga current club
-					board[shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
-					for (int i = 0; i < allClubs.size(); i++)
-						if (shrek.mclub == allClubs.get(i)) { // v� se s�o a
-																// mesma
-																// referencia
-							allClubs.removeElementAt(i);
-							break;
+					if (!shrek.hasClub) {
+						// mexe ogre
+						int comando = shrek.generateMovement();
+						while (!checkMove(comando, shrek.getX(), shrek.getY())) {
+							comando = shrek.generateMovement();
 						}
+						int newX = calculateNewX(comando, shrek.getX());
+						int newY = calculateNewY(comando, shrek.getY());
+						this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
+						shrek.moveEntity(comando);
+						//
 
-					// mexe ogre
-					int comando = shrek.generateMovement();
-					while (!checkMove(comando, shrek.getX(), shrek.getY())) {
-						comando = shrek.generateMovement();
-					}
-					int newX = calculateNewX(comando, shrek.getX());
-					int newY = calculateNewY(comando, shrek.getY());
-					this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
-					shrek.moveEntity(comando);
-					//
+						// shrek.mclub = new MassiveClub();
+						// int comClub = shrek.generateMovement();
+						// while (!checkMove(comClub, shrek.getX(),
+						// shrek.getY())) {
+						// comClub = shrek.generateMovement();
+						// }
+						// int clubX = calculateNewX(comClub, shrek.getX());
+						// int clubY = calculateNewY(comClub, shrek.getY());
+						// shrek.mclub.startAtPosition(clubX, clubY);
+						// allClubs.addElement(shrek.mclub);
+						// board[clubX][clubY] = '*';
+					} else {
 
-					int comClub = shrek.generateMovement();
-					while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
-						comClub = shrek.generateMovement();
+						// apaga current club
+						board[shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
+						for (int i = 0; i < allClubs.size(); i++)
+							if (shrek.mclub == allClubs.get(i)) { // v� se
+																	// s�o a
+																	// mesma
+																	// referencia
+								allClubs.removeElementAt(i);
+								break;
+							}
+
+						// mexe ogre
+						int comando = shrek.generateMovement();
+						while (!checkMove(comando, shrek.getX(), shrek.getY())) {
+							comando = shrek.generateMovement();
+						}
+						int newX = calculateNewX(comando, shrek.getX());
+						int newY = calculateNewY(comando, shrek.getY());
+						this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
+						shrek.moveEntity(comando);
+						//
+
+						int comClub = shrek.generateMovement();
+						while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
+							comClub = shrek.generateMovement();
+						}
+						int clubX = calculateNewX(comClub, shrek.getX());
+						int clubY = calculateNewY(comClub, shrek.getY());
+						shrek.mclub.startAtPosition(clubX, clubY);
+						// allClubs.addElement(shrek.mclub);
+						board[clubX][clubY] = '*';
 					}
-					int clubX = calculateNewX(comClub, shrek.getX());
-					int clubY = calculateNewY(comClub, shrek.getY());
-					shrek.mclub.startAtPosition(clubX, clubY);
-					allClubs.addElement(shrek.mclub);
-					board[clubX][clubY] = '*';
+					shrek.hasClub = false; // true;
 				}
-				shrek.hasClub = true;
-
 			} // mais tipos de adversarios basta acomodar este if e a funcao de
 
 		}
@@ -315,11 +318,15 @@ public class State {
 			} else {
 				boolean stunned = (((Ogre) entities.get(i)).stunnedForNTurns != 0);
 				if (hero.getX() == entities.get(i).getX() && !stunned) {
-					if (Math.abs(hero.getY() - entities.get(i).getY()) == 1)
-						result = true;
+					if (Math.abs(hero.getY() - entities.get(i).getY()) == 1) {
+						System.out.println("called stun ogre");
+						stunOgre((Ogre) entities.get(i)); // result = true;
+					}
 				} else if (hero.getY() == entities.get(i).getY() && !stunned) {
-					if (Math.abs(hero.getX() - entities.get(i).getX()) == 1)
-						result = true;
+					if (Math.abs(hero.getX() - entities.get(i).getX()) == 1) {
+						System.out.println("called stun ogre");
+						stunOgre((Ogre) entities.get(i)); // result = true;
+					}
 				}
 			}
 		}
@@ -331,14 +338,17 @@ public class State {
 	}
 
 	public boolean stunOgre(Ogre ogre) {
+		System.out.println("stunned was called");
+		System.out.println("hero has club = " + hero.hasClub);
 		if (adjacent(hero.getX(), hero.getY(), ogre.getX(), ogre.getY()) && hero.hasClub) {
 			ogre.stunnedForNTurns = 2;
 			ogre.sprite = '8';
+			System.out.println("adjacent");
 			return true;
 		} else
 			return false;
 	}
-	
+
 	public boolean adjacentToClub() {
 		boolean result = false;
 
