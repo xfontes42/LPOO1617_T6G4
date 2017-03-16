@@ -189,9 +189,32 @@ public class State {
 				// movimento ogre
 
 				Ogre shrek = (Ogre) element;
+				
+				//se o ogre esta atordodado
 				if (shrek.stunnedForNTurns != 0) {
+					//ogre nao sai do sitio
 					shrek.sprite = '8';
 					shrek.stunnedForNTurns--;
+					this.updateEntity(shrek.sprite, shrek.getX(), shrek.getY(), shrek.getX(), shrek.getY());
+					
+					//ogre continua a abanar o bastao
+					board[shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
+					for (int i = 0; i < allClubs.size(); i++)
+						if (shrek.mclub == allClubs.get(i)) { 
+							allClubs.removeElementAt(i);
+							break;
+						}
+					
+					
+					int comClub = shrek.generateMovement();
+					while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
+						comClub = shrek.generateMovement();
+					}
+					int clubX = calculateNewX(comClub, shrek.getX());
+					int clubY = calculateNewY(comClub, shrek.getY());
+					shrek.mclub.startAtPosition(clubX, clubY);
+					allClubs.addElement(shrek.mclub);
+					board[clubX][clubY] = '*';
 				} else {
 					shrek.sprite = 'O';
 
@@ -207,17 +230,16 @@ public class State {
 						shrek.moveEntity(comando);
 						//
 
-						// shrek.mclub = new MassiveClub();
-						// int comClub = shrek.generateMovement();
-						// while (!checkMove(comClub, shrek.getX(),
-						// shrek.getY())) {
-						// comClub = shrek.generateMovement();
-						// }
-						// int clubX = calculateNewX(comClub, shrek.getX());
-						// int clubY = calculateNewY(comClub, shrek.getY());
-						// shrek.mclub.startAtPosition(clubX, clubY);
-						// allClubs.addElement(shrek.mclub);
-						// board[clubX][clubY] = '*';
+						shrek.mclub = new MassiveClub();
+						int comClub = shrek.generateMovement();
+						while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
+							comClub = shrek.generateMovement();
+						}
+						int clubX = calculateNewX(comClub, shrek.getX());
+						int clubY = calculateNewY(comClub, shrek.getY());
+						shrek.mclub.startAtPosition(clubX, clubY);
+						allClubs.addElement(shrek.mclub);
+						board[clubX][clubY] = '*';
 					} else {
 
 						// apaga current club
@@ -249,10 +271,10 @@ public class State {
 						int clubX = calculateNewX(comClub, shrek.getX());
 						int clubY = calculateNewY(comClub, shrek.getY());
 						shrek.mclub.startAtPosition(clubX, clubY);
-						// allClubs.addElement(shrek.mclub);
+						allClubs.addElement(shrek.mclub);
 						board[clubX][clubY] = '*';
 					}
-					shrek.hasClub = false; // true;
+					shrek.hasClub = true;
 				}
 			} // mais tipos de adversarios basta acomodar este if e a funcao de
 
