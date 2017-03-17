@@ -1,5 +1,9 @@
 package dkeep.logic;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class GameLevels {
 	private char[][][] board_levels = { { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
 		{ 'X', 'H', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
@@ -22,7 +26,43 @@ public class GameLevels {
 	private int number_of_levels;
 	
 	public GameLevels(){
-		number_of_levels = board_levels.length;
+		//le do ficheiro
+		try{
+			Scanner inputF = new Scanner(new File("src/resources/levels.txt"));
+			int niveis = inputF.nextInt();
+			int rows = inputF.nextInt();
+			int cols = inputF.nextInt();
+			char [][][] novos_niveis = new char[niveis][rows][cols];
+			int nivel = 0;
+			String linha;
+			inputF.nextLine();
+			while(nivel < niveis){
+				
+				for(int i = 0; i < rows; i++){
+					linha = inputF.nextLine();
+					novos_niveis[nivel][i] = linha.toCharArray();
+					System.out.println(linha);
+				}
+				if(!inputF.hasNextLine())
+					break;
+				nivel++;
+			}
+			
+			board_levels = novos_niveis.clone();
+			number_of_levels = novos_niveis.length;
+			
+		}
+		catch(FileNotFoundException e){
+			System.out.println("Damn it I couldnt find the file.");
+		}
+		catch(Exception whoScrewedThisUp){
+			System.out.println("Well done you slob.");
+			System.out.println(whoScrewedThisUp.getClass());
+			whoScrewedThisUp.printStackTrace();
+		}
+		
+		//end read file
+		//number_of_levels = board_levels.length;
 	}
 	
 	public char[][] getLevel(int level){
