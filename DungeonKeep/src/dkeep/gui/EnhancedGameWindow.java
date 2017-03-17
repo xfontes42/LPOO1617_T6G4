@@ -12,14 +12,11 @@ import javax.swing.JButton;
 import dkeep.logic.GameLevels;
 import dkeep.logic.State;
 
-import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -32,7 +29,7 @@ public class EnhancedGameWindow {
 	private JButton btnUp, btnDown, btnRight, btnLeft, btnStay;
 	private JLabel lblMessages;
 	//private JTextPane tpnGameField;
-	private JPanel jpGamePanel = new JPanel();
+	private Gmap jpGamePanel = new Gmap();
 	
 	//game logic
 	private State estado_jogo = new State();
@@ -41,19 +38,7 @@ public class EnhancedGameWindow {
 	private int level = 0;
 	private int guarda = 0;
 	private int numberOgres = 1;
-	//images
 	
-	private BufferedImage imageOgre;
-	private BufferedImage imageOgreStunned;
-	private BufferedImage imageGuard;
-	private BufferedImage imageGuardSleeping;
-	private BufferedImage imageGround;
-	private BufferedImage imageHero;
-	private BufferedImage imageWall;
-	private BufferedImage imageDoorUn;
-	private BufferedImage imageDoorOp;
-	private BufferedImage imageKey;
-	private BufferedImage imageMassiveClub;
 	
 
 	/**
@@ -77,23 +62,7 @@ public class EnhancedGameWindow {
 	 * Create the application.
 	 */
 	public EnhancedGameWindow() {
-		try{
-//			private BufferedImage imageOgre;
-//			private BufferedImage imageOgreStunned;
-//			private BufferedImage imageGuard;
-//			private BufferedImage imageGuardSleeping;
-			imageGround = ImageIO.read(new File("resources/Ground.png"));
-//			private BufferedImage imageHero;
-			imageWall = ImageIO.read(new File("resources/Wall.png"));
-			imageDoorUn = ImageIO.read(new File("resources/Door.png"));
-			imageDoorOp = ImageIO.read(new File("resources/DoorOpI.png"));
-			imageKey = ImageIO.read(new File("resources/keyI.ico"));
-//			private BufferedImage imageMassiveClub;
-			
-		}
-		catch(IOException e){
-			System.out.println("Could not load images.");
-		}
+		
 		initialize();
 	}
 
@@ -165,10 +134,12 @@ public class EnhancedGameWindow {
 				niveis = new GameLevels();
 				estado_jogo = new State(niveis.getLevel(level));
 				estado_jogo.startEntities(guarda, numberOgres);
-
+				
+				jpGamePanel.estado_atual = estado_jogo;
+				jpGamePanel.setEnabled(true);
 				updateGameButtons();
 				printGameGUI();
-
+				
 				lblMessages.setText("You are now entering a mysterious place...");
 			}
 
@@ -286,9 +257,10 @@ public class EnhancedGameWindow {
 		lblMessages.setBounds(20, 420, 300, 20);
 		frmDungeonKeep.getContentPane().add(lblMessages);
 		
-		jpGamePanel = new JPanel();
+		jpGamePanel = new Gmap();
 		jpGamePanel.setBounds(10, 90, 320, 320);
 		frmDungeonKeep.getContentPane().add(jpGamePanel);
+		jpGamePanel.setEnabled(false);
 	}
 
 	private void updateGameButtons() {
@@ -319,16 +291,19 @@ public class EnhancedGameWindow {
 	}
 
 	private void printGameGUI() {
-		String game_space = "";
-		char[][] whatspoppingB = estado_jogo.board;
-
-		for (int i = 0; i < whatspoppingB.length; i++) {
-			for (int j = 0; j < whatspoppingB[i].length; j++) {
-				game_space += ((char) whatspoppingB[j][i] + " ");
-			}
-			game_space += "\n";
-		}
-
+//		String game_space = "";
+//		char[][] whatspoppingB = estado_jogo.board;
+//
+//		for (int i = 0; i < whatspoppingB.length; i++) {
+//			for (int j = 0; j < whatspoppingB[i].length; j++) {
+//				game_space += ((char) whatspoppingB[j][i] + " ");
+//			}
+//			game_space += "\n";
+//		}
+		
+		jpGamePanel.setEstadoJogo(estado_jogo);
+		jpGamePanel.repaint();
+		
 		//tpnGameField.setText(game_space);
 	}
 
