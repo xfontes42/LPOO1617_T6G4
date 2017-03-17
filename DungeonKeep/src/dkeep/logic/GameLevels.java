@@ -40,7 +40,10 @@ public class GameLevels {
 				
 				for(int i = 0; i < rows; i++){
 					linha = inputF.nextLine();
-					novos_niveis[nivel][i] = linha.toCharArray();
+					char[] linhaC =  linha.toCharArray();
+					for(int j = 0; j < cols; j++)
+						novos_niveis[nivel][i][j] = linhaC[j];
+					 
 					System.out.println(linha);
 				}
 				if(!inputF.hasNextLine())
