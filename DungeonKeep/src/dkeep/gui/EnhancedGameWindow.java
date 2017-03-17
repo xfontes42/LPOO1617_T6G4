@@ -53,6 +53,7 @@ public class EnhancedGameWindow {
 	private BufferedImage imageDoorUn;
 	private BufferedImage imageDoorOp;
 	private BufferedImage imageKey;
+	private BufferedImage imageMassiveClub;
 	
 
 	/**
@@ -77,7 +78,18 @@ public class EnhancedGameWindow {
 	 */
 	public EnhancedGameWindow() {
 		try{
+//			private BufferedImage imageOgre;
+//			private BufferedImage imageOgreStunned;
+//			private BufferedImage imageGuard;
+//			private BufferedImage imageGuardSleeping;
+			imageGround = ImageIO.read(new File("resources/Ground.png"));
+//			private BufferedImage imageHero;
+			imageWall = ImageIO.read(new File("resources/Wall.png"));
+			imageDoorUn = ImageIO.read(new File("resources/Door.png"));
+			imageDoorOp = ImageIO.read(new File("resources/DoorOpI.png"));
 			imageKey = ImageIO.read(new File("resources/keyI.ico"));
+//			private BufferedImage imageMassiveClub;
+			
 		}
 		catch(IOException e){
 			System.out.println("Could not load images.");
