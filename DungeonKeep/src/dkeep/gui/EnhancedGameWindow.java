@@ -89,7 +89,7 @@ public class EnhancedGameWindow {
 
 		try {
 			ClassLoader cl = this.getClass().getClassLoader();
-			ImageIcon programIcon = new ImageIcon(cl.getResource("resources/betterIcon.gif"));
+			ImageIcon programIcon = new ImageIcon(cl.getResource("resources/Icon.png"));
 			frmDungeonKeep.setIconImage(programIcon.getImage());
 		} catch (Exception whoJackedMyIcon) {
 			System.out.println("Could not load program icon.");
