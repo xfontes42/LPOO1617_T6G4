@@ -64,36 +64,50 @@ public class Gmap extends JPanel {
 		char[][] tab = estado_atual.board;
 		for(int i = 0; i < tab.length; i++)
 			for(int j = 0; j < tab.length; j++){
-				if(tab[j][i] == ' ')
+				switch(tab[j][i]){
+				case ' ':
 					g.drawImage(imageGround,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'X')
+					break;
+				case 'X':
 					g.drawImage(imageWall,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'H')
+					break;
+				case 'H':
 					g.drawImage(imageHero,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'G')
-					g.drawImage(imageGuard,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'I')
-					g.drawImage(imageDoorUn,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'S')
-					g.drawImage(imageDoorOp,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'g')
-					g.drawImage(imageGuardSleeping,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'O')
-					g.drawImage(imageOgre,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == '8')
-					g.drawImage(imageOgreStunned,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'k')
-					g.drawImage(imageKey,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'A')
+					break;
+				case 'A':
 					g.drawImage(imageHeroArmed,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == 'K')
+					break;
+				case 'O':
+					g.drawImage(imageOgre,32*j , 32*i, 32, 32, (ImageObserver)this);
+					break;
+				case '8':
+					g.drawImage(imageOgreStunned,32*j , 32*i, 32, 32, (ImageObserver)this);
+					break;
+				case 'G':
+					g.drawImage(imageGuard,32*j , 32*i, 32, 32, (ImageObserver)this);
+					break;
+				case 'g':
+					g.drawImage(imageGuardSleeping,32*j , 32*i, 32, 32, (ImageObserver)this);
+					break;
+				case 'I':
+					g.drawImage(imageDoorUn,32*j , 32*i, 32, 32, (ImageObserver)this);
+					break;
+				case 'S':
+					g.drawImage(imageDoorOp,32*j , 32*i, 32, 32, (ImageObserver)this);
+					break;
+				case 'k':
+					g.drawImage(imageKey,32*j , 32*i, 32, 32, (ImageObserver)this);
+					break;
+				case 'K':
 					g.drawImage(imageHero,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else if (tab[j][i] == '*')
+					break;
+				case '*':
 					g.drawImage(imageMassiveClub,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else
+					break;
+				default:
 					g.drawImage(imageWall,32*j , 32*i, 32, 32, (ImageObserver)this);
-		
-					
+					break;
+				}				
 					
 			}
 		
