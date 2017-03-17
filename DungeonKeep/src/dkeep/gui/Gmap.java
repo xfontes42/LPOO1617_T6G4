@@ -43,7 +43,7 @@ public class Gmap extends JPanel {
 			imageWall = ImageIO.read(new File("src/resources/Wall.png"));
 			imageDoorUn = ImageIO.read(new File("src/resources/Door.png"));
 			imageDoorOp = ImageIO.read(new File("src/resources/DoorOpI.png"));
-			imageKey = ImageIO.read(new File("src/resources/keyI.ico"));
+			imageKey = ImageIO.read(new File("src/resources/Key.png"));
 			imageMassiveClub = ImageIO.read(new File("src/resources/MassiveClub.png"));
 		} catch (IOException  e) {
 			System.out.println("Could not load images.");
@@ -66,8 +66,34 @@ public class Gmap extends JPanel {
 			for(int j = 0; j < tab.length; j++){
 				if(tab[j][i] == ' ')
 					g.drawImage(imageGround,32*j , 32*i, 32, 32, (ImageObserver)this);
-				else 
+				else if (tab[j][i] == 'X')
 					g.drawImage(imageWall,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'H')
+					g.drawImage(imageHero,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'G')
+					g.drawImage(imageGuard,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'I')
+					g.drawImage(imageDoorUn,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'S')
+					g.drawImage(imageDoorOp,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'g')
+					g.drawImage(imageGuardSleeping,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'O')
+					g.drawImage(imageOgre,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == '8')
+					g.drawImage(imageOgreStunned,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'k')
+					g.drawImage(imageKey,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'A')
+					g.drawImage(imageHeroArmed,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == 'K')
+					g.drawImage(imageHero,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else if (tab[j][i] == '*')
+					g.drawImage(imageMassiveClub,32*j , 32*i, 32, 32, (ImageObserver)this);
+				else
+					g.drawImage(imageWall,32*j , 32*i, 32, 32, (ImageObserver)this);
+		
+					
 					
 			}
 		
