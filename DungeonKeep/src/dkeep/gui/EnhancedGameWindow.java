@@ -1,40 +1,59 @@
 package dkeep.gui;
 
 import java.awt.EventQueue;
-import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 
 import dkeep.logic.GameLevels;
 import dkeep.logic.State;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JPanel;
 
 public class EnhancedGameWindow {
 
+	//components
 	private JFrame frmDungeonKeep;
 	private JTextField tflNumberOfOgres;
 	private JButton btnUp, btnDown, btnRight, btnLeft, btnStay;
 	private JLabel lblMessages;
 	//private JTextPane tpnGameField;
 	private JPanel jpGamePanel = new JPanel();
+	
+	//game logic
 	private State estado_jogo = new State();
 	private GameLevels niveis = new GameLevels();
 	private Boolean lost_game = false;
 	private int level = 0;
 	private int guarda = 0;
 	private int numberOgres = 1;
+	//images
+	
+	private BufferedImage imageOgre;
+	private BufferedImage imageOgreStunned;
+	private BufferedImage imageGuard;
+	private BufferedImage imageGuardSleeping;
+	private BufferedImage imageGround;
+	private BufferedImage imageHero;
+	private BufferedImage imageWall;
+	private BufferedImage imageDoorUn;
+	private BufferedImage imageDoorOp;
+	private BufferedImage imageKey;
+	
 
 	/**
 	 * Launch the application.
@@ -45,7 +64,7 @@ public class EnhancedGameWindow {
 				try {
 					EnhancedGameWindow window = new EnhancedGameWindow();
 					window.frmDungeonKeep.setVisible(true);
-
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,7 +76,12 @@ public class EnhancedGameWindow {
 	 * Create the application.
 	 */
 	public EnhancedGameWindow() {
-
+		try{
+			imageKey = ImageIO.read(new File("resources/keyI.ico"));
+		}
+		catch(IOException e){
+			System.out.println("Could not load images.");
+		}
 		initialize();
 	}
 
