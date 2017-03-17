@@ -74,7 +74,7 @@ public class GameWindow {
 	 */
 	private void initialize() {
 		frmDungeonKeep = new JFrame();
-		frmDungeonKeep.getContentPane().setBackground(Color.YELLOW);
+		frmDungeonKeep.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmDungeonKeep.setTitle("Dungeon Keep");
 		frmDungeonKeep.setBounds(100, 100, 510, 490);
 		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
