@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.JPanel;
 
 public class EnhancedGameWindow {
 
@@ -26,7 +27,8 @@ public class EnhancedGameWindow {
 	private JTextField tflNumberOfOgres;
 	private JButton btnUp, btnDown, btnRight, btnLeft, btnStay;
 	private JLabel lblMessages;
-	private JTextPane tpnGameField;
+	//private JTextPane tpnGameField;
+	private JPanel jpGamePanel = new JPanel();
 	private State estado_jogo = new State();
 	private GameLevels niveis = new GameLevels();
 	private Boolean lost_game = false;
@@ -147,10 +149,10 @@ public class EnhancedGameWindow {
 		btnExit.setBounds(348, 415, 117, 25);
 		frmDungeonKeep.getContentPane().add(btnExit);
 
-		tpnGameField = new JTextPane();
-		tpnGameField.setFont(new Font("monospaced", Font.PLAIN, 22));
-		tpnGameField.setBounds(20, 110, 270, 300);
-		frmDungeonKeep.getContentPane().add(tpnGameField);
+//		tpnGameField = new JTextPane();
+//		tpnGameField.setFont(new Font("monospaced", Font.PLAIN, 22));
+//		tpnGameField.setBounds(20, 110, 270, 300);
+//		frmDungeonKeep.getContentPane().add(tpnGameField);
 
 		btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
@@ -247,6 +249,10 @@ public class EnhancedGameWindow {
 		lblMessages = new JLabel("Welcome to our game!");
 		lblMessages.setBounds(20, 420, 300, 20);
 		frmDungeonKeep.getContentPane().add(lblMessages);
+		
+		jpGamePanel = new JPanel();
+		jpGamePanel.setBounds(10, 90, 320, 320);
+		frmDungeonKeep.getContentPane().add(jpGamePanel);
 	}
 
 	private void updateGameButtons() {
@@ -287,7 +293,7 @@ public class EnhancedGameWindow {
 			game_space += "\n";
 		}
 
-		tpnGameField.setText(game_space);
+		//tpnGameField.setText(game_space);
 	}
 
 	private void updateGameLogic() {
