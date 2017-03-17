@@ -33,8 +33,8 @@ public class Gmap extends JPanel {
 	public Gmap() {
 		super();
 		try {
-			imageOgre = ImageIO.read(new File("src/resources/Ogre.png"));
-			imageOgreStunned = ImageIO.read(new File("src/resources/StunnedOgre.png"));
+			imageOgre = ImageIO.read(new File("src/resources/OgreWithClub.png"));
+			imageOgreStunned = ImageIO.read(new File("src/resources/OgreStunned.png"));
 			imageGuard = ImageIO.read(new File("src/resources/Guard.png"));
 			imageGuardSleeping = ImageIO.read(new File("src/resources/GuardSleeping.png"));
 			imageGround = ImageIO.read(new File("src/resources//Ground.png"));
@@ -42,9 +42,9 @@ public class Gmap extends JPanel {
 			imageHeroArmed = ImageIO.read(new File("src/resources/ArmedHero.png"));
 			imageWall = ImageIO.read(new File("src/resources/Wall.png"));
 			imageDoorUn = ImageIO.read(new File("src/resources/Door.png"));
-			imageDoorOp = ImageIO.read(new File("src/resources/DoorOpI.png"));
+			imageDoorOp = ImageIO.read(new File("src/resources/DoorOpen.png"));
 			imageKey = ImageIO.read(new File("src/resources/Key.png"));
-			imageMassiveClub = ImageIO.read(new File("src/resources/MassiveClub.png"));
+			imageMassiveClub = ImageIO.read(new File("src/resources/Blow.png"));
 		} catch (IOException  e) {
 			System.out.println("Could not load images.");
 			e.printStackTrace();
