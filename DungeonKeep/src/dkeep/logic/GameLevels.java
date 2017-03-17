@@ -26,6 +26,7 @@ public class GameLevels {
 	private int number_of_levels;
 	
 	public GameLevels(){
+		number_of_levels = board_levels.length;
 		//le do ficheiro
 		try{
 			Scanner inputF = new Scanner(new File("src/resources/levels.txt"));
@@ -44,7 +45,6 @@ public class GameLevels {
 					for(int j = 0; j < cols; j++)
 						novos_niveis[nivel][i]=linhaC;
 					 
-					System.out.println(linha);
 				}
 				if(!inputF.hasNextLine())
 					break;
@@ -66,7 +66,7 @@ public class GameLevels {
 		}
 		
 		//end read file
-		//number_of_levels = board_levels.length;
+		
 	}
 	
 	public char[][] getLevel(int level){
