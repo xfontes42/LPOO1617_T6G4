@@ -7,14 +7,15 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.awt.event.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import dkeep.logic.State;
 
-public class Gmap extends JPanel {
+public class Gmap extends JPanel{
 
 	private BufferedImage imageOgre;
 	private BufferedImage imageOgreStunned;
@@ -45,75 +46,73 @@ public class Gmap extends JPanel {
 			imageDoorOp = ImageIO.read(new File("src/resources/DoorOpen.png"));
 			imageKey = ImageIO.read(new File("src/resources/Key.png"));
 			imageMassiveClub = ImageIO.read(new File("src/resources/Blow.png"));
-		} catch (IOException  e) {
+		} catch (IOException e) {
 			System.out.println("Could not load images.");
 			e.printStackTrace();
 
 		}
 
 	}
-	
-	public void setEstadoJogo(State jogo){
+
+	public void setEstadoJogo(State jogo) {
 		this.estado_atual = jogo;
-		//estado_atual.printBoard();
-		
+		// estado_atual.printBoard();
+
 	}
-	
+
 	@Override
-	public void paintComponent(Graphics g){
+	public void paintComponent(Graphics g) {
 		char[][] tab = estado_atual.board;
-		for(int i = 0; i < tab.length; i++)
-			for(int j = 0; j < tab.length; j++){
-				switch(tab[j][i]){
+		for (int i = 0; i < tab.length; i++)
+			for (int j = 0; j < tab.length; j++) {
+				switch (tab[j][i]) {
 				case ' ':
-					g.drawImage(imageGround,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageGround, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'X':
-					g.drawImage(imageWall,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageWall, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'H':
-					g.drawImage(imageHero,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageHero, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'A':
-					g.drawImage(imageHeroArmed,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageHeroArmed, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'O':
-					g.drawImage(imageOgre,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageOgre, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case '8':
-					g.drawImage(imageOgreStunned,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageOgreStunned, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'G':
-					g.drawImage(imageGuard,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageGuard, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'g':
-					g.drawImage(imageGuardSleeping,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageGuardSleeping, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'I':
-					g.drawImage(imageDoorUn,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageDoorUn, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'S':
-					g.drawImage(imageDoorOp,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageDoorOp, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'k':
-					g.drawImage(imageKey,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageKey, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case 'K':
-					g.drawImage(imageHero,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageHero, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				case '*':
-					g.drawImage(imageMassiveClub,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageMassiveClub, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
 				default:
-					g.drawImage(imageWall,32*j , 32*i, 32, 32, (ImageObserver)this);
+					g.drawImage(imageWall, 32 * j, 32 * i, 32, 32, (ImageObserver) this);
 					break;
-				}				
-					
+				}
+
 			}
-		
-		
-		
-		
+
 	}
+
 
 }
