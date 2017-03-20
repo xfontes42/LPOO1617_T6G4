@@ -89,11 +89,29 @@ public class GameLevels {
 	public void addLevelToFile(int rows, int cols, char[][] level){
 		try {
 			FileWriter fw = new FileWriter("src/resources/levels.txt",true);
+			fw.write("\n");
 			fw.write(rows+"\n");
 			fw.write(cols+"\n");
-			for(int i = 0; i < level.length; i++){
-				fw.write(level[i].toString());
-				if(i+1 < level.length){
+			
+			//transpose matrix 
+//			 char[][] temp = new char[level[0].length][level.length];
+//		        for (int i = 0; i < level.length; i++)
+//		            for (int j = 0; j < level[0].length; j++)
+//		                temp[j][i] = level[i][j];
+			char[][] temp = level;
+			//write to file
+			for(int i = 0; i < temp.length; i++){
+				for(int j = 0; j < temp[0].length; j++){
+					fw.write(temp[i][j]+"");
+				}
+				
+				
+				
+				
+				
+				//fw.write(level[i].toString());
+				
+				if(i+1 < temp.length){
 					fw.write("\n");
 				}
 

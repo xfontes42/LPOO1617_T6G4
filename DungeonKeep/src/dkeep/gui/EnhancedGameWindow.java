@@ -372,7 +372,7 @@ public class EnhancedGameWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				frmDungeonKeep.setVisible(false);
 				int ncols =10, nrows = 10;
-				String[] nums = {"3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
+				String[] nums = {"5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
 				nrows =  Integer.parseInt((String)JOptionPane.showInputDialog(frmDungeonKeep, "How many rows?", "Rows", JOptionPane.QUESTION_MESSAGE, null, nums, null));
 				ncols =  Integer.parseInt((String)JOptionPane.showInputDialog(frmDungeonKeep, "How many columns?", "Columns", JOptionPane.QUESTION_MESSAGE, null, nums, null));
 				jframeLevelEditor = new LevelEditor(frmDungeonKeep, nrows, ncols);

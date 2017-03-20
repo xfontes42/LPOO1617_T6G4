@@ -63,50 +63,52 @@ public class Gmap extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) { //improve by using o this.getBbounds()
 		char[][] tab = estado_atual.board;
-		for (int i = 0; i < tab.length; i++)
-			for (int j = 0; j < tab.length; j++) {
+		int ncols = estado_atual.board[0].length;
+		int nrows =	estado_atual.board.length;
+		for (int i = 0; i < ncols; i++)
+			for (int j = 0; j < nrows; j++) {
 				switch (tab[j][i]) {
 				case ' ':
-					g.drawImage(imageGround, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageGround, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'X':
-					g.drawImage(imageWall, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageWall, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'H':
-					g.drawImage(imageHero, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'A':
-					g.drawImage(imageHeroArmed, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageHeroArmed, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'O':
-					g.drawImage(imageOgre, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageOgre, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case '8':
-					g.drawImage(imageOgreStunned, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageOgreStunned, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'G':
-					g.drawImage(imageGuard, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageGuard, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'g':
-					g.drawImage(imageGuardSleeping, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageGuardSleeping, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'I':
-					g.drawImage(imageDoorUn, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageDoorUn, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'S':
-					g.drawImage(imageDoorOp, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageDoorOp, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'k':
-					g.drawImage(imageKey, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageKey, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'K':
-					g.drawImage(imageHero, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case '*':
-					g.drawImage(imageMassiveClub, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageMassiveClub, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				default:
-					g.drawImage(imageWall, (320/tab.length) * j, (320/tab.length) * i, (320/tab.length),(320/tab.length), (ImageObserver) this);
+					g.drawImage(imageWall, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				}
 

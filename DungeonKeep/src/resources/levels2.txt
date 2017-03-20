@@ -22,11 +22,15 @@ X        X
 X        X
 Xk       X
 XXXXXXXXXX
-6
-5
-XXXIX
-X  kX
-X  HX
-X   X
-XO  X
-XXXXX
+10
+10
+XIXXXXXXXX
+X       HX
+X        X
+X        X
+XO       X
+X    X   X
+X        X
+X        X
+Xk       X
+XXXXXXXXXX
