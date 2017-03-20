@@ -11,7 +11,7 @@ public class LevelEditor extends JFrame {
 	int height, width;		//window size
 	int buttonW, buttonH;	//button size
 	
-	public LevelEditor(JFrame parent) {
+	public LevelEditor(JFrame parent, int nrows, int ncols) {
 		int boardX=10, boardY=10;
 		
 		buttonW = 75;

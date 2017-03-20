@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -370,11 +371,12 @@ public class EnhancedGameWindow {
 		btnLevelEditor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmDungeonKeep.setVisible(false);
+				int ncols =10, nrows = 10;
+				String[] nums = {"3","4","5","6","7","8"};
+				nrows =  Integer.parseInt((String)JOptionPane.showInputDialog(frmDungeonKeep, "How many rows?", "Rows Mothafucka", JOptionPane.QUESTION_MESSAGE, null, nums, null));
 				
-				jframeLevelEditor = new LevelEditor(frmDungeonKeep);
+				jframeLevelEditor = new LevelEditor(frmDungeonKeep, nrows, ncols);
 				jframeLevelEditor.setVisible(true);
-				
-			
 				
 			}
 		});
