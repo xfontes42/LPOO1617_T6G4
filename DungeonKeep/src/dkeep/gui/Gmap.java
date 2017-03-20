@@ -102,7 +102,7 @@ public class Gmap extends JPanel{
 					g.drawImage(imageKey, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
 					break;
 				case 'K':
-					g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+					g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this); 
 					break;
 				case '*':
 					g.drawImage(imageMassiveClub, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
