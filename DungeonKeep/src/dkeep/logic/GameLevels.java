@@ -2,6 +2,8 @@ package dkeep.logic;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -31,13 +33,13 @@ public class GameLevels {
 		//le do ficheiro
 		try{
 			Scanner inputF = new Scanner(new File("src/resources/levels.txt"));
-			int niveis = Integer.parseInt(inputF.nextLine());
+			//int niveis = Integer.parseInt(inputF.nextLine());
 			
 			//char [][][] novos_niveis = new char[niveis][rows][cols];
 			int nivel = 0;
 			String linha;
 			
-			while(nivel < niveis){
+			while(true){
 				int rows = Integer.parseInt(inputF.nextLine());
 				int cols = Integer.parseInt(inputF.nextLine());
 				//inputF.nextLine();
@@ -54,7 +56,7 @@ public class GameLevels {
 				if(!inputF.hasNextLine())
 					break;
 				//inputF.nextLine();
-				nivel++;
+				//nivel++;
 			}
 			
 			//board_levels = novos_niveis.clone();
@@ -82,5 +84,27 @@ public class GameLevels {
 	
 	public int getNumberOfLevels(){
 		return number_of_levels;
+	}
+	
+	public void addLevelToFile(int rows, int cols, char[][] level){
+		try {
+			FileWriter fw = new FileWriter("src/resources/levels.txt",true);
+			fw.write(rows+"\n");
+			fw.write(cols+"\n");
+			for(int i = 0; i < level.length; i++){
+				fw.write(level[i].toString());
+				if(i+1 < level.length){
+					fw.write("\n");
+				}
+
+			}
+		    fw.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("IOException");
+			e.printStackTrace();
+		}
 	}
 }
