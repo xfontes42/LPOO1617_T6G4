@@ -1,4 +1,5 @@
-3 10 10
+3
+10 10
 XXXXXIIXXX
 XHX X  X X
 X XIX  XIX
@@ -9,7 +10,7 @@ XXXXX  XXX
 X      XkX
 XG       X
 XXXXXXXXXX
-
+10 10
 XIXXXXXXXX
 X       HX
 X        X
@@ -20,7 +21,7 @@ X        X
 X        X
 Xk       X
 XXXXXXXXXX
-
+10 10
 XIXXXXXXXX
 X       HX
 X        X

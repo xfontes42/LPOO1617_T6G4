@@ -31,6 +31,7 @@ public class EnhancedGameWindow {
 	private JLabel lblMessages;
 	// private JTextPane tpnGameField;
 	private Gmap jpGamePanel = new Gmap();
+	private LevelEditor jframeLevelEditor;
 
 	// game logic
 	private State estado_jogo = new State();
@@ -364,6 +365,21 @@ public class EnhancedGameWindow {
 		frmDungeonKeep.getContentPane().add(jpGamePanel);
 		//jpGamePanel.requestFocusInWindow(); // task2
 		jpGamePanel.setEnabled(false);
+		
+		JButton btnLevelEditor = new JButton("Level Editor");
+		btnLevelEditor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmDungeonKeep.setVisible(false);
+				
+				jframeLevelEditor = new LevelEditor(frmDungeonKeep);
+				jframeLevelEditor.setVisible(true);
+				
+			
+				
+			}
+		});
+		btnLevelEditor.setBounds(213, 21, 89, 23);
+		frmDungeonKeep.getContentPane().add(btnLevelEditor);
 	}
 
 	private void updateGameButtons() {
@@ -456,5 +472,4 @@ public class EnhancedGameWindow {
 		}
 
 	}
-
 }
