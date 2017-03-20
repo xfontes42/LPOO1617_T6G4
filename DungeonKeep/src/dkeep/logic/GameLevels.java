@@ -3,9 +3,10 @@ package dkeep.logic;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class GameLevels {
-	private char[][][] board_levels = { { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
+	private Vector<char[][]> board_levels = new Vector<char[][]>();/*= { { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
 		{ 'X', 'H', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
 		{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'I', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
 		{ 'X', ' ', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', ' ', ' ', 'X', 'X', 'X' },
@@ -21,39 +22,43 @@ public class GameLevels {
 				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'k', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } } };  
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } } };  */
 	
 	private int number_of_levels;
 	
 	public GameLevels(){
-		number_of_levels = board_levels.length;
+		//number_of_levels = board_levels.length;
 		//le do ficheiro
 		try{
 			Scanner inputF = new Scanner(new File("src/resources/levels.txt"));
-			int niveis = inputF.nextInt();
-			int rows = inputF.nextInt();
-			int cols = inputF.nextInt();
-			char [][][] novos_niveis = new char[niveis][rows][cols];
+			int niveis = Integer.parseInt(inputF.nextLine());
+			
+			//char [][][] novos_niveis = new char[niveis][rows][cols];
 			int nivel = 0;
 			String linha;
-			inputF.nextLine();
+			
 			while(nivel < niveis){
-				
+				int rows = Integer.parseInt(inputF.nextLine());
+				int cols = Integer.parseInt(inputF.nextLine());
+				//inputF.nextLine();
+				char[][] nivelAtual = new char[rows][cols];
 				for(int i = 0; i < rows; i++){
 					linha = inputF.nextLine();
 					char[] linhaC =  linha.toCharArray();
 					for(int j = 0; j < cols; j++)
-						novos_niveis[nivel][i]=linhaC;
+						nivelAtual[i][j]=linhaC[j];
 					 
 				}
+				
+				board_levels.add(nivelAtual);
 				if(!inputF.hasNextLine())
 					break;
-				inputF.nextLine();
+				//inputF.nextLine();
 				nivel++;
 			}
 			
-			board_levels = novos_niveis.clone();
-			number_of_levels = novos_niveis.length;
+			//board_levels = novos_niveis.clone();
+			number_of_levels = board_levels.size();
 			
 		}
 		catch(FileNotFoundException e){
@@ -72,7 +77,7 @@ public class GameLevels {
 	public char[][] getLevel(int level){
 		if(level < 1 || level > number_of_levels)
 			throw new ArrayIndexOutOfBoundsException (level);
-		else return board_levels[level-1].clone();
+		else return board_levels.get(level-1).clone();
 	}
 	
 	public int getNumberOfLevels(){
