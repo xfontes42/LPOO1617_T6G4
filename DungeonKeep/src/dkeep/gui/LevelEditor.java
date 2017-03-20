@@ -16,8 +16,8 @@ public class LevelEditor extends JFrame {
 		
 		buttonW = 75;
 		buttonH = 23;
-		height = 20 + 32 * boardY;
-		width = 30 + 32 * boardX + buttonW;
+		height = 20 + 64 * 10;
+		width = 30 + 64 * 10 + buttonW;
 		setResizable(false);
 		super.setBounds(0, 0, width, height);
 		this.parent = parent;
@@ -30,44 +30,43 @@ public class LevelEditor extends JFrame {
 			}
 		});
 		
-		//button coordinates
-		int buttonX = width-10-buttonW;
-		
-		btnExitEditor.setBounds(buttonX, height - 10 - buttonH, buttonW, buttonH);
+		// buttons and their coordinates
+		int buttonX = width - 10 - buttonW;
+
+		btnExitEditor.setBounds(buttonX, 10 + 8 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnExitEditor);
 
 		JButton btnSaveLevel = new JButton("Save");
-		btnSaveLevel.setBounds(buttonX, height - 2 * (10 - buttonH), buttonW, buttonH);
+		btnSaveLevel.setBounds(buttonX, 10 + 7 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnSaveLevel);
-		
+
 		JButton btnHero = new JButton("Hero");
-		btnHero.setBounds(buttonX, 10, buttonW, buttonH);
+		btnHero.setBounds(buttonX, 10 + 0 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnHero);
-		
+
 		JButton btnOgre = new JButton("Ogre");
-		btnOgre.setBounds(buttonX, 10+10+buttonH, buttonW, buttonH);
+		btnOgre.setBounds(buttonX, 10 + 1 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnOgre);
-		
+
 		JButton btnKey = new JButton("Key");
-		btnKey.setBounds(buttonX, 10+2*(10+buttonH), buttonW, buttonH);
+		btnKey.setBounds(buttonX, 10 + 2 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnKey);
-		
+
 		JButton btnDoor = new JButton("Door");
-		btnDoor.setBounds(buttonX, 10+3*(10+buttonH), buttonW, buttonH);
+		btnDoor.setBounds(buttonX, 10 + 3 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnDoor);
-		
+
 		JButton btnWall = new JButton("Wall");
-		btnWall.setBounds(buttonX, 10+4*(10+buttonH), buttonW, buttonH);
+		btnWall.setBounds(buttonX, 10 + 4 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnWall);
-		
+
 		JButton btnGround = new JButton("Ground");
-		btnGround.setBounds(buttonX, 10+5*(10+buttonH), buttonW, buttonH);
+		btnGround.setBounds(buttonX, 10 + 5 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnGround);
-		
+
 		JPanel pnlBoard = new JPanel();
-		pnlBoard.setBounds(10, 10, 32*boardX, 32*boardY);
+		pnlBoard.setBounds(10, 10, 640, 640);
 		getContentPane().add(pnlBoard);
-		
 		
 	}
 	
