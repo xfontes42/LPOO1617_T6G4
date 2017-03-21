@@ -434,7 +434,7 @@ public class EnhancedGameWindow implements Serializable {
 			         i.printStackTrace();
 			         return;
 			      }catch(ClassNotFoundException c) {
-			         System.out.println("Employee class not found");
+			         System.out.println("Class Not Found.");
 			         c.printStackTrace();
 			         return;
 			      }
