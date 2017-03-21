@@ -1,6 +1,8 @@
 package dkeep.logic;
 
-public class Entity {
+import java.io.Serializable;
+
+public class Entity implements Serializable{
 	private int coordX, coordY;
 	public char sprite = '?';
 	//private Behavior behavior = new BehaviorGuard();

@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Vector;
 
@@ -9,7 +10,7 @@ import dkeep.logic.Guard.GuardType;
 import dkeep.logic.Hero;
 import dkeep.logic.Key;
 
-public class State {
+public class State implements Serializable {
 	private int MAX_OGRES = 1/* 5 */;
 	public boolean won = false;
 	public boolean lever = false;

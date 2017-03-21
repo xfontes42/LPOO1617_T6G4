@@ -19,11 +19,18 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JPanel;
 
-public class EnhancedGameWindow {
+public class EnhancedGameWindow implements Serializable {
 
 	// components
 	private JFrame frmDungeonKeep;
@@ -32,8 +39,8 @@ public class EnhancedGameWindow {
 	private JLabel lblMessages;
 	// private JTextPane tpnGameField;
 	private Gmap jpGamePanel = new Gmap();
-	private LevelEditor jframeLevelEditor;
-
+	private transient LevelEditor jframeLevelEditor;
+	//EnhancedGameWindow this_window;
 	// game logic
 	private State estado_jogo = new State();
 	private GameLevels niveis = new GameLevels();
@@ -63,7 +70,7 @@ public class EnhancedGameWindow {
 	 * Create the application.
 	 */
 	public EnhancedGameWindow() {
-		
+		//this_window = this;
 		initialize();
 	}
 
@@ -381,6 +388,64 @@ public class EnhancedGameWindow {
 		});
 		btnLevelEditor.setBounds(213, 21, 89, 23);
 		frmDungeonKeep.getContentPane().add(btnLevelEditor);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FileOutputStream fileOut;
+				try {
+					fileOut = new FileOutputStream("src/resources/saveGame.ser");
+					ObjectOutputStream out = new ObjectOutputStream(fileOut);
+					out.writeObject(estado_jogo);
+					out.writeObject(lost_game);
+					out.writeObject(level);
+					out.writeObject(guarda);
+					out.writeObject(numberOgres);
+					//out.writeObject(this_window);
+					//out.writeObject(obj);
+					out.close();
+					fileOut.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception w){
+					w.printStackTrace();
+				}
+				
+				frmDungeonKeep.requestFocusInWindow();
+			}
+		});
+		btnSave.setBounds(376, 64, 89, 23);
+		frmDungeonKeep.getContentPane().add(btnSave);
+		
+		JButton btnLoad = new JButton("Load");
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {		
+			      try {
+			         FileInputStream fileIn = new FileInputStream("src/resources/saveGame.ser");
+			         ObjectInputStream in = new ObjectInputStream(fileIn);
+			         estado_jogo = (State) in.readObject();
+			         lost_game = (Boolean) in.readObject();
+			         level = (int) in.readObject();
+			         guarda = (int) in.readObject();
+			         numberOgres = (int) in.readObject();
+			         in.close();
+			         fileIn.close();
+			      }catch(IOException i) {
+			         i.printStackTrace();
+			         return;
+			      }catch(ClassNotFoundException c) {
+			         System.out.println("Employee class not found");
+			         c.printStackTrace();
+			         return;
+			      }
+			      
+			      printGameGUI();
+			      updateGameButtons();
+			      frmDungeonKeep.requestFocusInWindow();
+			}
+		});
+		btnLoad.setBounds(376, 90, 89, 23);
+		frmDungeonKeep.getContentPane().add(btnLoad);
 	}
 
 	private void updateGameButtons() {
