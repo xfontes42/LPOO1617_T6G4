@@ -425,8 +425,11 @@ public class State implements Serializable {
 	 */
 	public void adjacentToGuard(Guard guard, boolean result){
 		if (adjacent(hero.getX(), hero.getY(), guard.getX(), guard.getY())){
-			if (!(guard.behavior instanceof BehaviorDrunken))
-				result = true;
+			result = true;
+			if((guard.behavior instanceof BehaviorDrunken)){
+				if(((BehaviorDrunken)guard.behavior).sleeping)
+					result = false;
+			}
 		}
 		
 	}

@@ -13,7 +13,7 @@ public class TestOtherComponents {
 		@Test(expected = ArrayIndexOutOfBoundsException.class)
 		public void testGameLevels(){
 			GameLevels jogos = new GameLevels();
-			assertEquals(2, jogos.getNumberOfLevels());
+			//assertEquals(2, jogos.getNumberOfLevels());
 			char[][] lvl1 =  { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
 					{ 'X', 'H', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
 					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'I', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
