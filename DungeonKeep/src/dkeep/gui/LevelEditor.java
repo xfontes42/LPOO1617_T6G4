@@ -57,7 +57,7 @@ public class LevelEditor extends JFrame {
 		try {
 			imageOgre = ImageIO.read(new File("src/resources/OgreWithClub.png"));
 			imageGuard = ImageIO.read(new File("src/resources/Guard.png"));
-			imageGround = ImageIO.read(new File("src/resources//Ground.png"));
+			imageGround = ImageIO.read(new File("src/resources//Ground.png")); 
 			imageHero = ImageIO.read(new File("src/resources/Hero.png"));
 			imageWall = ImageIO.read(new File("src/resources/Wall.png"));
 			imageDoorUn = ImageIO.read(new File("src/resources/Door.png"));
@@ -126,51 +126,35 @@ public class LevelEditor extends JFrame {
 	}
 
 	private void setButtonsOnRight() {
-		btnHero = new JButton("Hero");
-		btnHero.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChosenTile = 'H';
+		setHeroButton();
+
+		setOgreButton();
+
+		setKeyButton();
+
+		setDoorButton();
+
+		setWallButton();
+
+		setGroundButton();
+		
+		setExitButton();
+		
+	}
+
+	private void setExitButton() {
+		JButton btnExitEditor = new JButton("Exit");
+		btnExitEditor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
 			}
 		});
-		btnHero.setBounds(buttonX, 10 + 0 * (10 + buttonH), buttonW, buttonH);
-		getContentPane().add(btnHero);
+		btnExitEditor.setBounds(buttonX, 10 + 8 * (10 + buttonH), buttonW, buttonH);
+		getContentPane().add(btnExitEditor);
+		
+	}
 
-		btnOgre = new JButton("Ogre");
-		btnOgre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChosenTile = 'O';
-			}
-		});
-		btnOgre.setBounds(buttonX, 10 + 1 * (10 + buttonH), buttonW, buttonH);
-		getContentPane().add(btnOgre);
-
-		btnKey = new JButton("Key");
-		btnKey.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChosenTile = 'k';
-			}
-		});
-		btnKey.setBounds(buttonX, 10 + 2 * (10 + buttonH), buttonW, buttonH);
-		getContentPane().add(btnKey);
-
-		btnDoor = new JButton("Door");
-		btnDoor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChosenTile = 'I';
-			}
-		});
-		btnDoor.setBounds(buttonX, 10 + 3 * (10 + buttonH), buttonW, buttonH);
-		getContentPane().add(btnDoor);
-
-		btnWall = new JButton("Wall");
-		btnWall.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChosenTile = 'X';
-			}
-		});
-		btnWall.setBounds(buttonX, 10 + 4 * (10 + buttonH), buttonW, buttonH);
-		getContentPane().add(btnWall);
-
+	private void setGroundButton() {
 		btnGround = new JButton("Ground");
 		btnGround.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -180,15 +164,65 @@ public class LevelEditor extends JFrame {
 		btnGround.setBounds(buttonX, 10 + 5 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnGround);
 		
-		
-		JButton btnExitEditor = new JButton("Exit");
-		btnExitEditor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
+	}
+
+	private void setWallButton() {
+		btnWall = new JButton("Wall");
+		btnWall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChosenTile = 'X';
 			}
 		});
-		btnExitEditor.setBounds(buttonX, 10 + 8 * (10 + buttonH), buttonW, buttonH);
-		getContentPane().add(btnExitEditor);
+		btnWall.setBounds(buttonX, 10 + 4 * (10 + buttonH), buttonW, buttonH);
+		getContentPane().add(btnWall);
+		
+	}
+
+	private void setDoorButton() {
+		btnDoor = new JButton("Door");
+		btnDoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChosenTile = 'I';
+			}
+		});
+		btnDoor.setBounds(buttonX, 10 + 3 * (10 + buttonH), buttonW, buttonH);
+		getContentPane().add(btnDoor);
+		
+	}
+
+	private void setKeyButton() {
+		btnKey = new JButton("Key");
+		btnKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChosenTile = 'k';
+			}
+		});
+		btnKey.setBounds(buttonX, 10 + 2 * (10 + buttonH), buttonW, buttonH);
+		getContentPane().add(btnKey);
+		
+	}
+
+	private void setOgreButton() {
+		btnOgre = new JButton("Ogre");
+		btnOgre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChosenTile = 'O';
+			}
+		});
+		btnOgre.setBounds(buttonX, 10 + 1 * (10 + buttonH), buttonW, buttonH);
+		getContentPane().add(btnOgre);
+		
+	}
+
+	private void setHeroButton() {
+		btnHero = new JButton("Hero");
+		btnHero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChosenTile = 'H';
+			}
+		});
+		btnHero.setBounds(buttonX, 10 + 0 * (10 + buttonH), buttonW, buttonH);
+		getContentPane().add(btnHero);
 		
 	}
 
