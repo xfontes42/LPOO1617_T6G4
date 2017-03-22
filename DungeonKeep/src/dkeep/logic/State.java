@@ -53,7 +53,7 @@ public class State implements Serializable {
 	public void updateEntity(char entity, int oldX, int oldY, int newX, int newY) {
 		board[oldX][oldY] = ' ';
 		board[newX][newY] = entity;
-		// board[oldX][oldY] = ' ';
+
 	}
 
 	/**
@@ -415,16 +415,6 @@ public class State implements Serializable {
 		if (!stunned)
 			if (adjacent(hero.getX(), hero.getY(), shrek.getX(), shrek.getY()))
 				stunOgre(shrek);
-		
-//		if (hero.getX() == shrek.getX() && !stunned) {			//if x is the same
-//			if (Math.abs(hero.getY() - shrek.getY()) == 1) {
-//				stunOgre(shrek); // result = true;
-//			}
-//		} else if (hero.getY() == shrek.getY() && !stunned) {	//if y is the same
-//			if (Math.abs(hero.getX() - shrek.getX()) == 1) {
-//				stunOgre(shrek); // result = true;
-//			}
-//		}
 	}
 	
 	/**

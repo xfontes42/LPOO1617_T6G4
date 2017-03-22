@@ -29,20 +29,17 @@ public class GameLevels {
 	private int number_of_levels;
 	
 	public GameLevels(){
-		//number_of_levels = board_levels.length;
 		//le do ficheiro
 		try{
 			Scanner inputF = new Scanner(new File("src/resources/levels.txt"));
-			//int niveis = Integer.parseInt(inputF.nextLine());
-			
-			//char [][][] novos_niveis = new char[niveis][rows][cols];
+
 			int nivel = 0;
 			String linha;
 			
 			while(true){
 				int rows = Integer.parseInt(inputF.nextLine());
 				int cols = Integer.parseInt(inputF.nextLine());
-				//inputF.nextLine();
+
 				char[][] nivelAtual = new char[rows][cols];
 				for(int i = 0; i < rows; i++){
 					linha = inputF.nextLine();
@@ -55,11 +52,10 @@ public class GameLevels {
 				board_levels.add(nivelAtual);
 				if(!inputF.hasNextLine())
 					break;
-				//inputF.nextLine();
-				//nivel++;
+
 			}
 			
-			//board_levels = novos_niveis.clone();
+
 			number_of_levels = board_levels.size();
 			
 		}
@@ -93,11 +89,7 @@ public class GameLevels {
 			fw.write(rows+"\n");
 			fw.write(cols+"\n");
 			
-			//transpose matrix 
-//			 char[][] temp = new char[level[0].length][level.length];
-//		        for (int i = 0; i < level.length; i++)
-//		            for (int j = 0; j < level[0].length; j++)
-//		                temp[j][i] = level[i][j];
+
 			char[][] temp = level;
 			//write to file
 			for(int i = 0; i < temp.length; i++){
@@ -106,11 +98,6 @@ public class GameLevels {
 				}
 				
 				
-				
-				
-				
-				//fw.write(level[i].toString());
-				
 				if(i+1 < temp.length){
 					fw.write("\n");
 				}
@@ -118,7 +105,6 @@ public class GameLevels {
 			}
 		    fw.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("IOException");

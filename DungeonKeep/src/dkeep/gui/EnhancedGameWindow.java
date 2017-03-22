@@ -257,10 +257,6 @@ public class EnhancedGameWindow implements Serializable {
 		btnExit.setBounds(348, 415, 117, 25);
 		frmDungeonKeep.getContentPane().add(btnExit);
 
-		// tpnGameField = new JTextPane();
-		// tpnGameField.setFont(new Font("monospaced", Font.PLAIN, 22));
-		// tpnGameField.setBounds(20, 110, 270, 300);
-		// frmDungeonKeep.getContentPane().add(tpnGameField);
 
 		btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
@@ -371,7 +367,7 @@ public class EnhancedGameWindow implements Serializable {
 		jpGamePanel = new Gmap();
 		jpGamePanel.setBounds(10, 90, 320, 320);
 		frmDungeonKeep.getContentPane().add(jpGamePanel);
-		//jpGamePanel.requestFocusInWindow(); // task2
+
 		jpGamePanel.setEnabled(false);
 		
 		JButton btnLevelEditor = new JButton("Level Editor");
@@ -401,8 +397,7 @@ public class EnhancedGameWindow implements Serializable {
 					out.writeObject(level);
 					out.writeObject(guarda);
 					out.writeObject(numberOgres);
-					//out.writeObject(this_window);
-					//out.writeObject(obj);
+
 					out.close();
 					fileOut.close();
 				} catch (IOException e) {
@@ -477,20 +472,8 @@ public class EnhancedGameWindow implements Serializable {
 	}
 
 	private void printGameGUI() {
-		// String game_space = "";
-		// char[][] whatspoppingB = estado_jogo.board;
-		//
-		// for (int i = 0; i < whatspoppingB.length; i++) {
-		// for (int j = 0; j < whatspoppingB[i].length; j++) {
-		// game_space += ((char) whatspoppingB[j][i] + " ");
-		// }
-		// game_space += "\n";
-		// }
-
 		jpGamePanel.setEstadoJogo(estado_jogo);
 		jpGamePanel.repaint();
-
-		// tpnGameField.setText(game_space);
 	}
 
 	private void updateGameLogic() {
@@ -503,7 +486,6 @@ public class EnhancedGameWindow implements Serializable {
 				estado_jogo = new State(niveis.getLevel(level));
 				estado_jogo.startEntities(guarda, numberOgres);
 				return;
-				// updateGameButtons();
 
 			} else {
 				printGameGUI();

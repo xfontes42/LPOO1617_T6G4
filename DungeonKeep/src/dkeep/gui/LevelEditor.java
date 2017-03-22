@@ -74,7 +74,6 @@ public class LevelEditor extends JFrame {
 		this.ncols = ncols;
 		this.nrows = nrows;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		// int boardX=10, boardY=10;
 		
 		
 		preparesBoardAndBounds();
@@ -114,11 +113,6 @@ public class LevelEditor extends JFrame {
 					JOptionPane.showMessageDialog(pnlBoard, "BAD LEVEL");
 					
 				}
-				// for(int i = 0; i < 5; i++){
-				// for(int j = 0; j < 5; j++)
-				// System.out.print(to_save[j][i]);
-				// System.out.println();
-				// }
 				dispose();
 			}
 		});

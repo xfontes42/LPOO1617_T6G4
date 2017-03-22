@@ -56,7 +56,6 @@ public class Gmap extends JPanel{
 
 	public void setEstadoJogo(State jogo) {
 		this.estado_atual = jogo;
-		// estado_atual.printBoard();
 		
 	}
 
