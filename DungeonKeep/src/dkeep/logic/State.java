@@ -122,6 +122,7 @@ public class State implements Serializable {
 		}
 		lever = false;
 	}
+	
 	 /**
 	  * @brief Creates a door in the level.
 	  * @param i the door row
@@ -181,28 +182,15 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Opens the level's doors.
+	 * @brief Opens the level's dungeons.
 	 */
-	public void openDoors(){
-		for (int i = 0; i < board[0].length; i++) {
-			if (board[0][i] == 'I')
-				board[0][i] = 'S';
-		}
-	}
-	
-	public boolean updateBoard(Boolean lost) {
-
-		checkForKey();
-
-		if (lever == true) {
+	public void openDoors() {
+		if (lever) {
 			if (hero.hasKey) {
-				openDoors();
-
-				for (int i = 0; i < doors.size(); i++) {
-					if (hero.getX() == doors.get(i).getX() && hero.getY() == doors.get(i).getY())
-						return true;
+				for (int i = 0; i < board[0].length; i++) {
+					if (board[0][i] == 'I')
+						board[0][i] = 'S';
 				}
-
 			}
 		} else {
 			if (hero.hasKey && hero.getX() == 1) {
@@ -211,146 +199,164 @@ public class State implements Serializable {
 						board[0][i] = 'S';
 				}
 			}
-
-			for (int i = 0; i < doors.size(); i++) {
-				if (hero.getX() == doors.get(i).getX() && hero.getY() == doors.get(i).getY())
-					return true;
-			}
+		}
+	}
+	
+	/**
+	 * @brief Checks if the hero exited the room.
+	 * @return
+	 */
+	public boolean checkForExit(){
+		for (int i = 0; i < doors.size(); i++) {
+			if (hero.getX() == doors.get(i).getX() && hero.getY() == doors.get(i).getY())
+				return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * @brief Moves the board's entities.
+	 */
+	public void moveEntities(){
+		for (int index_entities = 0; index_entities < entities.size(); index_entities++) {
+			Entity element = entities.get(index_entities);
+			
+			if ((element instanceof Guard))
+				moveGuard(element);
+			
+			else if (element instanceof Ogre)
+				moveOgre(element);
 
 		}
+	}
+	
+	/**
+	 * @brief Moves an element that's an instance of Guard.
+	 * @param element the guard
+	 */
+	public void moveGuard(Entity element){
+		Guard guarda = (Guard) element;
+		int comando = guarda.movement();
+		int newX = calculateNewX(comando, guarda.getX());
+		int newY = calculateNewY(comando, guarda.getY());
 
-		// check if player lost before moving the entities
-//		for (int indexEntities = 0; indexEntities < entities.size(); indexEntities++) {
-//			if (entities.get(indexEntities) instanceof Ogre)
-//				stunOgre((Ogre) entities.get(indexEntities));
-//		}
+		if (guarda.type == GuardType.drunken && ((BehaviorDrunken) guarda.getBehavior()).sleeping)
+			guarda.setSprite('g');
+		else
+			guarda.setSprite('G');
+
+		this.updateEntity(guarda.getSprite(), guarda.getX(), guarda.getY(), newX, newY);
+
+		guarda.moveEntity(comando);
+	}
+	
+	/**
+	 * @brief Removes from the board an ogre's clubs (since their movement is not always linear)
+	 * @param shrek the ogre
+	 */
+	public void cleanUpClubs(Ogre shrek){
+		board[shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
+		for (int i = 0; i < allClubs.size(); i++)
+			if (shrek.mclub == allClubs.get(i)) { 
+				allClubs.removeElementAt(i);
+				break;
+			}
+	}
+	
+	/**
+	 * @brief Swings an ogre's club.
+	 * @param shrek the ogre
+	 */
+	public void moveClub(Ogre shrek){
+		int comClub = shrek.generateMovement();
+		while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
+			comClub = shrek.generateMovement();
+		}
+		int clubX = calculateNewX(comClub, shrek.getX());
+		int clubY = calculateNewY(comClub, shrek.getY());
+		shrek.mclub.startAtPosition(clubX, clubY);
+		allClubs.addElement(shrek.mclub);
+		board[clubX][clubY] = '*';
+	}
+	
+	/**
+	 * @brief Performs the stunned ogre routine (does not move, swings club)
+	 * @param shrek the stunned ogre
+	 */
+	public void stunnedOgreRoutine(Ogre shrek){
+		shrek.sprite = '8';
+		shrek.stunnedForNTurns--;
+		this.updateEntity(shrek.sprite, shrek.getX(), shrek.getY(), shrek.getX(), shrek.getY());
+		moveClub(shrek);
+	}
+	
+	/**
+	 * @brief Moves a non-stunned ogre
+	 * @param shrek the ogre
+	 */
+	public void movingOgreRoutine(Ogre shrek){
+		int comando = shrek.generateMovement();
+		while (!checkMove(comando, shrek.getX(), shrek.getY())) {
+			comando = shrek.generateMovement();
+		}
+		int newX = calculateNewX(comando, shrek.getX());
+		int newY = calculateNewY(comando, shrek.getY());
+		this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
+		shrek.moveEntity(comando);
+	}
+	
+	/**
+	 * @brief Moves an element that's an instance of Ogre.
+	 * @param element the guard
+	 */
+	public void moveOgre(Entity element){
+		Ogre shrek = (Ogre) element;
+		
+		if (shrek.stunnedForNTurns != 0) {	//checks if ogre is stunned
+			stunnedOgreRoutine(shrek);
+			cleanUpClubs(shrek);
+			moveClub(shrek);
+		} else {
+			shrek.sprite = 'O';
+			if (!shrek.hasClub) {
+				movingOgreRoutine(shrek);
+				shrek.mclub = new MassiveClub(); // gives the ogre a club
+				moveClub(shrek);
+			} else {
+				cleanUpClubs(shrek);
+				movingOgreRoutine(shrek);
+				moveClub(shrek);
+			}
+			shrek.hasClub = true;
+		}
+	}
+
+	/**
+	 * @brief Updates the board.
+	 * @param lost given to know if the player has lost the game
+	 * @return true if the player has won, false if the game is still ongoing
+	 */
+	public boolean updateBoard(Boolean lost) {
+		checkForKey();
+		openDoors();
+		
+		if (checkForExit())
+			return true;
 
 		if (checkIfLose()) {
 			lost = true;
 			return false;
 		}
-
-		// moving entities
-
-		for (int index_entities = 0; index_entities < entities.size(); index_entities++) {
-			Entity element = entities.get(index_entities);
-			if ((element instanceof Guard)) { // mexe guarda
-												// caminho
-												// predefinido
-
-				Guard guarda = (Guard) element;
-				int comando = guarda.movement();
-				int newX = calculateNewX(comando, guarda.getX());
-				int newY = calculateNewY(comando, guarda.getY());
-
-				if (guarda.type == GuardType.drunken && ((BehaviorDrunken) guarda.getBehavior()).sleeping)
-					guarda.setSprite('g');
-				else
-					guarda.setSprite('G');
-
-				this.updateEntity(guarda.getSprite(), guarda.getX(), guarda.getY(), newX, newY);
-
-				guarda.moveEntity(comando);
-
-			} else if (element instanceof Ogre) { // mexe ogre random
-				// movimento ogre
-
-				Ogre shrek = (Ogre) element;
-				
-				//se o ogre esta atordodado
-				if (shrek.stunnedForNTurns != 0) {
-					//ogre nao sai do sitio
-					shrek.sprite = '8';
-					shrek.stunnedForNTurns--;
-					this.updateEntity(shrek.sprite, shrek.getX(), shrek.getY(), shrek.getX(), shrek.getY());
-					
-					//ogre continua a abanar o bastao
-					board[shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
-					for (int i = 0; i < allClubs.size(); i++)
-						if (shrek.mclub == allClubs.get(i)) { 
-							allClubs.removeElementAt(i);
-							break;
-						}
-					
-					
-					int comClub = shrek.generateMovement();
-					while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
-						comClub = shrek.generateMovement();
-					}
-					int clubX = calculateNewX(comClub, shrek.getX());
-					int clubY = calculateNewY(comClub, shrek.getY());
-					shrek.mclub.startAtPosition(clubX, clubY);
-					allClubs.addElement(shrek.mclub);
-					board[clubX][clubY] = '*';
-				} else {
-					shrek.sprite = 'O';
-
-					if (!shrek.hasClub) {
-						// mexe ogre
-						int comando = shrek.generateMovement();
-						while (!checkMove(comando, shrek.getX(), shrek.getY())) {
-							comando = shrek.generateMovement();
-						}
-						int newX = calculateNewX(comando, shrek.getX());
-						int newY = calculateNewY(comando, shrek.getY());
-						this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
-						shrek.moveEntity(comando);
-						//
-
-						shrek.mclub = new MassiveClub();
-						int comClub = shrek.generateMovement();
-						while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
-							comClub = shrek.generateMovement();
-						}
-						int clubX = calculateNewX(comClub, shrek.getX());
-						int clubY = calculateNewY(comClub, shrek.getY());
-						shrek.mclub.startAtPosition(clubX, clubY);
-						allClubs.addElement(shrek.mclub);
-						board[clubX][clubY] = '*';
-					} else {
-
-						// apaga current club
-						board[shrek.mclub.getX()][shrek.mclub.getY()] = ' ';
-						for (int i = 0; i < allClubs.size(); i++)
-							if (shrek.mclub == allClubs.get(i)) { // v� se
-																	// s�o a
-																	// mesma
-																	// referencia
-								allClubs.removeElementAt(i);
-								break;
-							}
-
-						// mexe ogre
-						int comando = shrek.generateMovement();
-						while (!checkMove(comando, shrek.getX(), shrek.getY())) {
-							comando = shrek.generateMovement();
-						}
-						int newX = calculateNewX(comando, shrek.getX());
-						int newY = calculateNewY(comando, shrek.getY());
-						this.updateEntity('O', shrek.getX(), shrek.getY(), newX, newY);
-						shrek.moveEntity(comando);
-						//
-
-						int comClub = shrek.generateMovement();
-						while (!checkMove(comClub, shrek.getX(), shrek.getY())) {
-							comClub = shrek.generateMovement();
-						}
-						int clubX = calculateNewX(comClub, shrek.getX());
-						int clubY = calculateNewY(comClub, shrek.getY());
-						shrek.mclub.startAtPosition(clubX, clubY);
-						allClubs.addElement(shrek.mclub);
-						board[clubX][clubY] = '*';
-					}
-					shrek.hasClub = true;
-				}
-			} // mais tipos de adversarios basta acomodar este if e a funcao de
-
-		}
-
+		
+		moveEntities();
 		return false;
-
 	}
 
+	//TODO isto nao devia estar no cli?
+	/**
+	 * @brief Prints the game board.
+	 */
 	public void printBoard() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -360,6 +366,13 @@ public class State implements Serializable {
 		}
 	}
 
+	/**
+	 * @brief Checks if the move is possible
+	 * @param movement the direction
+	 * @param x the entity's column
+	 * @param y the entity's row
+	 * @return true if possible, false otheriwse
+	 */
 	public boolean checkMove(int movement, int x, int y) {
 		boolean result = true;
 
@@ -390,29 +403,57 @@ public class State implements Serializable {
 		return result;
 	}
 
+
+	/**
+	 * @brief Checks if the player is adjacent to an ogre.
+	 * @param shrek the ogre being tested
+	 * @see checkIfLose
+	 */
+	public void adjacentToOgre(Ogre shrek){
+		boolean stunned = (shrek.stunnedForNTurns != 0);
+		
+		if (!stunned)
+			if (adjacent(hero.getX(), hero.getY(), shrek.getX(), shrek.getY()))
+				stunOgre(shrek);
+		
+//		if (hero.getX() == shrek.getX() && !stunned) {			//if x is the same
+//			if (Math.abs(hero.getY() - shrek.getY()) == 1) {
+//				stunOgre(shrek); // result = true;
+//			}
+//		} else if (hero.getY() == shrek.getY() && !stunned) {	//if y is the same
+//			if (Math.abs(hero.getX() - shrek.getX()) == 1) {
+//				stunOgre(shrek); // result = true;
+//			}
+//		}
+	}
+	
+	/**
+	 * @brief Checks if the player is adjacent to a guard
+	 * @param guard the guard being tested
+	 * @param result a variable to be set to true if the player is supposed to lose
+	 * @see checkIfLose
+	 */
+	public void adjacentToGuard(Guard guard, boolean result){
+		if (adjacent(hero.getX(), hero.getY(), guard.getX(), guard.getY())){
+			if (!(guard.behavior instanceof BehaviorDrunken))
+				result = true;
+		}
+		
+	}
+	
+	/**
+	 * @brief Checks if the player lost (i.e. is next to an attacking entity)
+	 * @return true if they lost, false if otherwise
+	 */
 	public boolean checkIfLose() {
 		boolean result = false;
 		for (int i = 0; i < entities.size(); i++) {
-			if (!(entities.get(i) instanceof Ogre)) {
-				if (hero.getX() == entities.get(i).getX()) {
-					if (Math.abs(hero.getY() - entities.get(i).getY()) == 1)
-						result = true;
-				} else if (hero.getY() == entities.get(i).getY()) {
-					if (Math.abs(hero.getX() - entities.get(i).getX()) == 1)
-						result = true;
-				}
-			} else {
-				boolean stunned = (((Ogre) entities.get(i)).stunnedForNTurns != 0);
-				if (hero.getX() == entities.get(i).getX() && !stunned) {
-					if (Math.abs(hero.getY() - entities.get(i).getY()) == 1) {
-						stunOgre((Ogre) entities.get(i)); // result = true;
-					}
-				} else if (hero.getY() == entities.get(i).getY() && !stunned) {
-					if (Math.abs(hero.getX() - entities.get(i).getX()) == 1) {
-						stunOgre((Ogre) entities.get(i)); // result = true;
-					}
-				}
-			}
+			if (entities.get(i) instanceof Ogre)
+				adjacentToOgre((Ogre) entities.get(i));
+			else if (entities.get(i) instanceof Guard)
+				adjacentToGuard((Guard) entities.get(i), result);
+			else if (adjacent(hero.getX(), hero.getY(), entities.get(i).getX(), entities.get(i).getY()))
+				result = true;			
 		}
 
 		if (adjacentToClub())
@@ -421,6 +462,11 @@ public class State implements Serializable {
 		return result;
 	}
 
+	/**
+	 * @brief Stuns an ogre.
+	 * @param ogre the ogre being stunned
+	 * @return true if the ogre was stunned, false if otherwise
+	 */
 	public boolean stunOgre(Ogre ogre) {
 		if (adjacent(hero.getX(), hero.getY(), ogre.getX(), ogre.getY()) && hero.hasClub) {
 			ogre.stunnedForNTurns = 2;
@@ -430,6 +476,10 @@ public class State implements Serializable {
 			return false;
 	}
 
+	/**
+	 * @brief Checks if the player is adjacent to any ogre's clubs.
+	 * @return true if the player is adjacent to a club, false if otherwise.
+	 */
 	public boolean adjacentToClub() {
 		boolean result = false;
 
@@ -441,6 +491,12 @@ public class State implements Serializable {
 		return result;
 	}
 
+	/**
+	 * @brief Checks if the player is about to exit a door.
+	 * @param newX the hero's new column
+	 * @param newY the hero's new line
+	 * @return
+	 */
 	public boolean checkIfWin(int newX, int newY) {
 		if (board[newX][newY] == 'S')
 			return true;
