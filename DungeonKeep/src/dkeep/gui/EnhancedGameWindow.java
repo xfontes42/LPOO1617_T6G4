@@ -410,7 +410,7 @@ public class EnhancedGameWindow implements Serializable {
 				} catch (Exception w){
 					w.printStackTrace();
 				}
-				
+				lblMessages.setText("Saved Game.");
 				frmDungeonKeep.requestFocusInWindow();
 			}
 		});
@@ -441,6 +441,7 @@ public class EnhancedGameWindow implements Serializable {
 			      
 			      printGameGUI();
 			      updateGameButtons();
+			      lblMessages.setText("Load Game.");
 			      frmDungeonKeep.requestFocusInWindow();
 			}
 		});
