@@ -25,20 +25,42 @@ public class State implements Serializable {
 	public Hero hero = new Hero();
 	public Key key = new Key();
 
+	/**
+	 * @brief Creates a game.
+	 */
 	public State(){
 		
 	}
+	
+	/**
+	 * @brief Creates a game.
+	 * @see startEntities
+	 * @param nivel the game level to be started.
+	 */
 	public State(char[][] nivel) {
 		board = nivel.clone();
 		startEntities();
 	}
 
+	/**
+	 * @brief Updates on the board an entity's location
+	 * @param entity the entity's character representation
+	 * @param oldX the old x coordinate
+	 * @param oldY the old y coordinate
+	 * @param newX the new x coordinate
+	 * @param newY the new y coordinate
+	 */
 	public void updateEntity(char entity, int oldX, int oldY, int newX, int newY) {
 		board[oldX][oldY] = ' ';
 		board[newX][newY] = entity;
 		// board[oldX][oldY] = ' ';
 	}
 
+	/**
+	 * @brief Places on the board an ogre's massive club.
+	 * @param newX the club's new x coordinate
+	 * @param newY the club's new y coordinate.
+	 */
 	public void printClub(int newX, int newY) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++)
@@ -48,8 +70,14 @@ public class State implements Serializable {
 		board[newX][newY] = '*';
 	}
 
-	// TODO - use this function on the other functions that need to check this
-	// situation
+	/**
+	 * @brief Checks if two matrix cells are adjacent
+	 * @param x1 the first cell's x coordinate
+	 * @param y1 the first cell's y coordinate
+	 * @param x2 the second cell's x coordinate
+	 * @param y2 the second cell's y coordinate
+	 * @return true if the cells are adjacent, false if otherwise
+	 */
 	public boolean adjacent(int x1, int y1, int x2, int y2) {
 		boolean result = false;
 		if (x1 == x2) {
@@ -63,77 +91,112 @@ public class State implements Serializable {
 		return result;
 
 	}
+	
+	/**
+	 * @brief Creates the level's guards.
+	 * @param guards the guard personality (0 for rookie, 1 for drunken, 2 for suspicious)
+	 * @param i the guard's starting column
+	 * @param j the guard's starting row
+	 */
+	public void startGuards(int guards, int i, int j){
+		Guard guard = new Guard(guards);
+		guard.startAtPosition(i, j);
+		entities.add(guard);
+		lever = true;
+	}
+	
+	/**
+	 * @brief Creates the level's ogres.
+	 * @param ogres the number of ogres
+	 * @param i the ogres' starting column
+	 * @param j the ogres' starting row
+	 */
+	public void startOgres(int ogres, int i, int j){
+		hero.setSprite('A');
+		hero.hasClub = true;
+		int numberOfOgres = ogres;
+		for (int in = 1; in <= numberOfOgres; in++) {
+			Ogre ogre = new Ogre();
+			ogre.startAtPosition(i, j);
+			entities.add(ogre);
+		}
+		lever = false;
+	}
+	 /**
+	  * @brief Creates a door in the level.
+	  * @param i the door row
+	  * @param j the door column
+	  */
+	public void startDoor(int i, int j){
+		Door door = new Door();
+		door.startAtPosition(i, j);
+		doors.add(door);
+	}
 
 	/**
 	 * @brief Starts the game entities existent in the game.
-	 * @param guards
-	 *            number of guards
-	 * @param ogres
-	 *            number of ogres
+	 * @param guards type of guard
+	 * @param ogres number of ogres
 	 */
 	public void startEntities(int guards, int ogres) {
 		entities.clear();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
-				if (board[i][j] == 'H') {
-					hero.startAtPosition(i, j);
-				}
-
-				else if (board[i][j] == 'G') {
-					Guard guard = new Guard(guards);
-					guard.startAtPosition(i, j);
-					entities.add(guard);
-					lever = true;
-				}
-
-				else if (board[i][j] == 'O') {
-					hero.setSprite('A');
-					hero.hasClub = true;
-					int numberOfOgres = ogres;
-					for (int in = 1; in <= numberOfOgres; in++) {
-						Ogre ogre = new Ogre();
-						ogre.startAtPosition(i, j);
-						entities.add(ogre);
-					}
-
-					lever = false;
-
-				}
-
-				else if (board[i][j] == 'k') {
-					key.startAtPosition(i, j);
-
-				}
-
-				else if (board[i][j] == 'I') {
-					Door door = new Door();
-					door.startAtPosition(i, j);
-					doors.add(door);
+				switch (board[i][j]) {
+				case 'H':
+					hero.startAtPosition(i, j);	break;
+				case 'G':
+					startGuards(guards, i, j); break;
+				case 'O':
+					startOgres(ogres, i, j); break;
+				case 'k':
+					key.startAtPosition(i, j); break;
+				case 'I':
+					startDoor(i, j); break;
 				}
 			}
 		}
 	}
 
+	/**
+	 * @brief Starts the game's entities with random values.
+	 * @see startEntities(int, int)
+	 */
 	public void startEntities() {
 		Random rand = new Random();
 		startEntities(rand.nextInt(3), rand.nextInt(MAX_OGRES) + 1);
 	}
 
-	public boolean updateBoard(Boolean lost) {
-
+	/**
+	 * @brief Checks if the hero stepped on the key cell.
+	 */
+	public void checkForKey(){
 		if (key.getX() == hero.getX() && key.getY() == hero.getY()) {
 			board[key.getX()][key.getY()] = 'K';
 			key.openDoors(hero);
 		} else {
 			board[key.getX()][key.getY()] = 'k';
 		}
+		
+	}
+	
+	/**
+	 * @brief Opens the level's doors.
+	 */
+	public void openDoors(){
+		for (int i = 0; i < board[0].length; i++) {
+			if (board[0][i] == 'I')
+				board[0][i] = 'S';
+		}
+	}
+	
+	public boolean updateBoard(Boolean lost) {
+
+		checkForKey();
 
 		if (lever == true) {
 			if (hero.hasKey) {
-				for (int i = 0; i < board[0].length; i++) {
-					if (board[0][i] == 'I')
-						board[0][i] = 'S';
-				}
+				openDoors();
 
 				for (int i = 0; i < doors.size(); i++) {
 					if (hero.getX() == doors.get(i).getX() && hero.getY() == doors.get(i).getY())
@@ -157,10 +220,10 @@ public class State implements Serializable {
 		}
 
 		// check if player lost before moving the entities
-		for (int indexEntities = 0; indexEntities < entities.size(); indexEntities++) {
-			if (entities.get(indexEntities) instanceof Ogre)
-				stunOgre((Ogre) entities.get(indexEntities));
-		}
+//		for (int indexEntities = 0; indexEntities < entities.size(); indexEntities++) {
+//			if (entities.get(indexEntities) instanceof Ogre)
+//				stunOgre((Ogre) entities.get(indexEntities));
+//		}
 
 		if (checkIfLose()) {
 			lost = true;
