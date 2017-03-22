@@ -403,7 +403,6 @@ public class State implements Serializable {
 		return result;
 	}
 
-
 	/**
 	 * @brief Checks if the player is adjacent to an ogre.
 	 * @param shrek the ogre being tested
@@ -411,20 +410,9 @@ public class State implements Serializable {
 	 */
 	public void adjacentToOgre(Ogre shrek){
 		boolean stunned = (shrek.stunnedForNTurns != 0);
-		
 		if (!stunned)
 			if (adjacent(hero.getX(), hero.getY(), shrek.getX(), shrek.getY()))
 				stunOgre(shrek);
-		
-//		if (hero.getX() == shrek.getX() && !stunned) {			//if x is the same
-//			if (Math.abs(hero.getY() - shrek.getY()) == 1) {
-//				stunOgre(shrek); // result = true;
-//			}
-//		} else if (hero.getY() == shrek.getY() && !stunned) {	//if y is the same
-//			if (Math.abs(hero.getX() - shrek.getX()) == 1) {
-//				stunOgre(shrek); // result = true;
-//			}
-//		}
 	}
 	
 	/**
@@ -504,6 +492,12 @@ public class State implements Serializable {
 			return false;
 	}
 
+	/**
+	 * @brief Checks if the player is about to get a key.
+	 * @param newX the player's new column
+	 * @param newY the player's new line
+	 * @return true if the player got a key, false if otherwise.
+	 */
 	public boolean checkForKey(int newX, int newY) {
 		if (board[newX][newY] == 'k') {
 			key.openDoors(hero);
@@ -513,6 +507,12 @@ public class State implements Serializable {
 		}
 	}
 
+	/**
+	 * @brief Calculates the player's new column based on the direction they're heading.
+	 * @param movement the player's direction (1 is up, 2 is down, 3 is left and 4 is right)
+	 * @param x the player's current column
+	 * @return the new column
+	 */
 	public int calculateNewX(int movement, int x) {
 		int result;
 		switch (movement) {
@@ -536,6 +536,12 @@ public class State implements Serializable {
 		return result;
 	}
 
+	/**
+	 * @brief Calculates the player's new line based on the direction they're heading.
+	 * @param movement the player's direction (1 is up, 2 is down, 3 is left and 4 is right)
+	 * @param x the player's current line
+	 * @return the new line
+	 */
 	public int calculateNewY(int movement, int y) {
 		int result;
 		switch (movement) {

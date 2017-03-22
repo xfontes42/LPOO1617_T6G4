@@ -12,10 +12,22 @@ public class Loop {
 		
 		Scanner scan = new Scanner(System.in);
 		welcomeMessage();
-		
-		
 		GameLevels library = new GameLevels();
-		int level = 2;//1;
+		gameLoop(library, scan);		
+		scan.close();
+		
+	}
+	
+	public static void moveHero(State gameplay, int command){
+		int newX = gameplay.calculateNewX(command, gameplay.hero.getX());
+		int newY = gameplay.calculateNewY(command, gameplay.hero.getY());
+		gameplay.updateEntity(gameplay.hero.getSprite(), gameplay.hero.getX(), gameplay.hero.getY(), newX, newY);
+		gameplay.hero.moveEntity(command);
+	}
+	
+	
+	public static void gameLoop(GameLevels library, Scanner scan){
+		int level = 1;
 		State gameplay = new State(library.getLevel(level));
 		Boolean lost_game = false;
 		while(level <= library.getNumberOfLevels()){
@@ -30,13 +42,10 @@ public class Loop {
 					System.out.println("Invalid command. Please try again.");
 				} else {
 					validMove = true;
-					int newX = gameplay.calculateNewX(command, gameplay.hero.getX());
-					int newY = gameplay.calculateNewY(command, gameplay.hero.getY());
-					gameplay.updateEntity(gameplay.hero.getSprite(), gameplay.hero.getX(), gameplay.hero.getY(), newX, newY);
-					gameplay.hero.moveEntity(command);
+					moveHero(gameplay, command);
+					
 				}
 			}
-			
 			
 			if(gameplay.updateBoard(lost_game) == true){ //won the game
 				if (++level <= library.getNumberOfLevels()) {
@@ -63,10 +72,6 @@ public class Loop {
 				break;
 			}
 		}
-			
-		
-		scan.close();
-		
 	}
 	
 	/**
@@ -139,7 +144,4 @@ public class Loop {
 		
 		return resultInt;
 	}
-	
-	
-
 }
