@@ -49,15 +49,11 @@ public class LevelEditor extends JFrame {
 	private boolean bool4 = false;
 	private boolean bool5 = false;
 	private boolean bool6 = false;
+	
+	private int ncols, nrows;
+	private int buttonX;
 
-	public LevelEditor(JFrame parent, int nrows, int ncols) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		// int boardX=10, boardY=10;
-		to_save = new char[ncols][nrows];
-		for (int i = 0; i < ncols; i++)
-			for (int j = 0; j < nrows; j++)
-				to_save[i][j] = 'X';
-
+	public void loadImages(){
 		try {
 			imageOgre = ImageIO.read(new File("src/resources/OgreWithClub.png"));
 			imageGuard = ImageIO.read(new File("src/resources/Guard.png"));
@@ -72,28 +68,22 @@ public class LevelEditor extends JFrame {
 			e.printStackTrace();
 
 		}
+	}
+	
+	public LevelEditor(JFrame parent, int nrows, int ncols) {
+		this.ncols = ncols;
+		this.nrows = nrows;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		// int boardX=10, boardY=10;
+		
+		
+		preparesBoardAndBounds();
 
-		buttonW = 75;
-		buttonH = 23;
-		height = 60 + 64 * 10;
-		width = 30 + 64 * 10 + buttonW;
-		setResizable(false);
-		super.setBounds(0, 0, width, height);
-		this.parent = parent;
-		getContentPane().setLayout(null);
-
-		JButton btnExitEditor = new JButton("Exit");
-		btnExitEditor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-			}
-		});
-
+		
 		// buttons and their coordinates
 		int buttonX = width - 10 - buttonW;
+		this.buttonX = buttonX;
 
-		btnExitEditor.setBounds(buttonX, 10 + 8 * (10 + buttonH), buttonW, buttonH);
-		getContentPane().add(btnExitEditor);
 
 		btnSaveLevel = new JButton("Save");
 		btnSaveLevel.addActionListener(new ActionListener() {
@@ -135,6 +125,13 @@ public class LevelEditor extends JFrame {
 		btnSaveLevel.setBounds(buttonX, 10 + 7 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnSaveLevel);
 
+		setButtonsOnRight();
+
+		pnlBoardFunc();
+
+	}
+
+	private void setButtonsOnRight() {
 		btnHero = new JButton("Hero");
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -188,7 +185,39 @@ public class LevelEditor extends JFrame {
 		});
 		btnGround.setBounds(buttonX, 10 + 5 * (10 + buttonH), buttonW, buttonH);
 		getContentPane().add(btnGround);
+		
+		
+		JButton btnExitEditor = new JButton("Exit");
+		btnExitEditor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnExitEditor.setBounds(buttonX, 10 + 8 * (10 + buttonH), buttonW, buttonH);
+		getContentPane().add(btnExitEditor);
+		
+	}
 
+	private void preparesBoardAndBounds() {
+		to_save = new char[ncols][nrows];
+		for (int i = 0; i < ncols; i++)
+			for (int j = 0; j < nrows; j++)
+				to_save[i][j] = 'X';
+
+		
+
+		buttonW = 75;
+		buttonH = 23;
+		height = 60 + 64 * 10;
+		width = 30 + 64 * 10 + buttonW;
+		setResizable(false);
+		super.setBounds(0, 0, width, height);
+		this.parent = parent;
+		getContentPane().setLayout(null);
+		
+	}
+
+	private void pnlBoardFunc() {
 		pnlBoard = new JPanel();
 		pnlBoard.addMouseListener(new MouseAdapter() {
 			@Override
@@ -205,7 +234,7 @@ public class LevelEditor extends JFrame {
 		pnlBoard.setBounds(10, 10, 640, 640);
 		pnlBoard.setBorder(BorderFactory.createLineBorder(Color.black));
 		getContentPane().add(pnlBoard);
-
+		
 	}
 
 	@Override
