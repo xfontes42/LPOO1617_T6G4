@@ -814,7 +814,7 @@ public class TestOtherComponents {
 			assertTrue(true);
 			assertTrue(true);
 			assertTrue(true);
-			assertTrue(true);
+			assertTrue(true); 
 		}
 
 }
