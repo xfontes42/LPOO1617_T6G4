@@ -37,10 +37,8 @@ public class EnhancedGameWindow implements Serializable {
 	private JTextField tflNumberOfOgres;
 	private JButton btnUp, btnDown, btnRight, btnLeft, btnStay;
 	private JLabel lblMessages;
-
 	private Gmap jpGamePanel = new Gmap();
 	private transient LevelEditor jframeLevelEditor;
-
 	// game logic
 	private State estado_jogo = new State();
 	private GameLevels niveis = new GameLevels();
@@ -59,7 +57,6 @@ public class EnhancedGameWindow implements Serializable {
 				try {
 					EnhancedGameWindow window = new EnhancedGameWindow();
 					window.frmDungeonKeep.setVisible(true);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -71,7 +68,6 @@ public class EnhancedGameWindow implements Serializable {
 	 * Create the application.
 	 */
 	public EnhancedGameWindow() {
-		// this_window = this;
 		initialize();
 	}
 
@@ -97,7 +93,6 @@ public class EnhancedGameWindow implements Serializable {
 		} catch (Exception whoJackedMyIcon) {
 			System.out.println("Could not load program icon.");
 		}
-
 		initialize_firstContact();
 		initialize_buttonsMove();
 		initialize_LevelEditor_and_textPanel();
@@ -105,16 +100,21 @@ public class EnhancedGameWindow implements Serializable {
 	}
 
 	private void initialize_LevelEditor_and_textPanel() {
+		startPanels();
+		startButtonLevelEditor();
+	}
+
+	private void startPanels() {
 		lblMessages = new JLabel("Welcome to our game!");
 		lblMessages.setBounds(20, 420, 300, 20);
 		frmDungeonKeep.getContentPane().add(lblMessages);
-
 		jpGamePanel = new Gmap();
 		jpGamePanel.setBounds(10, 90, 320, 320);
 		frmDungeonKeep.getContentPane().add(jpGamePanel);
-
 		jpGamePanel.setEnabled(false);
+	}
 
+	private void startButtonLevelEditor() {
 		JButton btnLevelEditor = new JButton("Level Editor");
 		btnLevelEditor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -137,15 +137,10 @@ public class EnhancedGameWindow implements Serializable {
 
 	private void initialize_buttonsMove() {
 		initialize_buttonUp();
-
 		initialize_buttonDown();
-
 		initialize_buttonLeft();
-
 		initialize_buttonRight();
-
 		initialize_buttonStay();
-
 	}
 
 	private void initialize_buttonStay() {
@@ -160,7 +155,6 @@ public class EnhancedGameWindow implements Serializable {
 		btnStay.setBounds(375, 260, 66, 25);
 		frmDungeonKeep.getContentPane().add(btnStay);
 		btnStay.setEnabled(false);
-
 	}
 
 	protected void fire_up_buttonStay() {
@@ -173,8 +167,6 @@ public class EnhancedGameWindow implements Serializable {
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		// updateGameLogic();
-
 	}
 
 	private void initialize_buttonRight() {
@@ -189,7 +181,6 @@ public class EnhancedGameWindow implements Serializable {
 		btnRight.setBounds(414, 188, 70, 25);
 		frmDungeonKeep.getContentPane().add(btnRight);
 		btnRight.setEnabled(false);
-
 	}
 
 	protected void fire_up_buttonRight() {
@@ -202,8 +193,6 @@ public class EnhancedGameWindow implements Serializable {
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		// updateGameLogic();
-
 	}
 
 	private void initialize_buttonLeft() {
@@ -211,15 +200,12 @@ public class EnhancedGameWindow implements Serializable {
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fire_up_buttonLeft();
-
 				frmDungeonKeep.requestFocusInWindow();
-
 			}
 		});
 		btnLeft.setBounds(334, 188, 70, 25);
 		frmDungeonKeep.getContentPane().add(btnLeft);
 		btnLeft.setEnabled(false);
-
 	}
 
 	private void initialize_buttonDown() {
@@ -227,14 +213,12 @@ public class EnhancedGameWindow implements Serializable {
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fire_up_buttonDown();
-
 				frmDungeonKeep.requestFocusInWindow();
 			}
 		});
 		btnDown.setBounds(375, 224, 66, 25);
 		frmDungeonKeep.getContentPane().add(btnDown);
 		btnDown.setEnabled(false);
-
 	}
 
 	protected void fire_up_buttonDown() {
@@ -247,8 +231,6 @@ public class EnhancedGameWindow implements Serializable {
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		// updateGameLogic();
-
 	}
 
 	private void initialize_buttonUp() {
@@ -262,14 +244,11 @@ public class EnhancedGameWindow implements Serializable {
 		btnUp.setBounds(375, 150, 66, 24);
 		frmDungeonKeep.getContentPane().add(btnUp);
 		btnUp.setEnabled(false);
-
 	}
 
 	private void initialize_SaveAndLoad() {
 		initializeSave();
-
 		initializeLoad();
-
 	}
 
 	private void initializeLoad() {
@@ -277,24 +256,17 @@ public class EnhancedGameWindow implements Serializable {
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					FileInputStream fileIn = new FileInputStream("src/resources/saveGame.ser");
-					ObjectInputStream in = new ObjectInputStream(fileIn);
-					estado_jogo = (State) in.readObject();
-					lost_game = (Boolean) in.readObject();
-					level = (int) in.readObject();
-					guarda = (int) in.readObject();
-					numberOgres = (int) in.readObject();
-					in.close();
-					fileIn.close();
+					loadSerialization();
 				} catch (IOException i) {
 					i.printStackTrace();
 					return;
 				} catch (ClassNotFoundException c) {
-					System.out.println("Class Not Found.");
 					c.printStackTrace();
 					return;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
 				}
-
 				printGameGUI();
 				updateGameButtons();
 				lblMessages.setText("Load Game.");
@@ -306,22 +278,24 @@ public class EnhancedGameWindow implements Serializable {
 
 	}
 
+	protected void loadSerialization() throws Exception {
+		FileInputStream fileIn = new FileInputStream("src/resources/saveGame.ser");
+		ObjectInputStream in = new ObjectInputStream(fileIn);
+		estado_jogo = (State) in.readObject();
+		lost_game = (Boolean) in.readObject();
+		level = (int) in.readObject();
+		guarda = (int) in.readObject();
+		numberOgres = (int) in.readObject();
+		in.close();
+		fileIn.close();
+	}
+
 	private void initializeSave() {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FileOutputStream fileOut;
 				try {
-					fileOut = new FileOutputStream("src/resources/saveGame.ser");
-					ObjectOutputStream out = new ObjectOutputStream(fileOut);
-					out.writeObject(estado_jogo);
-					out.writeObject(lost_game);
-					out.writeObject(level);
-					out.writeObject(guarda);
-					out.writeObject(numberOgres);
-
-					out.close();
-					fileOut.close();
+					saveSerialization();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (Exception w) {
@@ -336,54 +310,29 @@ public class EnhancedGameWindow implements Serializable {
 
 	}
 
+	protected void saveSerialization() throws Exception {
+		FileOutputStream fileOut;
+		fileOut = new FileOutputStream("src/resources/saveGame.ser");
+		ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		out.writeObject(estado_jogo);
+		out.writeObject(lost_game);
+		out.writeObject(level);
+		out.writeObject(guarda);
+		out.writeObject(numberOgres);
+		out.close();
+		fileOut.close();
+	}
+
 	private void initialize_firstContact() {
 		initialize_GuardAndOgreContact();
-
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				turn_on_vis_buttons();
-
-				String guardaEscolhido = (String) cbbGuardPersonality.getSelectedItem();
-
-				if (isValid(tflNumberOfOgres.getText())) {
-					if (Integer.parseInt(tflNumberOfOgres.getText()) < 6
-							&& Integer.parseInt(tflNumberOfOgres.getText()) > 0) {
-						numberOgres = Integer.parseInt(tflNumberOfOgres.getText());
-					}
-				}
-				// predetermined rookie
-				if (guardaEscolhido == "Drunken")
-					guarda = 1;
-				else if (guardaEscolhido == "Suspicious")
-					guarda = 2;
-
+				preparesGuardAndNumberOgres();
 				start_new_game();
-
 				lblMessages.setText("You are now entering a mysterious place...");
-
 				frmDungeonKeep.requestFocusInWindow();
-			}
-
-			private void start_new_game() {
-				level = 1;
-				niveis = new GameLevels();
-				estado_jogo = new State(niveis.getLevel(level));
-				estado_jogo.startEntities(guarda, numberOgres);
-
-				jpGamePanel.estado_atual = estado_jogo;
-				jpGamePanel.setEnabled(true);
-				updateGameButtons();
-				printGameGUI();
-				
-			}
-
-			private void turn_on_vis_buttons() {
-				btnUp.setVisible(true);
-				btnDown.setVisible(true);
-				btnLeft.setVisible(true);
-				btnRight.setVisible(true);
-				btnStay.setVisible(true);
 			}
 
 		});
@@ -401,30 +350,67 @@ public class EnhancedGameWindow implements Serializable {
 
 	}
 
+	protected void start_new_game() {
+		level = 1;
+		niveis = new GameLevels();
+		estado_jogo = new State(niveis.getLevel(level));
+		estado_jogo.startEntities(guarda, numberOgres);
+
+		jpGamePanel.estado_atual = estado_jogo;
+		jpGamePanel.setEnabled(true);
+		updateGameButtons();
+		printGameGUI();
+	}
+
+	protected void preparesGuardAndNumberOgres() {
+		String guardaEscolhido = (String) cbbGuardPersonality.getSelectedItem();
+		if (isValid(tflNumberOfOgres.getText())) {
+			if (Integer.parseInt(tflNumberOfOgres.getText()) < 6 && Integer.parseInt(tflNumberOfOgres.getText()) > 0) {
+				numberOgres = Integer.parseInt(tflNumberOfOgres.getText());
+			}
+		}
+		// predetermined rookie
+		if (guardaEscolhido == "Drunken")
+			guarda = 1;
+		else if (guardaEscolhido == "Suspicious")
+			guarda = 2;
+	}
+
+	protected void turn_on_vis_buttons() {
+		btnUp.setVisible(true);
+		btnDown.setVisible(true);
+		btnLeft.setVisible(true);
+		btnRight.setVisible(true);
+		btnStay.setVisible(true);
+	}
+
 	private void initialize_GuardAndOgreContact() {
-		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
-		lblNumberOfOgres.setBounds(20, 20, 110, 24);
-		frmDungeonKeep.getContentPane().add(lblNumberOfOgres);
+		initialize_OgreContact();
+		initialize_GuardContact();
+	}
 
-		tflNumberOfOgres = new JTextField();
-		tflNumberOfOgres.setBounds(140, 22, 30, 20);
-		frmDungeonKeep.getContentPane().add(tflNumberOfOgres);
-		tflNumberOfOgres.setColumns(10);
-
+	private void initialize_GuardContact() {
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
 		lblGuardPersonality.setBounds(20, 50, 110, 24);
 		frmDungeonKeep.getContentPane().add(lblGuardPersonality);
-
 		JComboBox cbbGuardPersonality = new JComboBox();
 		cbbGuardPersonality.setModel(new DefaultComboBoxModel(new String[] { "Rookie", "Drunken", "Suspicious" }));
 		cbbGuardPersonality.setBounds(140, 50, 110, 22);
 		frmDungeonKeep.getContentPane().add(cbbGuardPersonality);
+	}
 
+	private void initialize_OgreContact() {
+		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
+		lblNumberOfOgres.setBounds(20, 20, 110, 24);
+		frmDungeonKeep.getContentPane().add(lblNumberOfOgres);
+		tflNumberOfOgres = new JTextField();
+		tflNumberOfOgres.setBounds(140, 22, 30, 20);
+		frmDungeonKeep.getContentPane().add(tflNumberOfOgres);
+		tflNumberOfOgres.setColumns(10);
 	}
 
 	private void initialize_frmDungeonKeep() {
-		frmDungeonKeep = new JFrame();
-		frmDungeonKeep.setFocusable(true);
+		setUp_frmDungeonKeep();
 		frmDungeonKeep.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -432,55 +418,56 @@ public class EnhancedGameWindow implements Serializable {
 				switch_keys(e);
 			}
 
-			private void switch_keys(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_LEFT:
-					if (btnLeft.isEnabled()) {
-						fire_up_buttonLeft();
-					}
-					break;
-				case KeyEvent.VK_RIGHT:
-					if (btnRight.isEnabled()) {
-						fire_up_buttonRight();
-					}
-					break;
-				case KeyEvent.VK_UP:
-					if (btnUp.isEnabled()) {
-						fire_up_buttonUp();
-					}
-					break;
-				case KeyEvent.VK_DOWN:
-					if (btnDown.isEnabled()) {
-						fire_up_buttonDown();
-					}
-					break;
-
-				case KeyEvent.VK_SPACE:
-					if (btnStay.isEnabled()) {
-						fire_up_buttonStay();
-					}
-
-					break;
-				}
-			}
-
-			private void turn_off_vis_buttons() {
-				btnUp.setVisible(false);
-				btnDown.setVisible(false);
-				btnLeft.setVisible(false);
-				btnRight.setVisible(false);
-				btnStay.setVisible(false);
-
-			}
-
 		});
 
+	}
+
+	private void setUp_frmDungeonKeep() {
+		frmDungeonKeep = new JFrame();
+		frmDungeonKeep.setFocusable(true);
 		frmDungeonKeep.getContentPane().setBackground(Color.GREEN);
 		frmDungeonKeep.setTitle("Dungeon Keep");
 		frmDungeonKeep.setBounds(100, 100, 510, 490);
 		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDungeonKeep.getContentPane().setLayout(null);
+	}
 
+	protected void switch_keys(KeyEvent e) {
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_LEFT:
+			if (btnLeft.isEnabled()) {
+				fire_up_buttonLeft();
+			}
+			break;
+		case KeyEvent.VK_RIGHT:
+			if (btnRight.isEnabled()) {
+				fire_up_buttonRight();
+			}
+			break;
+		case KeyEvent.VK_UP:
+			if (btnUp.isEnabled()) {
+				fire_up_buttonUp();
+			}
+			break;
+		case KeyEvent.VK_DOWN:
+			if (btnDown.isEnabled()) {
+				fire_up_buttonDown();
+			}
+			break;
+		case KeyEvent.VK_SPACE:
+			if (btnStay.isEnabled()) {
+				fire_up_buttonStay();
+			}
+			break;
+		}
+	}
+
+	protected void turn_off_vis_buttons() {
+		btnUp.setVisible(false);
+		btnDown.setVisible(false);
+		btnLeft.setVisible(false);
+		btnRight.setVisible(false);
+		btnStay.setVisible(false);
 	}
 
 	private void fire_up_buttonUp() {
@@ -493,8 +480,6 @@ public class EnhancedGameWindow implements Serializable {
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		// updateGameLogic();
-
 	}
 
 	private void fire_up_buttonLeft() {
@@ -507,34 +492,33 @@ public class EnhancedGameWindow implements Serializable {
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		// updateGameLogic();
 	}
 
 	private void updateGameButtons() {
 		btnStay.setEnabled(true);
 		int x = estado_jogo.hero.getX();
 		int y = estado_jogo.hero.getY();
+		setUpButtonsAccordingHero(x, y);
 
+	}
+
+	private void setUpButtonsAccordingHero(int x, int y) {
 		if (estado_jogo.checkMove(1, x, y))
 			btnUp.setEnabled(true);
 		else
 			btnUp.setEnabled(false);
-
 		if (estado_jogo.checkMove(2, x, y))
 			btnDown.setEnabled(true);
 		else
 			btnDown.setEnabled(false);
-
 		if (estado_jogo.checkMove(3, x, y))
 			btnLeft.setEnabled(true);
 		else
 			btnLeft.setEnabled(false);
-
 		if (estado_jogo.checkMove(4, x, y))
 			btnRight.setEnabled(true);
 		else
 			btnRight.setEnabled(false);
-
 	}
 
 	private void printGameGUI() {
@@ -578,16 +562,12 @@ public class EnhancedGameWindow implements Serializable {
 	private void updateGameLogic() {
 		printGameGUI();
 		Boolean lole = estado_jogo.updateBoard(lost_game);
-
 		if (lole) { // won the game
 			updateGameLogicEndLevel();
 			return;
 		} else
 			updateGameLogicContinue();
-
-		// checking for lose
-		if (estado_jogo.checkIfLose())
+		if (estado_jogo.checkIfLose()) // checking for lose
 			updateGameLogicLost();
-
 	}
 }
