@@ -37,10 +37,10 @@ public class EnhancedGameWindow implements Serializable {
 	private JTextField tflNumberOfOgres;
 	private JButton btnUp, btnDown, btnRight, btnLeft, btnStay;
 	private JLabel lblMessages;
-	
+
 	private Gmap jpGamePanel = new Gmap();
 	private transient LevelEditor jframeLevelEditor;
-	
+
 	// game logic
 	private State estado_jogo = new State();
 	private GameLevels niveis = new GameLevels();
@@ -48,7 +48,7 @@ public class EnhancedGameWindow implements Serializable {
 	private int level = 0;
 	private int guarda = 0;
 	private int numberOgres = 1;
-	protected JComboBox cbbGuardPersonality = new JComboBox(); 
+	protected JComboBox cbbGuardPersonality = new JComboBox();
 
 	/**
 	 * Launch the application.
@@ -59,7 +59,7 @@ public class EnhancedGameWindow implements Serializable {
 				try {
 					EnhancedGameWindow window = new EnhancedGameWindow();
 					window.frmDungeonKeep.setVisible(true);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -71,7 +71,7 @@ public class EnhancedGameWindow implements Serializable {
 	 * Create the application.
 	 */
 	public EnhancedGameWindow() {
-		//this_window = this;
+		// this_window = this;
 		initialize();
 	}
 
@@ -101,7 +101,7 @@ public class EnhancedGameWindow implements Serializable {
 		initialize_firstContact();
 		initialize_buttonsMove();
 		initialize_LevelEditor_and_textPanel();
-		initialize_SaveAndLoad(); 
+		initialize_SaveAndLoad();
 	}
 
 	private void initialize_LevelEditor_and_textPanel() {
@@ -114,22 +114,25 @@ public class EnhancedGameWindow implements Serializable {
 		frmDungeonKeep.getContentPane().add(jpGamePanel);
 
 		jpGamePanel.setEnabled(false);
-		
+
 		JButton btnLevelEditor = new JButton("Level Editor");
 		btnLevelEditor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmDungeonKeep.setVisible(false);
-				int ncols =10, nrows = 10;
-				String[] nums = {"5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
-				nrows =  Integer.parseInt((String)JOptionPane.showInputDialog(frmDungeonKeep, "How many rows?", "Rows", JOptionPane.QUESTION_MESSAGE, null, nums, null));
-				ncols =  Integer.parseInt((String)JOptionPane.showInputDialog(frmDungeonKeep, "How many columns?", "Columns", JOptionPane.QUESTION_MESSAGE, null, nums, null));
+				int ncols = 10, nrows = 10;
+				String[] nums = { "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+						"20" };
+				nrows = Integer.parseInt((String) JOptionPane.showInputDialog(frmDungeonKeep, "How many rows?", "Rows",
+						JOptionPane.QUESTION_MESSAGE, null, nums, null));
+				ncols = Integer.parseInt((String) JOptionPane.showInputDialog(frmDungeonKeep, "How many columns?",
+						"Columns", JOptionPane.QUESTION_MESSAGE, null, nums, null));
 				jframeLevelEditor = new LevelEditor(frmDungeonKeep, nrows, ncols);
 				jframeLevelEditor.setVisible(true);
 			}
 		});
 		btnLevelEditor.setBounds(213, 21, 89, 23);
 		frmDungeonKeep.getContentPane().add(btnLevelEditor);
-		
+
 	}
 
 	private void initialize_buttonsMove() {
@@ -142,7 +145,7 @@ public class EnhancedGameWindow implements Serializable {
 		initialize_buttonRight();
 
 		initialize_buttonStay();
-		
+
 	}
 
 	private void initialize_buttonStay() {
@@ -150,28 +153,28 @@ public class EnhancedGameWindow implements Serializable {
 		btnStay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fire_up_buttonStay();
-				
+
 				frmDungeonKeep.requestFocusInWindow();
 			}
 		});
 		btnStay.setBounds(375, 260, 66, 25);
 		frmDungeonKeep.getContentPane().add(btnStay);
 		btnStay.setEnabled(false);
-		
+
 	}
 
 	protected void fire_up_buttonStay() {
 		int newX = estado_jogo.calculateNewX(5, estado_jogo.hero.getX());
 		int newY = estado_jogo.calculateNewY(5, estado_jogo.hero.getY());
-		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(),
-				newX, newY);
+		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(), newX,
+				newY);
 		estado_jogo.hero.moveEntity(5);
 		lblMessages.setText("Hero stayed in his place.");
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		//updateGameLogic();
-		
+		// updateGameLogic();
+
 	}
 
 	private void initialize_buttonRight() {
@@ -179,28 +182,28 @@ public class EnhancedGameWindow implements Serializable {
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fire_up_buttonRight();
-				
+
 				frmDungeonKeep.requestFocusInWindow();
 			}
 		});
 		btnRight.setBounds(414, 188, 70, 25);
 		frmDungeonKeep.getContentPane().add(btnRight);
 		btnRight.setEnabled(false);
-		
+
 	}
 
 	protected void fire_up_buttonRight() {
 		int newX = estado_jogo.calculateNewX(4, estado_jogo.hero.getX());
 		int newY = estado_jogo.calculateNewY(4, estado_jogo.hero.getY());
-		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(),
-				newX, newY);
+		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(), newX,
+				newY);
 		estado_jogo.hero.moveEntity(4);
 		lblMessages.setText("Hero moved right.");
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		//updateGameLogic();
-		
+		// updateGameLogic();
+
 	}
 
 	private void initialize_buttonLeft() {
@@ -208,7 +211,7 @@ public class EnhancedGameWindow implements Serializable {
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fire_up_buttonLeft();
-				
+
 				frmDungeonKeep.requestFocusInWindow();
 
 			}
@@ -216,7 +219,7 @@ public class EnhancedGameWindow implements Serializable {
 		btnLeft.setBounds(334, 188, 70, 25);
 		frmDungeonKeep.getContentPane().add(btnLeft);
 		btnLeft.setEnabled(false);
-		
+
 	}
 
 	private void initialize_buttonDown() {
@@ -224,28 +227,28 @@ public class EnhancedGameWindow implements Serializable {
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fire_up_buttonDown();
-				
+
 				frmDungeonKeep.requestFocusInWindow();
 			}
 		});
 		btnDown.setBounds(375, 224, 66, 25);
 		frmDungeonKeep.getContentPane().add(btnDown);
 		btnDown.setEnabled(false);
-		
+
 	}
 
 	protected void fire_up_buttonDown() {
 		int newX = estado_jogo.calculateNewX(2, estado_jogo.hero.getX());
 		int newY = estado_jogo.calculateNewY(2, estado_jogo.hero.getY());
-		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(),
-				newX, newY);
+		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(), newX,
+				newY);
 		estado_jogo.hero.moveEntity(2);
 		lblMessages.setText("Hero moved down.");
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		//updateGameLogic();
-		
+		// updateGameLogic();
+
 	}
 
 	private void initialize_buttonUp() {
@@ -259,48 +262,48 @@ public class EnhancedGameWindow implements Serializable {
 		btnUp.setBounds(375, 150, 66, 24);
 		frmDungeonKeep.getContentPane().add(btnUp);
 		btnUp.setEnabled(false);
-		
+
 	}
 
 	private void initialize_SaveAndLoad() {
 		initializeSave();
-		
+
 		initializeLoad();
-		
+
 	}
 
 	private void initializeLoad() {
 		JButton btnLoad = new JButton("Load");
 		btnLoad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {		
-			      try {
-			         FileInputStream fileIn = new FileInputStream("src/resources/saveGame.ser");
-			         ObjectInputStream in = new ObjectInputStream(fileIn);
-			         estado_jogo = (State) in.readObject();
-			         lost_game = (Boolean) in.readObject();
-			         level = (int) in.readObject();
-			         guarda = (int) in.readObject();
-			         numberOgres = (int) in.readObject();
-			         in.close();
-			         fileIn.close();
-			      }catch(IOException i) {
-			         i.printStackTrace();
-			         return;
-			      }catch(ClassNotFoundException c) {
-			         System.out.println("Class Not Found.");
-			         c.printStackTrace();
-			         return;
-			      }
-			      
-			      printGameGUI();
-			      updateGameButtons();
-			      lblMessages.setText("Load Game.");
-			      frmDungeonKeep.requestFocusInWindow();
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					FileInputStream fileIn = new FileInputStream("src/resources/saveGame.ser");
+					ObjectInputStream in = new ObjectInputStream(fileIn);
+					estado_jogo = (State) in.readObject();
+					lost_game = (Boolean) in.readObject();
+					level = (int) in.readObject();
+					guarda = (int) in.readObject();
+					numberOgres = (int) in.readObject();
+					in.close();
+					fileIn.close();
+				} catch (IOException i) {
+					i.printStackTrace();
+					return;
+				} catch (ClassNotFoundException c) {
+					System.out.println("Class Not Found.");
+					c.printStackTrace();
+					return;
+				}
+
+				printGameGUI();
+				updateGameButtons();
+				lblMessages.setText("Load Game.");
+				frmDungeonKeep.requestFocusInWindow();
 			}
 		});
 		btnLoad.setBounds(376, 90, 89, 23);
 		frmDungeonKeep.getContentPane().add(btnLoad);
-		
+
 	}
 
 	private void initializeSave() {
@@ -321,7 +324,7 @@ public class EnhancedGameWindow implements Serializable {
 					fileOut.close();
 				} catch (IOException e) {
 					e.printStackTrace();
-				} catch (Exception w){
+				} catch (Exception w) {
 					w.printStackTrace();
 				}
 				lblMessages.setText("Saved Game.");
@@ -330,7 +333,7 @@ public class EnhancedGameWindow implements Serializable {
 		});
 		btnSave.setBounds(376, 64, 89, 23);
 		frmDungeonKeep.getContentPane().add(btnSave);
-		
+
 	}
 
 	private void initialize_firstContact() {
@@ -339,12 +342,8 @@ public class EnhancedGameWindow implements Serializable {
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnUp.setVisible(true);
-            	btnDown.setVisible(true);
-            	btnLeft.setVisible(true);
-            	btnRight.setVisible(true);
-            	btnStay.setVisible(true);
-				
+				turn_on_vis_buttons();
+
 				String guardaEscolhido = (String) cbbGuardPersonality.getSelectedItem();
 
 				if (isValid(tflNumberOfOgres.getText())) {
@@ -359,6 +358,14 @@ public class EnhancedGameWindow implements Serializable {
 				else if (guardaEscolhido == "Suspicious")
 					guarda = 2;
 
+				start_new_game();
+
+				lblMessages.setText("You are now entering a mysterious place...");
+
+				frmDungeonKeep.requestFocusInWindow();
+			}
+
+			private void start_new_game() {
 				level = 1;
 				niveis = new GameLevels();
 				estado_jogo = new State(niveis.getLevel(level));
@@ -368,10 +375,15 @@ public class EnhancedGameWindow implements Serializable {
 				jpGamePanel.setEnabled(true);
 				updateGameButtons();
 				printGameGUI();
-
-				lblMessages.setText("You are now entering a mysterious place...");
 				
-				frmDungeonKeep.requestFocusInWindow();
+			}
+
+			private void turn_on_vis_buttons() {
+				btnUp.setVisible(true);
+				btnDown.setVisible(true);
+				btnLeft.setVisible(true);
+				btnRight.setVisible(true);
+				btnStay.setVisible(true);
 			}
 
 		});
@@ -386,7 +398,7 @@ public class EnhancedGameWindow implements Serializable {
 		});
 		btnExit.setBounds(348, 415, 117, 25);
 		frmDungeonKeep.getContentPane().add(btnExit);
-		
+
 	}
 
 	private void initialize_GuardAndOgreContact() {
@@ -407,89 +419,95 @@ public class EnhancedGameWindow implements Serializable {
 		cbbGuardPersonality.setModel(new DefaultComboBoxModel(new String[] { "Rookie", "Drunken", "Suspicious" }));
 		cbbGuardPersonality.setBounds(140, 50, 110, 22);
 		frmDungeonKeep.getContentPane().add(cbbGuardPersonality);
-		
+
 	}
 
 	private void initialize_frmDungeonKeep() {
 		frmDungeonKeep = new JFrame();
-		
 		frmDungeonKeep.setFocusable(true);
 		frmDungeonKeep.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-            	btnUp.setVisible(false);
-            	btnDown.setVisible(false);
-            	btnLeft.setVisible(false);
-            	btnRight.setVisible(false);
-            	btnStay.setVisible(false);
-            	
-            	switch (e.getKeyCode()) {
-        		case KeyEvent.VK_LEFT:
-        			if(btnLeft.isEnabled()){
-        				fire_up_buttonLeft();
-        			}
-        			break;
-        		case KeyEvent.VK_RIGHT:
-        			if(btnRight.isEnabled()){
-        				fire_up_buttonRight();
-        			}
-        			break;
-        		case KeyEvent.VK_UP:
-        			if(btnUp.isEnabled()){
-        				fire_up_buttonUp();
-        			}
-        			break;
-        		case KeyEvent.VK_DOWN:
-        			if(btnDown.isEnabled()){
-        				fire_up_buttonDown();
-        			}
-        			break;
-        			
-        		case KeyEvent.VK_SPACE:
-        			if(btnStay.isEnabled()){
-        				fire_up_buttonStay();
-        			}
-        			
-        			break;
-        		}
-            }
+			@Override
+			public void keyPressed(KeyEvent e) {
+				turn_off_vis_buttons();
+				switch_keys(e);
+			}
 
-			
-        });
-		
+			private void switch_keys(KeyEvent e) {
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					if (btnLeft.isEnabled()) {
+						fire_up_buttonLeft();
+					}
+					break;
+				case KeyEvent.VK_RIGHT:
+					if (btnRight.isEnabled()) {
+						fire_up_buttonRight();
+					}
+					break;
+				case KeyEvent.VK_UP:
+					if (btnUp.isEnabled()) {
+						fire_up_buttonUp();
+					}
+					break;
+				case KeyEvent.VK_DOWN:
+					if (btnDown.isEnabled()) {
+						fire_up_buttonDown();
+					}
+					break;
+
+				case KeyEvent.VK_SPACE:
+					if (btnStay.isEnabled()) {
+						fire_up_buttonStay();
+					}
+
+					break;
+				}
+			}
+
+			private void turn_off_vis_buttons() {
+				btnUp.setVisible(false);
+				btnDown.setVisible(false);
+				btnLeft.setVisible(false);
+				btnRight.setVisible(false);
+				btnStay.setVisible(false);
+
+			}
+
+		});
+
 		frmDungeonKeep.getContentPane().setBackground(Color.GREEN);
 		frmDungeonKeep.setTitle("Dungeon Keep");
 		frmDungeonKeep.setBounds(100, 100, 510, 490);
 		frmDungeonKeep.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDungeonKeep.getContentPane().setLayout(null);
-		
+
 	}
-	
+
 	private void fire_up_buttonUp() {
 		int newX = estado_jogo.calculateNewX(1, estado_jogo.hero.getX());
 		int newY = estado_jogo.calculateNewY(1, estado_jogo.hero.getY());
-		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(),
-				newX, newY);
+		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(), newX,
+				newY);
 		estado_jogo.hero.moveEntity(1);
 		lblMessages.setText("Hero moved up.");
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		//updateGameLogic();
-		
+		// updateGameLogic();
+
 	}
-	
-	private void fire_up_buttonLeft(){
+
+	private void fire_up_buttonLeft() {
 		int newX = estado_jogo.calculateNewX(3, estado_jogo.hero.getX());
 		int newY = estado_jogo.calculateNewY(3, estado_jogo.hero.getY());
-		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(),
-				newX, newY);
+		estado_jogo.updateEntity(estado_jogo.hero.getSprite(), estado_jogo.hero.getX(), estado_jogo.hero.getY(), newX,
+				newY);
 		estado_jogo.hero.moveEntity(3);
 		lblMessages.setText("Hero moved left.");
 		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		//updateGameLogic();
+		// updateGameLogic();
 	}
 
 	private void updateGameButtons() {
@@ -525,12 +543,11 @@ public class EnhancedGameWindow implements Serializable {
 	}
 
 	private void updateGameLogicEndLevel() {
-		if (++level <= niveis.getNumberOfLevels()){
+		if (++level <= niveis.getNumberOfLevels()) {
 			lblMessages.setText("You won! Next Level.");
 			estado_jogo = new State(niveis.getLevel(level));
 			estado_jogo.startEntities(guarda, numberOgres);
-		}
-		else{
+		} else {
 			printGameGUI();
 			lblMessages.setText("You won the Game!");
 			btnStay.setEnabled(false);
@@ -540,15 +557,15 @@ public class EnhancedGameWindow implements Serializable {
 			btnRight.setEnabled(false);
 		}
 	}
-	
-	private void updateGameLogicContinue(){
+
+	private void updateGameLogicContinue() {
 		if (lost_game.booleanValue() == true) {
 			updateGameLogicLost();
 		} else
 			updateGameButtons();
 	}
-	
-	private void updateGameLogicLost(){
+
+	private void updateGameLogicLost() {
 		printGameGUI();
 		lblMessages.setText("You were caught! Game over.");
 		btnStay.setEnabled(false);
@@ -557,8 +574,7 @@ public class EnhancedGameWindow implements Serializable {
 		btnLeft.setEnabled(false);
 		btnRight.setEnabled(false);
 	}
-	
-	
+
 	private void updateGameLogic() {
 		printGameGUI();
 		Boolean lole = estado_jogo.updateBoard(lost_game);
