@@ -47,7 +47,7 @@ public class EnhancedGameWindow implements Serializable {
 	private Boolean lost_game = false;
 	private int level = 0;
 	private int guarda = 0;
-	private int numberOgres = 1;
+	private int numberOgres = 1; 
 
 	/**
 	 * Launch the application.

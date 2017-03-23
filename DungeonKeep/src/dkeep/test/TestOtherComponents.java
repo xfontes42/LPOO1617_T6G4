@@ -176,8 +176,8 @@ public class TestOtherComponents {
 		}
 		
 		@Test
-		public void RandomTest(){
-			
+		public void TestEnhancedGameWindow(){
+			dkeep.gui.EnhancedGameWindow wind = new dkeep.gui.EnhancedGameWindow();
 		}
 
 }
