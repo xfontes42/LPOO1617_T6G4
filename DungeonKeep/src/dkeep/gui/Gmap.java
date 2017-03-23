@@ -30,6 +30,8 @@ public class Gmap extends JPanel{
 	private BufferedImage imageKey;
 	private BufferedImage imageMassiveClub;
 	public State estado_atual = new State();
+	private int ncols;
+	private int nrows;
 
 	public Gmap() {
 		super();
@@ -56,7 +58,6 @@ public class Gmap extends JPanel{
 
 	public void setEstadoJogo(State jogo) {
 		this.estado_atual = jogo;
-		// estado_atual.printBoard();
 		
 	}
 
@@ -65,55 +66,63 @@ public class Gmap extends JPanel{
 		char[][] tab = estado_atual.board;
 		int ncols = estado_atual.board[0].length;
 		int nrows =	estado_atual.board.length;
+		this.ncols = ncols;
+		this.nrows = nrows;
 		for (int i = 0; i < ncols; i++)
 			for (int j = 0; j < nrows; j++) {
-				switch (tab[j][i]) {
-				case ' ':
-					g.drawImage(imageGround, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'X':
-					g.drawImage(imageWall, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'H':
-					g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'A':
-					g.drawImage(imageHeroArmed, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'O':
-					g.drawImage(imageOgre, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case '8':
-					g.drawImage(imageOgreStunned, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'G':
-					g.drawImage(imageGuard, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'g':
-					g.drawImage(imageGuardSleeping, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'I':
-					g.drawImage(imageDoorUn, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'S':
-					g.drawImage(imageDoorOp, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'k':
-					g.drawImage(imageKey, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				case 'K':
-					g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this); 
-					break;
-				case '*':
-					g.drawImage(imageMassiveClub, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				default:
-					g.drawImage(imageWall, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-					break;
-				}
+				paintRespective(g, tab[j][i], j,i);
+				
 
 			}
 
+	}
+
+	private void paintRespective(Graphics g, char c, int j, int i) {
+		switch (c) { 
+		case ' ':
+			g.drawImage(imageGround, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'X':
+			g.drawImage(imageWall, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'H':
+			g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'A':
+			g.drawImage(imageHeroArmed, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'O':
+			g.drawImage(imageOgre, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case '8':
+			g.drawImage(imageOgreStunned, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'G':
+			g.drawImage(imageGuard, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'g':
+			g.drawImage(imageGuardSleeping, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'I':
+			g.drawImage(imageDoorUn, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'S':
+			g.drawImage(imageDoorOp, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'k':
+			g.drawImage(imageKey, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		case 'K':
+			g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this); 
+			break;
+		case '*':
+			g.drawImage(imageMassiveClub, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		default:
+			g.drawImage(imageWall, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+			break;
+		}
+		
 	}
 
 

@@ -2,7 +2,7 @@ package dkeep.cli;
 
 import java.util.Scanner;
 
-
+import dkeep.gameLevels.GameLevels;
 import dkeep.logic.*;
 
 public class Loop {
@@ -100,7 +100,7 @@ public class Loop {
 		int resultInt;
 		
 		System.out.print("Insert command (up, down, left, right, stay): ");
-		resultString = scan.next();
+		resultString = scan.next(); 
 		
 		switch (resultString) {
 		//up --> 1

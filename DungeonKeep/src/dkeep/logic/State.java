@@ -53,7 +53,7 @@ public class State implements Serializable {
 	public void updateEntity(char entity, int oldX, int oldY, int newX, int newY) {
 		board[oldX][oldY] = ' ';
 		board[newX][newY] = entity;
-		// board[oldX][oldY] = ' ';
+
 	}
 
 	/**
@@ -423,8 +423,11 @@ public class State implements Serializable {
 	 */
 	public void adjacentToGuard(Guard guard, boolean result){
 		if (adjacent(hero.getX(), hero.getY(), guard.getX(), guard.getY())){
-			if (!(guard.behavior instanceof BehaviorDrunken))
-				result = true;
+			result = true;
+			if((guard.behavior instanceof BehaviorDrunken)){
+				if(((BehaviorDrunken)guard.behavior).sleeping)
+					result = false;
+			}
 		}
 		
 	}
