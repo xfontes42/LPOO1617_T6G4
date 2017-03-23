@@ -525,49 +525,60 @@ public class EnhancedGameWindow implements Serializable {
 		jpGamePanel.repaint();
 	}
 
+	private void updateGameLogicEndGame() {
+		lblMessages.setText("You won! Next Level.");
+		estado_jogo = new State(niveis.getLevel(level));
+		estado_jogo.startEntities(guarda, numberOgres);
+	}
+
+	private void updateGameLogicNextLevel() {
+		printGameGUI();
+		lblMessages.setText("You won the Game!");
+		btnStay.setEnabled(false);
+		btnUp.setEnabled(false);
+		btnDown.setEnabled(false);
+		btnLeft.setEnabled(false);
+		btnRight.setEnabled(false);
+	}
+
+	private void updateGameLogicEndLevel() {
+		if (++level <= niveis.getNumberOfLevels())
+			updateGameLogicEndGame();
+		else
+			updateGameLogicNextLevel();
+	}
+	
+	private void updateGameLogicContinue(){
+		if (lost_game.booleanValue() == true) {
+			updateGameLogicLost();
+		} else
+			updateGameButtons();
+	}
+	
+	private void updateGameLogicLost(){
+		printGameGUI();
+		lblMessages.setText("You were caughterino! Game over.");
+		btnStay.setEnabled(false);
+		btnUp.setEnabled(false);
+		btnDown.setEnabled(false);
+		btnLeft.setEnabled(false);
+		btnRight.setEnabled(false);
+	}
+	
+	
 	private void updateGameLogic() {
 		printGameGUI();
 		boolean lole = estado_jogo.updateBoard(lost_game);
 
 		if (lole == true) { // won the game
-			if (++level <= niveis.getNumberOfLevels()) {
-				lblMessages.setText("You won! Next Level.");
-				estado_jogo = new State(niveis.getLevel(level));
-				estado_jogo.startEntities(guarda, numberOgres);
-				return;
+			updateGameLogicEndLevel();
+			return;
+		} else
+			updateGameLogicContinue();
 
-			} else {
-				printGameGUI();
-				lblMessages.setText("You won the Game!");
-				btnStay.setEnabled(false);
-				btnUp.setEnabled(false);
-				btnDown.setEnabled(false);
-				btnLeft.setEnabled(false);
-				btnRight.setEnabled(false);
-				return;
-			}
-		} else {
-			if (lost_game.booleanValue() == true) {
-				printGameGUI();
-				lblMessages.setText("You were caught! Game over.");
-				btnStay.setEnabled(false);
-				btnUp.setEnabled(false);
-				btnDown.setEnabled(false);
-				btnLeft.setEnabled(false);
-				btnRight.setEnabled(false);
-			} else
-				updateGameButtons();
-		}
 		// checking for lose
-		if (estado_jogo.checkIfLose()) {
-			printGameGUI();
-			lblMessages.setText("You were caughterino! Game over.");
-			btnStay.setEnabled(false);
-			btnUp.setEnabled(false);
-			btnDown.setEnabled(false);
-			btnLeft.setEnabled(false);
-			btnRight.setEnabled(false);
-		}
+		if (estado_jogo.checkIfLose())
+			updateGameLogicLost();
 
 	}
 }
