@@ -25,6 +25,26 @@ public class Loop {
 		gameplay.hero.moveEntity(command);
 	}
 	
+	public static void processMove(Scanner scan, State gameplay){
+		boolean validMove = false;
+		while (!validMove) {
+			int command = getCommand(scan);
+			
+			if (!gameplay.checkMove(command, gameplay.hero.getX(), gameplay.hero.getY())) {
+				validMove = false;
+				System.out.println("Invalid command. Please try again.");
+			} else {
+				validMove = true;
+				moveHero(gameplay, command);
+				
+			}
+		}
+	}
+	
+	public static void printGameOver(State gameplay){
+		gameplay.printBoard();
+		System.out.println('\n' + "You were caught! Game over.");
+	}	
 	
 	public static void gameLoop(GameLevels library, Scanner scan){
 		int level = 1;
@@ -32,27 +52,12 @@ public class Loop {
 		Boolean lost_game = false;
 		while(level <= library.getNumberOfLevels()){
 			gameplay.printBoard();
-			
-			boolean validMove = false;
-			while (!validMove) {
-				int command = getCommand(scan);
-				
-				if (!gameplay.checkMove(command, gameplay.hero.getX(), gameplay.hero.getY())) {
-					validMove = false;
-					System.out.println("Invalid command. Please try again.");
-				} else {
-					validMove = true;
-					moveHero(gameplay, command);
-					
-				}
-			}
-			
-			if(gameplay.updateBoard(lost_game) == true){ //won the game
+			processMove(scan, gameplay);
+
+			if (gameplay.updateBoard(lost_game) == true) { // won the game
 				if (++level <= library.getNumberOfLevels()) {
 					System.out.println('\n' + "You won! Next Level.");
-					// instanciar nivel seguinte
 					gameplay = new State(library.getLevel(level));
-					
 				} else {
 					System.out.println('\n' + "You won the game! Congratulations!");
 					break;
@@ -60,15 +65,13 @@ public class Loop {
 				
 			} else {
 				if(lost_game.booleanValue() == true){
-					gameplay.printBoard();
-					System.out.println('\n' + "You were caught! Game over.");
+					printGameOver(gameplay);
 					break;
 				}
 			}
 			//checking for lose
 			if (gameplay.checkIfLose()){
-				gameplay.printBoard();
-				System.out.println('\n' + "You were caught! Game over.");
+				printGameOver(gameplay);
 				break;
 			}
 		}

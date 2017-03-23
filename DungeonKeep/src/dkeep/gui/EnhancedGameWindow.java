@@ -89,9 +89,7 @@ public class EnhancedGameWindow implements Serializable {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
 		initialize_frmDungeonKeep();
-
 		try {
 			ClassLoader cl = this.getClass().getClassLoader();
 			ImageIcon programIcon = new ImageIcon(cl.getResource("resources/Icon.png"));
@@ -101,12 +99,8 @@ public class EnhancedGameWindow implements Serializable {
 		}
 
 		initialize_firstContact();
-
-
 		initialize_buttonsMove();
-
 		initialize_LevelEditor_and_textPanel();
-		
 		initialize_SaveAndLoad(); 
 	}
 
