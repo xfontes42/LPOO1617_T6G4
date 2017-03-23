@@ -65,7 +65,7 @@ public class TestDungeonGameLogic {
 		game.updateEntity(game.hero.sprite, 1, 1, game.hero.getX(), game.hero.getX());
 		assertEquals(2, game.hero.getX());
 		assertEquals(1, game.hero.getY());
-		//assertTrue(game.checkIfLose());
+		assertTrue(game.checkIfLose());
 		
 		
 	}

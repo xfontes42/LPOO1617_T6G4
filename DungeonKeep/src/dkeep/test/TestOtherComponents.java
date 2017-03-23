@@ -13,7 +13,6 @@ public class TestOtherComponents {
 		@Test(expected = ArrayIndexOutOfBoundsException.class)
 		public void testGameLevels(){
 			GameLevels jogos = new GameLevels();
-			//assertEquals(2, jogos.getNumberOfLevels());
 			char[][] lvl1 =  { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
 					{ 'X', 'H', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
 					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'I', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
@@ -124,7 +123,54 @@ public class TestOtherComponents {
 
 		
 		@Test
-		public void testGameCommands(){
+		public void testBehaviorDrunken(){
+			BehaviorDrunken b = new BehaviorDrunken();
+			int i = 0;
+			boolean up = false,down = false,left=false,right=false, stay = false;
+			while(i < 5000){
+				switch(b.reverseDirection(b.movement())){
+				case 1 : up = true; break;
+				case 2 : down = true; break;
+				case 3 : left = true; break;
+				case 4 : right = true; break;
+				default : //stay
+					stay = true;
+				}
+				i++;
+			} 
+			assertTrue(up && down && left && right && stay);
+		}
+		
+		@Test
+		public void testMovingEntities(){
+			Entity entidade = new Entity(2,2,'J');
+			assertEquals(entidade.movement(),5);
+			Key chave = new Key();
+			chave.moveEntity();
+			Hero heroi = new Hero();
+			heroi.setX(1);
+			heroi.setY(1);
+			heroi.moveEntity(1);
+			assertEquals(heroi.getY(),0);
+			
+		}
+		
+		@Test
+		public void testBehaviorSuspicious(){
+			BehaviorSuspicious b = new BehaviorSuspicious();
+			int i = 0;
+			boolean up = false,down = false,left=false,right=false, stay = false;
+			while(i < 5000){
+				switch(b.reverseDirection(b.movement())){
+				case 1 : up = true; break;
+				case 2 : down = true; break;
+				case 3 : left = true; break;
+				case 4 : right = true; break;
+				default : break;
+				}
+				i++;
+			} 
+			assertTrue(up && down && left && right && stay);
 		}
 
 }
