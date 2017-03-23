@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import dkeep.logic.GameLevels;
+import dkeep.gameLevels.GameLevels;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

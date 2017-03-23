@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-import dkeep.logic.GameLevels;
+import dkeep.gameLevels.GameLevels;
 import dkeep.logic.State;
 
 import javax.swing.DefaultComboBoxModel;
