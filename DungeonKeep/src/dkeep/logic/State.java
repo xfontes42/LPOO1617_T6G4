@@ -418,18 +418,17 @@ public class State implements Serializable {
 	/**
 	 * @brief Checks if the player is adjacent to a guard
 	 * @param guard the guard being tested
-	 * @param result a variable to be set to true if the player is supposed to lose
 	 * @see checkIfLose
 	 */
-	public void adjacentToGuard(Guard guard, boolean result){
+	public boolean adjacentToGuard(Guard guard){
 		if (adjacent(hero.getX(), hero.getY(), guard.getX(), guard.getY())){
-			result = true;
 			if((guard.behavior instanceof BehaviorDrunken)){
 				if(((BehaviorDrunken)guard.behavior).sleeping)
-					result = false;
+					return false;
 			}
+			return true;
 		}
-		
+		return false;
 	}
 	
 	/**
@@ -439,12 +438,15 @@ public class State implements Serializable {
 	public boolean checkIfLose() {
 		boolean result = false;
 		for (int i = 0; i < entities.size(); i++) {
-			if (entities.get(i) instanceof Ogre)
+			if (entities.get(i) instanceof Ogre && hero.hasClub)
 				adjacentToOgre((Ogre) entities.get(i));
-			else if (entities.get(i) instanceof Guard)
-				adjacentToGuard((Guard) entities.get(i), result);
-			else if (adjacent(hero.getX(), hero.getY(), entities.get(i).getX(), entities.get(i).getY()))
-				result = true;			
+
+			else if (entities.get(i) instanceof Guard) {
+				if (adjacentToGuard((Guard) entities.get(i)))
+					result = true;
+			} else if (adjacent(hero.getX(), hero.getY(), entities.get(i).getX(), entities.get(i).getY()))
+				result = true;
+
 		}
 
 		if (adjacentToClub())
