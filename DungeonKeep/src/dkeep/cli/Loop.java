@@ -101,50 +101,28 @@ public class Loop {
 	public static int getCommand(Scanner scan){
 		String resultString;
 		int resultInt;
-		
 		System.out.print("Insert command (up, down, left, right, stay): ");
 		resultString = scan.next(); 
-		
 		switch (resultString) {
-		//up --> 1
-		case "u":
-		case "up":
+		case "u": //up --> 1
 			resultInt = 1;
 			break;
-
-		//down --> 2
-		case "d":
-		case "dn":
-		case "down":
+		case "d": //down --> 2
 			resultInt = 2;
 			break;
-			
-		//left --> 3
-		case "l":
-		case "left":
-		case "lt":
+		case "l": //left --> 3
 			resultInt = 3;
 			break;
-		
-		//right --> 4
-		case "r":
-		case "right":
-		case "rt":
+		case "r": //right --> 4
 			resultInt = 4;
-			break;
-		
-		//stay in place --> 5
-		case "s":
-		case "stay":
+			break;	
+		case "s": //stay in place --> 5
 			resultInt = 5;
 			break;
-			
-		//error (or undefined) --> 0
 		default:
 			resultInt = 0;
 			break;
 		}
-		
 		return resultInt;
 	}
 }
