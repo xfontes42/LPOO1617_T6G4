@@ -142,4 +142,20 @@ public class TestKeepGameLogic {
 		
 	}
 	
+	@Test
+	public void testStunOgre(){
+		State game = new State(testMap);
+		game.startEntities();
+		//game.entities.clear();
+		
+		assertEquals(1, game.hero.getX());
+		assertEquals(1, game.hero.getY());
+		
+		game.hero.moveEntity(4);
+		game.updateEntity(game.hero.sprite, 1, 1, game.hero.getX(), game.hero.getX());
+		
+		assertTrue(game.entities.get(0) instanceof Ogre);
+		assertTrue(((Ogre)game.entities.get(0)).stunnedForNTurns > 0);
+	}
+	
 }

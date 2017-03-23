@@ -161,7 +161,7 @@ public class TestOtherComponents {
 		public void testBehaviorSuspicious(){
 			BehaviorSuspicious b = new BehaviorSuspicious();
 			int i = 0;
-			boolean up = false,down = false,left=false,right=false, stay = false;
+			boolean up = false,down = false,left=false,right=false;
 			while(i < 5000){
 				switch(b.reverseDirection(b.movement())){
 				case 1 : up = true; break;
@@ -172,7 +172,7 @@ public class TestOtherComponents {
 				}
 				i++;
 			} 
-			assertTrue(up && down && left && right && stay);
+			assertTrue(up && down && left && right);
 		}
 		
 		@Test
@@ -180,4 +180,67 @@ public class TestOtherComponents {
 			dkeep.gui.EnhancedGameWindow wind = new dkeep.gui.EnhancedGameWindow();
 		}
 
+		@Test
+		public void testStunnedOgre(){
+			char [][] map = { { 'X', 'I', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'H', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'O', '*', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'k', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+			
+			State now = new State(map);
+			now.startEntities(1,1);  // 1 drunken 1 ogre
+			now.updateBoard(false);
+			now.printBoard();
+			
+			Ogre shrek = (Ogre) now.entities.get(0);
+			
+			assertFalse(now.stunOgre(shrek));
+			assertEquals(shrek.stunnedForNTurns, 0);
+			
+			shrek.stunnedForNTurns = 3;
+			int x = shrek.getX();
+			int y = shrek.getY();
+			
+			now.stunnedOgreRoutine(shrek);
+			assertEquals(shrek.stunnedForNTurns, 2);
+			assertEquals(shrek.getX(),x);
+			assertEquals(shrek.getY(),y);
+		}
+		
+		@Test
+		public void testMovingOgre(){
+			char [][] map = { { 'X', 'I', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'H', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'O', '*', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'k', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+					{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+			
+			State now = new State(map);
+			now.startEntities(1,1);  // 1 drunken 1 ogre
+			now.updateBoard(false);
+			now.printBoard();
+			
+			Ogre shrek = (Ogre) now.entities.get(0);
+			int x  = shrek.getX();
+			int y = shrek.getY();
+			
+			now.updateBoard(false);
+			now.updateBoard(false);
+			now.updateBoard(false);
+			
+			assertFalse(shrek.getX() == x);
+			assertFalse(shrek.getY() == y);
+		}
+		
 }
