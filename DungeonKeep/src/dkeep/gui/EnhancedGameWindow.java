@@ -37,10 +37,10 @@ public class EnhancedGameWindow implements Serializable {
 	private JTextField tflNumberOfOgres;
 	private JButton btnUp, btnDown, btnRight, btnLeft, btnStay;
 	private JLabel lblMessages;
-	// private JTextPane tpnGameField;
+	
 	private Gmap jpGamePanel = new Gmap();
 	private transient LevelEditor jframeLevelEditor;
-	//EnhancedGameWindow this_window;
+	
 	// game logic
 	private State estado_jogo = new State();
 	private GameLevels niveis = new GameLevels();
