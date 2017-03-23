@@ -173,9 +173,10 @@ public class EnhancedGameWindow implements Serializable {
 				newX, newY);
 		estado_jogo.hero.moveEntity(5);
 		lblMessages.setText("Hero stayed in his place.");
+		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		updateGameLogic();
+		//updateGameLogic();
 		
 	}
 
@@ -201,9 +202,10 @@ public class EnhancedGameWindow implements Serializable {
 				newX, newY);
 		estado_jogo.hero.moveEntity(4);
 		lblMessages.setText("Hero moved right.");
+		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		updateGameLogic();
+		//updateGameLogic();
 		
 	}
 
@@ -245,9 +247,10 @@ public class EnhancedGameWindow implements Serializable {
 				newX, newY);
 		estado_jogo.hero.moveEntity(2);
 		lblMessages.setText("Hero moved down.");
+		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		updateGameLogic();
+		//updateGameLogic();
 		
 	}
 
@@ -475,9 +478,10 @@ public class EnhancedGameWindow implements Serializable {
 				newX, newY);
 		estado_jogo.hero.moveEntity(1);
 		lblMessages.setText("Hero moved up.");
+		updateGameLogic();
 		updateGameButtons();
 		printGameGUI();
-		updateGameLogic();
+		//updateGameLogic();
 		
 	}
 	
@@ -488,9 +492,10 @@ public class EnhancedGameWindow implements Serializable {
 				newX, newY);
 		estado_jogo.hero.moveEntity(3);
 		lblMessages.setText("Hero moved left.");
-		updateGameButtons();
 		updateGameLogic();
+		updateGameButtons();
 		printGameGUI();
+		//updateGameLogic();
 	}
 
 	private void updateGameButtons() {
@@ -525,27 +530,21 @@ public class EnhancedGameWindow implements Serializable {
 		jpGamePanel.repaint();
 	}
 
-	private void updateGameLogicEndGame() {
-		lblMessages.setText("You won! Next Level.");
-		estado_jogo = new State(niveis.getLevel(level));
-		estado_jogo.startEntities(guarda, numberOgres);
-	}
-
-	private void updateGameLogicNextLevel() {
-		printGameGUI();
-		lblMessages.setText("You won the Game!");
-		btnStay.setEnabled(false);
-		btnUp.setEnabled(false);
-		btnDown.setEnabled(false);
-		btnLeft.setEnabled(false);
-		btnRight.setEnabled(false);
-	}
-
 	private void updateGameLogicEndLevel() {
-		if (++level <= niveis.getNumberOfLevels())
-			updateGameLogicEndGame();
-		else
-			updateGameLogicNextLevel();
+		if (++level <= niveis.getNumberOfLevels()){
+			lblMessages.setText("You won! Next Level.");
+			estado_jogo = new State(niveis.getLevel(level));
+			estado_jogo.startEntities(guarda, numberOgres);
+		}
+		else{
+			printGameGUI();
+			lblMessages.setText("You won the Game!");
+			btnStay.setEnabled(false);
+			btnUp.setEnabled(false);
+			btnDown.setEnabled(false);
+			btnLeft.setEnabled(false);
+			btnRight.setEnabled(false);
+		}
 	}
 	
 	private void updateGameLogicContinue(){
@@ -557,7 +556,7 @@ public class EnhancedGameWindow implements Serializable {
 	
 	private void updateGameLogicLost(){
 		printGameGUI();
-		lblMessages.setText("You were caughterino! Game over.");
+		lblMessages.setText("You were caught! Game over.");
 		btnStay.setEnabled(false);
 		btnUp.setEnabled(false);
 		btnDown.setEnabled(false);
@@ -568,9 +567,9 @@ public class EnhancedGameWindow implements Serializable {
 	
 	private void updateGameLogic() {
 		printGameGUI();
-		boolean lole = estado_jogo.updateBoard(lost_game);
+		Boolean lole = estado_jogo.updateBoard(lost_game);
 
-		if (lole == true) { // won the game
+		if (lole) { // won the game
 			updateGameLogicEndLevel();
 			return;
 		} else
