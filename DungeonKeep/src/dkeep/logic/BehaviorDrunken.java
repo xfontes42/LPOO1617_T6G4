@@ -1,5 +1,13 @@
 package dkeep.logic;
 
+/**
+ * The behavior that drunken guards have. 
+ * 
+ * They occasionally fall asleep, and may reverse their direction upon waking up. 
+ * The hero will not be caught if the guard is asleep.
+ * 
+ * Drunken guards have a probability of 1 in 6 of falling asleep, 1 in 5 of then waking up and of 1 in 3 of reversing direction when waking up.
+ */
 public class BehaviorDrunken extends BehaviorGuard {
 
 	protected int reverseProb = 3;
@@ -11,6 +19,11 @@ public class BehaviorDrunken extends BehaviorGuard {
 		
 	}
 
+	/**
+	 * @brief Returns the guard's next move. They may also end up falling asleep or reversing direction.
+	 * 
+	 * @return the guard's next move
+	 */
 	public int movement() {
 		int result;
 

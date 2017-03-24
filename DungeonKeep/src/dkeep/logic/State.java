@@ -10,6 +10,11 @@ import dkeep.logic.Guard.GuardType;
 import dkeep.logic.Hero;
 import dkeep.logic.Key;
 
+/**
+ * The bulk of the game logic.
+ * 
+ * The State class manages the game elements, entities and characters and their behavior.
+ */
 public class State implements Serializable {
 	private int MAX_OGRES = 1/* 5 */;
 	public boolean won = false;

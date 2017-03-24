@@ -1,5 +1,10 @@
 package dkeep.logic;
 
+/**
+ * The behavior that suspicious guards have. 
+ * 
+ * They never stop, but they may reverse direction randomly (with a probability of 1 in 6).
+ */
 public class BehaviorSuspicious extends BehaviorGuard {
 
 	protected int reverseProb = 6;
@@ -8,6 +13,11 @@ public class BehaviorSuspicious extends BehaviorGuard {
 		
 	}
 
+	/**
+	 * @brief Returns the guard's next move. They may also end up reversing their direction.
+	 * 
+	 * @return the guard's next move
+	 */
 	public int movement() {
 		int result;
 		if (!reversing) {
