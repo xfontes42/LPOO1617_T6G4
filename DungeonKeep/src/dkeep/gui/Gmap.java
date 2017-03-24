@@ -7,6 +7,8 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.*;
 
 import javax.imageio.ImageIO;
@@ -32,9 +34,11 @@ public class Gmap extends JPanel{
 	public State estado_atual = new State();
 	private int ncols;
 	private int nrows;
+	private Map<Character, BufferedImage> mapeamento = new HashMap<Character, BufferedImage>();
 
 	public Gmap() {
 		super();
+		
 		try {
 			imageOgre = ImageIO.read(new File("src/resources/OgreWithClub.png"));
 			imageOgreStunned = ImageIO.read(new File("src/resources/OgreStunned.png"));
@@ -53,8 +57,9 @@ public class Gmap extends JPanel{
 			e.printStackTrace();
 
 		}
-
+		prepareMap();
 	}
+
 
 	public void setEstadoJogo(State jogo) {
 		this.estado_atual = jogo;
@@ -71,58 +76,30 @@ public class Gmap extends JPanel{
 		for (int i = 0; i < ncols; i++)
 			for (int j = 0; j < nrows; j++) {
 				paintRespective(g, tab[j][i], j,i);
-				
-
 			}
 
 	}
 
 	private void paintRespective(Graphics g, char c, int j, int i) {
-		switch (c) { 
-		case ' ':
-			g.drawImage(imageGround, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'X':
+		if(!mapeamento.containsKey(c))
 			g.drawImage(imageWall, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'H':
-			g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'A':
-			g.drawImage(imageHeroArmed, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'O':
-			g.drawImage(imageOgre, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case '8':
-			g.drawImage(imageOgreStunned, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'G':
-			g.drawImage(imageGuard, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'g':
-			g.drawImage(imageGuardSleeping, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'I':
-			g.drawImage(imageDoorUn, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'S':
-			g.drawImage(imageDoorOp, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'k':
-			g.drawImage(imageKey, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		case 'K':
-			g.drawImage(imageHero, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this); 
-			break;
-		case '*':
-			g.drawImage(imageMassiveClub, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		default:
-			g.drawImage(imageWall, (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
-			break;
-		}
-		
+		else g.drawImage((BufferedImage)mapeamento.get(c), (320/nrows) * j, (320/ncols) * i, (320/nrows) ,(320/ncols), (ImageObserver) this);
+	}
+
+	private void prepareMap() {
+		mapeamento.put(' ', imageGround);
+		mapeamento.put('X', imageWall);
+		mapeamento.put('H', imageHero);
+		mapeamento.put('A', imageHeroArmed);
+		mapeamento.put('O', imageOgre);
+		mapeamento.put('8', imageOgreStunned);
+		mapeamento.put('G', imageGuard);
+		mapeamento.put('g', imageGuardSleeping);
+		mapeamento.put('I', imageDoorUn);
+		mapeamento.put('S', imageDoorOp);
+		mapeamento.put('k', imageKey);
+		mapeamento.put('K', imageHero);
+		mapeamento.put('*', imageMassiveClub);	
 	}
 
 
