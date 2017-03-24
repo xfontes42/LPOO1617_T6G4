@@ -18,7 +18,7 @@ public class State implements Serializable {
 	public char[][] board = new char[10][10];
 	public Vector<Entity> entities = new Vector<Entity>();
 
-	// checkng out this solution
+	// checkng out this solution 
 	public Vector<MassiveClub> allClubs = new Vector<MassiveClub>();
 
 	public Vector<Door> doors = new Vector<Door>();
@@ -371,7 +371,7 @@ public class State implements Serializable {
 	 * @param movement the direction
 	 * @param x the entity's column
 	 * @param y the entity's row
-	 * @return true if possible, false otheriwse
+	 * @return true if possible, false otherwise
 	 */
 	public boolean checkMove(int movement, int x, int y) {
 		boolean result = true;

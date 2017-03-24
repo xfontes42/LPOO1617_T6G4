@@ -2,6 +2,15 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**
+ * The enemy found in the dungeon level.
+ * 
+ * A guard can have one of three types of personality: rookie, drunken and suspicious.
+ * They move in the same predetermined path, but may change their direction depending on their behavior.
+ * They will catch the hero if they are in an alert state and in a cell adjacent to them.
+ * 
+ * @see BehaviorGuard
+ */
 public class Guard extends Entity {
 
 	public Behavior behavior = new BehaviorGuard();
@@ -13,7 +22,10 @@ public class Guard extends Entity {
 	public int moves_pre2etermine2[] = { 3, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1 };
 	public int nextMove = 0;
 	
-
+	/**
+	 * @brief Creates a guard.
+	 * @param n the guard's personality
+	 */
 	public Guard(int n) {
 		switch (n) {
 
@@ -35,10 +47,19 @@ public class Guard extends Entity {
 		}
 	}
 
+	/**
+	 * @brief Retrieves the current position in the guard's trajectory.
+	 * @see BehaviorGuard::movement 
+	 */
 	public int movement() {
 		return behavior.movement();
 	}
 	
+	/**
+	 * @brief Retrieves the guard's behavior.
+	 * @return the guard's behavior
+	 * @see GuardBehavior
+	 */
 	public Behavior getBehavior(){
 		return behavior;
 	}
