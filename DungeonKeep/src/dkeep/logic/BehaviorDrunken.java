@@ -20,7 +20,7 @@ public class BehaviorDrunken extends BehaviorGuard {
 	}
 
 	/**
-	 * @brief Returns the guard's next move. They may also end up falling asleep or reversing direction.
+	 * Returns the guard's next move. They may also end up falling asleep or reversing direction.
 	 * 
 	 * @return the guard's next move
 	 */

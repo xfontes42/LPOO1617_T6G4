@@ -31,14 +31,15 @@ public class State implements Serializable {
 	public Key key = new Key();
 
 	/**
-	 * @brief Creates a game.
+	 * Creates a game.
 	 */
 	public State(){
 		
 	}
 	
 	/**
-	 * @brief Creates a game.
+	 * Creates a game.
+	 * 
 	 * @see startEntities
 	 * @param nivel the game level to be started.
 	 */
@@ -48,7 +49,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Updates on the board an entity's location
+	 * Updates on the board an entity's location.
+	 * 
 	 * @param entity the entity's character representation
 	 * @param oldX the old x coordinate
 	 * @param oldY the old y coordinate
@@ -62,7 +64,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Places on the board an ogre's massive club.
+	 * Places on the board an ogre's massive club.
+	 * 
 	 * @param newX the club's new x coordinate
 	 * @param newY the club's new y coordinate.
 	 */
@@ -76,7 +79,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if two matrix cells are adjacent
+	 * Checks if two matrix cells are adjacent.
+	 * 
 	 * @param x1 the first cell's x coordinate
 	 * @param y1 the first cell's y coordinate
 	 * @param x2 the second cell's x coordinate
@@ -98,7 +102,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Creates the level's guards.
+	 * Creates the level's guards.
+	 * 
 	 * @param guards the guard personality (0 for rookie, 1 for drunken, 2 for suspicious)
 	 * @param i the guard's starting column
 	 * @param j the guard's starting row
@@ -111,7 +116,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Creates the level's ogres.
+	 * Creates the level's ogres.
+	 * 
 	 * @param ogres the number of ogres
 	 * @param i the ogres' starting column
 	 * @param j the ogres' starting row
@@ -129,7 +135,8 @@ public class State implements Serializable {
 	}
 	
 	 /**
-	  * @brief Creates a door in the level.
+	  * Creates a door in the level.
+	  * 
 	  * @param i the door row
 	  * @param j the door column
 	  */
@@ -140,7 +147,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Starts the game entities existent in the game.
+	 * Starts the game entities existent in the game.
+	 * 
 	 * @param guards type of guard
 	 * @param ogres number of ogres
 	 */
@@ -165,7 +173,7 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Starts the game's entities with random values.
+	 * Starts the game's entities with random values.
 	 * @see startEntities(int, int)
 	 */
 	public void startEntities() {
@@ -174,7 +182,7 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if the hero stepped on the key cell.
+	 * Checks if the hero stepped on the key cell.
 	 */
 	public void checkForKey(){
 		if (key.getX() == hero.getX() && key.getY() == hero.getY()) {
@@ -187,7 +195,7 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Opens the level's dungeons.
+	 * Opens the level's dungeons.
 	 */
 	public void openDoors() {
 		if (lever) {
@@ -208,7 +216,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Checks if the hero exited the room.
+	 * Checks if the hero exited the room.
+	 * 
 	 * @return
 	 */
 	public boolean checkForExit(){
@@ -221,7 +230,7 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Moves the board's entities.
+	 * Moves the board's entities.
 	 */
 	public void moveEntities(){
 		for (int index_entities = 0; index_entities < entities.size(); index_entities++) {
@@ -237,7 +246,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Moves an element that's an instance of Guard.
+	 * Moves an element that's an instance of Guard.
+	 * 
 	 * @param element the guard
 	 */
 	public void moveGuard(Entity element){
@@ -257,7 +267,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Removes from the board an ogre's clubs (since their movement is not always linear)
+	 * Removes from the board an ogre's clubs (since their movement is not always linear).
+	 * 
 	 * @param shrek the ogre
 	 */
 	public void cleanUpClubs(Ogre shrek){
@@ -270,7 +281,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Swings an ogre's club.
+	 * Swings an ogre's club.
+	 * 
 	 * @param shrek the ogre
 	 */
 	public void moveClub(Ogre shrek){
@@ -286,7 +298,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Performs the stunned ogre routine (does not move, swings club)
+	 * Performs the stunned ogre routine (does not move, swings club)
+	 * 
 	 * @param shrek the stunned ogre
 	 */
 	public void stunnedOgreRoutine(Ogre shrek){
@@ -297,7 +310,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Moves a non-stunned ogre
+	 * Moves a non-stunned ogre
+	 * 
 	 * @param shrek the ogre
 	 */
 	public void movingOgreRoutine(Ogre shrek){
@@ -312,7 +326,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Moves an element that's an instance of Ogre.
+	 * Moves an element that's an instance of Ogre.
+	 * 
 	 * @param element the guard
 	 */
 	public void moveOgre(Entity element){
@@ -338,7 +353,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Updates the board.
+	 * Updates the board.
+	 * 
 	 * @param lost given to know if the player has lost the game
 	 * @return true if the player has won, false if the game is still ongoing
 	 */
@@ -358,9 +374,8 @@ public class State implements Serializable {
 		return false;
 	}
 
-	//TODO isto nao devia estar no cli?
 	/**
-	 * @brief Prints the game board.
+	 * Prints the game board.
 	 */
 	public void printBoard() {
 		for (int i = 0; i < board.length; i++) {
@@ -372,7 +387,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if the move is possible
+	 * Checks if the move is possible.
+	 * 
 	 * @param movement the direction
 	 * @param x the entity's column
 	 * @param y the entity's row
@@ -409,7 +425,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if the player is adjacent to an ogre.
+	 * Checks if the player is adjacent to an ogre.
+	 * 
 	 * @param shrek the ogre being tested
 	 * @see checkIfLose
 	 */
@@ -421,7 +438,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Checks if the player is adjacent to a guard
+	 * Checks if the player is adjacent to a guard.
+	 * 
 	 * @param guard the guard being tested
 	 * @see checkIfLose
 	 */
@@ -437,7 +455,8 @@ public class State implements Serializable {
 	}
 	
 	/**
-	 * @brief Checks if the player lost (i.e. is next to an attacking entity)
+	 * Checks if the player lost (i.e. is next to an attacking entity).
+	 * 
 	 * @return true if they lost, false if otherwise
 	 */
 	public boolean checkIfLose() {
@@ -461,7 +480,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Stuns an ogre.
+	 * Stuns an ogre.
+	 * 
 	 * @param ogre the ogre being stunned
 	 * @return true if the ogre was stunned, false if otherwise
 	 */
@@ -475,7 +495,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if the player is adjacent to any ogre's clubs.
+	 * Checks if the player is adjacent to any ogre's clubs.
+	 * 
 	 * @return true if the player is adjacent to a club, false if otherwise.
 	 */
 	public boolean adjacentToClub() {
@@ -490,7 +511,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if the player is about to exit a door.
+	 * Checks if the player is about to exit a door.
+	 * 
 	 * @param newX the hero's new column
 	 * @param newY the hero's new line
 	 * @return
@@ -503,7 +525,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if the player is about to get a key.
+	 * Checks if the player is about to get a key.
+	 * 
 	 * @param newX the player's new column
 	 * @param newY the player's new line
 	 * @return true if the player got a key, false if otherwise.
@@ -518,7 +541,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Calculates the player's new column based on the direction they're heading.
+	 * Calculates the player's new column based on the direction they're heading.
+	 * 
 	 * @param movement the player's direction (1 is up, 2 is down, 3 is left and 4 is right)
 	 * @param x the player's current column
 	 * @return the new column
@@ -547,7 +571,8 @@ public class State implements Serializable {
 	}
 
 	/**
-	 * @brief Calculates the player's new line based on the direction they're heading.
+	 * Calculates the player's new line based on the direction they're heading.
+	 * 
 	 * @param movement the player's direction (1 is up, 2 is down, 3 is left and 4 is right)
 	 * @param x the player's current line
 	 * @return the new line

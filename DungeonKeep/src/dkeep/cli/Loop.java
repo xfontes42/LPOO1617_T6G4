@@ -18,6 +18,12 @@ public class Loop {
 		
 	}
 	
+	/**
+	 * Moves the hero.
+	 * 
+	 * @param gameplay the game framework
+	 * @param command the command received from the user
+	 */
 	public static void moveHero(State gameplay, int command){
 		int newX = gameplay.calculateNewX(command, gameplay.hero.getX());
 		int newY = gameplay.calculateNewY(command, gameplay.hero.getY());
@@ -25,6 +31,12 @@ public class Loop {
 		gameplay.hero.moveEntity(command);
 	}
 	
+	/**
+	 * Processes a move from the keyboard.
+	 * 
+	 * @param scan the system scanner
+	 * @param gameplay the game framework
+	 */
 	public static void processMove(Scanner scan, State gameplay){
 		boolean validMove = false;
 		while (!validMove) {
@@ -41,11 +53,22 @@ public class Loop {
 		}
 	}
 	
+	/**
+	 * Prints a game over message.
+	 * 
+	 * @param gameplay the game framework
+	 */
 	public static void printGameOver(State gameplay){
 		gameplay.printBoard();
 		System.out.println('\n' + "You were caught! Game over.");
 	}	
 	
+	/**
+	 * The game loop that articulates the command line version of the game.
+	 * 
+	 * @param library the game level library
+	 * @param scan the system scanner
+	 */
 	public static void gameLoop(GameLevels library, Scanner scan){
 		int level = 1;
 		State gameplay = new State(library.getLevel(level));
@@ -78,7 +101,7 @@ public class Loop {
 	}
 	
 	/**
-	 * @brief Prints out a simple game logo.
+	 * Prints out a simple game logo.
 	 */
 	public static void welcomeMessage(){
 		
@@ -94,7 +117,8 @@ public class Loop {
 	}
 	
 	/**
-	 * @brief Receives a move using the command line.
+	 * Receives a move using the command line.
+	 * 
 	 * @param scan The input buffer
 	 * @return 1 if player goes up, 2 if down, 3 if left, 4 if right, 5 if no-move and 0 for invalid inputs.
 	 */

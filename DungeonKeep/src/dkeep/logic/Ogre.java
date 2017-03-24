@@ -14,7 +14,8 @@ public class Ogre extends Entity {
 	public int stunnedForNTurns = 0;
 	
 	/**
-	 * @brief Generates a movement direction for the ogre and the club.
+	 * Generates a movement direction for the ogre and the club.
+	 * 
 	 * @see State::checkMove
 	 * @return The direction (up, down, left or right)
 	 */

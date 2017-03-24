@@ -23,7 +23,8 @@ public class Guard extends Entity {
 	public int nextMove = 0;
 	
 	/**
-	 * @brief Creates a guard.
+	 * Creates a guard.
+	 * 
 	 * @param n the guard's personality
 	 */
 	public Guard(int n) {
@@ -48,7 +49,8 @@ public class Guard extends Entity {
 	}
 
 	/**
-	 * @brief Retrieves the current position in the guard's trajectory.
+	 * Retrieves the current position in the guard's trajectory.
+	 * 
 	 * @see BehaviorGuard::movement 
 	 */
 	public int movement() {
@@ -56,7 +58,8 @@ public class Guard extends Entity {
 	}
 	
 	/**
-	 * @brief Retrieves the guard's behavior.
+	 * Retrieves the guard's behavior.
+	 * 
 	 * @return the guard's behavior
 	 * @see GuardBehavior
 	 */

@@ -14,7 +14,7 @@ public class BehaviorSuspicious extends BehaviorGuard {
 	}
 
 	/**
-	 * @brief Returns the guard's next move. They may also end up reversing their direction.
+	 * Returns the guard's next move. They may also end up reversing their direction.
 	 * 
 	 * @return the guard's next move
 	 */

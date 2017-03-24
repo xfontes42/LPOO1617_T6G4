@@ -10,7 +10,8 @@ public class Key extends Entity {
 	public void moveEntity(){}
 	
 	/**
-	 * @brief Gives the hero a key.
+	 * Gives the hero a key.
+	 * 
 	 * @param hero the player character
 	 */
 	public void openDoors(Hero hero){

@@ -27,7 +27,8 @@ public class BehaviorGuard implements Behavior, Serializable{
 	}
 	
 	/**
-	 * @brief Returns the next direction the guard is heading.
+	 * Returns the next direction the guard is heading.
+	 * 
 	 * @return the next direction they're heading (1-4)
 	 */
 	public int movement(){
@@ -37,7 +38,8 @@ public class BehaviorGuard implements Behavior, Serializable{
 	}
 	
 	/**
-	 * @brief Calculates a direction opposite to the one provided.
+	 * Calculates a direction opposite to the one provided.
+	 * 
 	 * @param dir the direction being reversed
 	 * @return the opposite direction (e.g. the opposite of 1, up, is 2, down)
 	 */
@@ -69,7 +71,8 @@ public class BehaviorGuard implements Behavior, Serializable{
 	}
 	
 	/**
-	 * @brief Toggles the guard's walking direction, depending on their reversing probabilty
+	 * Toggles the guard's walking direction, depending on their reversing probabilty.
+	 * 
 	 * @param prob the guard's reversing probability (e.g. if prob = 5, the probability is of 20% (1/5 = 0.2))
 	 * @return true if the direction was reversed, false if they stay walking the same direction
 	 */
