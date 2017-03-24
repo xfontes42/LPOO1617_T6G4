@@ -22,12 +22,17 @@ public class TestKeepGameLogic {
 			game.hero.moveEntity(4);
 		}
 		
+		Ogre shrek = (Ogre) game.entities.get(0);
+		
 		game.updateEntity(game.hero.sprite, 1, 1, game.hero.getX(), game.hero.getX());
 		assertEquals(2, game.hero.getX());
 		assertEquals(1, game.hero.getY());
-		assertTrue(game.checkIfLose());
+		game.updateEntity(shrek.sprite, 3, 1, 3, 2);
 		
-		
+		MassiveClub club = new MassiveClub();
+		club.startAtPosition(3, 1);
+		assertTrue(game.adjacent(game.hero.getX(), game.hero.getY(), club.getX(), club.getY()));
+
 	}
 	
 	@Test
@@ -155,6 +160,7 @@ public class TestKeepGameLogic {
 		game.updateEntity(game.hero.sprite, 1, 1, game.hero.getX(), game.hero.getX());
 		
 		assertTrue(game.entities.get(0) instanceof Ogre);
+		game.stunOgre((Ogre) game.entities.get(0));
 		assertTrue(((Ogre)game.entities.get(0)).stunnedForNTurns > 0);
 	}
 	

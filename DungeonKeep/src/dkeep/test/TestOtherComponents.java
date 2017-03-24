@@ -240,13 +240,11 @@ public class TestOtherComponents {
 			Ogre shrek = (Ogre) now.entities.get(0);
 			int x  = shrek.getX();
 			int y = shrek.getY();
-			
-			now.updateBoard(false);
-			now.updateBoard(false);
+		
 			now.updateBoard(false);
 			
-			assertFalse(shrek.getX() == x);
-			assertFalse(shrek.getY() == y);
+			assertFalse(shrek.getX() == x && shrek.getY() == y);
+
 		}
 		
 		@Test
