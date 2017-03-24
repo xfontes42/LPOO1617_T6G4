@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.Vector;
 
+/**
+ * The game levels are stored here.
+ */
 public class GameLevels {
 	private Vector<char[][]> board_levels = new Vector<char[][]>();/*= { { { 'X', 'X', 'X', 'X', 'X', 'I', 'I', 'X', 'X', 'X' },
 		{ 'X', 'H', 'X', ' ', 'X', ' ', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'I', 'X', ' ', ' ', 'X', 'I', 'X' },
@@ -28,6 +31,9 @@ public class GameLevels {
 	
 	private int number_of_levels;
 	
+	/**
+	 * Creates the game level library.
+	 */
 	public GameLevels(){
 		//le do ficheiro
 		try{
@@ -72,16 +78,33 @@ public class GameLevels {
 		
 	}
 	
+	/**
+	 * Retrieves a level.
+	 * 
+	 * @param level the number of the level
+	 * @return the level
+	 */
 	public char[][] getLevel(int level){
 		if(level < 1 || level > number_of_levels)
 			throw new ArrayIndexOutOfBoundsException (level);
 		else return board_levels.get(level-1).clone();
 	}
 	
+	/**
+	 * Retrieves the number of levels existent in the library.
+	 * 
+	 * @return the number of levels
+	 */
 	public int getNumberOfLevels(){
 		return number_of_levels;
 	}
 	
+	/**
+	 * Adds a level to the file.
+	 * @param rows the level's number of rows
+	 * @param cols the level's number of columns
+	 * @param level the level itself
+	 */
 	public void addLevelToFile(int rows, int cols, char[][] level){
 		try {
 			FileWriter fw = new FileWriter("src/resources/levels.txt",true);
