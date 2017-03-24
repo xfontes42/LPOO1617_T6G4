@@ -102,5 +102,4 @@ public class Gmap extends JPanel{
 		mapeamento.put('*', imageMassiveClub);	
 	}
 
-
 }
