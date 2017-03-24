@@ -11,6 +11,12 @@ import dkeep.logic.*;
 
 public class TestOtherComponents {
 	
+		char[][] testMap = {{'X','X','I','I','X'},
+							{'X','H',' ','k','X'},
+							{'X',' ',' ',' ','X'},
+							{'X','G',' ',' ','X'},
+							{'X','X','X','X','X'}};
+	
 	
 		@Test(expected = ArrayIndexOutOfBoundsException.class)
 		public void testGameLevels(){
@@ -241,6 +247,44 @@ public class TestOtherComponents {
 			
 			assertFalse(shrek.getX() == x);
 			assertFalse(shrek.getY() == y);
+		}
+		
+		@Test
+		public void testCalculateCoordinates(){
+	
+			State now = new State(testMap);
+			now.startEntities(1,1);
+			now.entities.clear();
+			
+			assertEquals(1, now.hero.getX());
+			assertEquals(1, now.hero.getY());
+			
+			int movement = 2;
+			assertEquals(1, now.calculateNewX(movement, now.hero.getX()));
+			assertEquals(2, now.calculateNewY(movement, now.hero.getY()));
+			
+			movement = 4;
+			assertEquals(2, now.calculateNewX(movement, now.hero.getX()));
+			assertEquals(1, now.calculateNewY(movement, now.hero.getY()));
+		}
+		
+		@Test
+		public void testCheckExits(){
+			State now = new State(testMap);
+			now.startEntities(1,1);
+			now.entities.clear();
+			
+			assertFalse(now.checkForExit());
+		}
+		
+		@Test
+		public void testAdjacent(){
+			State now = new State(testMap);
+			now.startEntities(1,1);
+			
+			assertFalse(now.adjacent(now.hero.getX(), now.hero.getY(), now.entities.get(0).getX(), now.entities.get(0).getY()));
+			now.hero.setX(2);
+			assertTrue(now.adjacent(now.hero.getX(), now.hero.getY(), now.entities.get(0).getX(), now.entities.get(0).getY()));
 		}
 		
 }
