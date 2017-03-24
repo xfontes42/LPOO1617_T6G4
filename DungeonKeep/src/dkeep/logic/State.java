@@ -218,7 +218,7 @@ public class State implements Serializable {
 	/**
 	 * Checks if the hero exited the room.
 	 * 
-	 * @return
+	 * @return true if the hero has exited, false if otherwise
 	 */
 	public boolean checkForExit(){
 		for (int i = 0; i < doors.size(); i++) {
@@ -442,6 +442,7 @@ public class State implements Serializable {
 	 * 
 	 * @param guard the guard being tested
 	 * @see checkIfLose
+	 * @return true if they are adjacent to an alert guard, false if otherwise
 	 */
 	public boolean adjacentToGuard(Guard guard){
 		if (adjacent(hero.getX(), hero.getY(), guard.getX(), guard.getY())){
@@ -515,7 +516,7 @@ public class State implements Serializable {
 	 * 
 	 * @param newX the hero's new column
 	 * @param newY the hero's new line
-	 * @return
+	 * @return true if they are about to exit, false if otherwise
 	 */
 	public boolean checkIfWin(int newX, int newY) {
 		if (board[newX][newY] == 'S')

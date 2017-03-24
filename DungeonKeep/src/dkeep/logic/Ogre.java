@@ -16,7 +16,6 @@ public class Ogre extends Entity {
 	/**
 	 * Generates a movement direction for the ogre and the club.
 	 * 
-	 * @see State::checkMove
 	 * @return The direction (up, down, left or right)
 	 */
 	public int generateMovement(){

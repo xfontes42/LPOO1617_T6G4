@@ -14,6 +14,10 @@ import java.util.Random;
 public class Guard extends Entity {
 
 	public Behavior behavior = new BehaviorGuard();
+	
+	/**
+	 * An enum for the guard type (rookie, drunken or suspicious).
+	 */
 	public enum GuardType {rookie, drunken, suspicious};
 	
 	public GuardType type;
@@ -50,8 +54,6 @@ public class Guard extends Entity {
 
 	/**
 	 * Retrieves the current position in the guard's trajectory.
-	 * 
-	 * @see BehaviorGuard::movement 
 	 */
 	public int movement() {
 		return behavior.movement();
@@ -61,7 +63,6 @@ public class Guard extends Entity {
 	 * Retrieves the guard's behavior.
 	 * 
 	 * @return the guard's behavior
-	 * @see GuardBehavior
 	 */
 	public Behavior getBehavior(){
 		return behavior;
