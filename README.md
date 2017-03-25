@@ -3,7 +3,6 @@
 [![BCH compliance](https://bettercodehub.com/edge/badge/xfontes42/LPOO1617_T6G4?token=4a4b1075aad05755d20509cc1061aad7fc753c03)](https://bettercodehub.com/)
 
 ![Screenshot](screenshotPIT.png)
-
 ![Screenshot](screenshotTest.png)
 
 Daniel Ribeiro de Pinho (201505302)
