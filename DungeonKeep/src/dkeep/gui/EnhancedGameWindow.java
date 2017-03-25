@@ -47,6 +47,7 @@ public class EnhancedGameWindow implements Serializable {
 	private int guarda = 0;
 	private int numberOgres = 1;
 	protected JComboBox cbbGuardPersonality = new JComboBox();
+	private boolean WON = false;
 
 	/**
 	 * Launch the application.
@@ -270,6 +271,7 @@ public class EnhancedGameWindow implements Serializable {
 				printGameGUI();
 				updateGameButtons();
 				lblMessages.setText("Load Game.");
+				frmDungeonKeep.setFocusable(true);
 				frmDungeonKeep.requestFocusInWindow();
 			}
 		});
@@ -328,11 +330,14 @@ public class EnhancedGameWindow implements Serializable {
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				WON = false;
 				turn_on_vis_buttons();
 				preparesGuardAndNumberOgres();
 				start_new_game();
 				lblMessages.setText("You are now entering a mysterious place...");
+				frmDungeonKeep.setFocusable(true);
 				frmDungeonKeep.requestFocusInWindow();
+				
 			}
 
 		});
@@ -496,6 +501,8 @@ public class EnhancedGameWindow implements Serializable {
 
 	private void updateGameButtons() {
 		btnStay.setEnabled(true);
+		if(WON)
+			return;
 		int x = estado_jogo.hero.getX();
 		int y = estado_jogo.hero.getY();
 		setUpButtonsAccordingHero(x, y);
@@ -539,6 +546,8 @@ public class EnhancedGameWindow implements Serializable {
 			btnDown.setEnabled(false);
 			btnLeft.setEnabled(false);
 			btnRight.setEnabled(false);
+			frmDungeonKeep.setFocusable(false);
+			WON = true;
 		}
 	}
 
@@ -553,10 +562,16 @@ public class EnhancedGameWindow implements Serializable {
 		printGameGUI();
 		lblMessages.setText("You were caught! Game over.");
 		btnStay.setEnabled(false);
+		btnStay.setVisible(false);
 		btnUp.setEnabled(false);
+		btnUp.setVisible(false);
 		btnDown.setEnabled(false);
+		btnDown.setVisible(false);
 		btnLeft.setEnabled(false);
+		btnLeft.setVisible(false);
 		btnRight.setEnabled(false);
+		btnRight.setVisible(false);
+		frmDungeonKeep.setFocusable(false);
 	}
 
 	private void updateGameLogic() {
