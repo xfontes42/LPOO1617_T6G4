@@ -74,6 +74,7 @@ public class LevelEditor extends JFrame {
 	public LevelEditor(JFrame parent, int nrows, int ncols) {
 		this.ncols = ncols;
 		this.nrows = nrows;
+		this.parent = parent;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		preparesBoardAndBounds();
 		int buttonX = width - 10 - buttonW; // buttons and their coordinates
@@ -228,7 +229,6 @@ public class LevelEditor extends JFrame {
 		width = 30 + 64 * 10 + buttonW;
 		setResizable(false);
 		super.setBounds(0, 0, width, height);
-		this.parent = parent;
 		getContentPane().setLayout(null);
 	}
 
@@ -240,6 +240,7 @@ public class LevelEditor extends JFrame {
 				int x = arg0.getX() / (640 / ncols);
 				int y = arg0.getY() / (640 / nrows);
 				to_save[x][y] = ChosenTile;
+				System.out.println("(" + x + "," + y + ") = " + ChosenTile);
 				pnlBoard.getGraphics().drawImage(getFromTile(ChosenTile), x * (640 / ncols), y * (640 / nrows),
 						(640 / ncols), (640 / nrows), null);
 			}
