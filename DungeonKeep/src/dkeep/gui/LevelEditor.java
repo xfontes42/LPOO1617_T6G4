@@ -7,6 +7,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -22,6 +24,7 @@ import java.io.IOException;
 
 public class LevelEditor extends JFrame {
 	JFrame parent;
+	JFrame pai;
 	int height, width; // window size
 	int buttonW, buttonH; // button size
 	char ChosenTile = 'X';
@@ -64,7 +67,7 @@ public class LevelEditor extends JFrame {
 	private void loadIMGS() throws Exception {
 		imageOgre = ImageIO.read(new File("src/resources/OgreWithClub.png"));
 		imageGuard = ImageIO.read(new File("src/resources/Guard.png"));
-		imageGround = ImageIO.read(new File("src/resources//Ground.png"));
+		imageGround = ImageIO.read(new File("src/resources/Ground.png"));
 		imageHero = ImageIO.read(new File("src/resources/Hero.png"));
 		imageWall = ImageIO.read(new File("src/resources/Wall.png"));
 		imageDoorUn = ImageIO.read(new File("src/resources/Door.png"));
@@ -75,6 +78,8 @@ public class LevelEditor extends JFrame {
 		this.ncols = ncols;
 		this.nrows = nrows;
 		this.parent = parent;
+		this.pai = this;
+		loadImages();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		preparesBoardAndBounds();
 		int buttonX = width - 10 - buttonW; // buttons and their coordinates
@@ -234,6 +239,7 @@ public class LevelEditor extends JFrame {
 
 	private void pnlBoardFunc() {
 		pnlBoard = new JPanel();
+		
 		pnlBoard.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -241,8 +247,13 @@ public class LevelEditor extends JFrame {
 				int y = arg0.getY() / (640 / nrows);
 				to_save[x][y] = ChosenTile;
 				System.out.println("(" + x + "," + y + ") = " + ChosenTile);
-				pnlBoard.getGraphics().drawImage(getFromTile(ChosenTile), x * (640 / ncols), y * (640 / nrows),
-						(640 / ncols), (640 / nrows), null);
+				System.out.print(ncols + " " + nrows + "\n");
+				int deltaX = (640 / ncols);
+				int deltaY = (640 / nrows);
+				pnlBoard.getGraphics().drawImage(getFromTile(ChosenTile), x * deltaX, y *deltaY,
+						deltaX, deltaY, pnlBoard);
+				//revalidate();
+				//pai.repaint();
 			}
 		});
 		pnlBoard.setBounds(10, 10, 640, 640);
