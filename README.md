@@ -15,7 +15,8 @@ up201503145@fe.up.pt
 ## Package and class diagram (UML), documenting (describing) each class' responsibility
 -Some things.
 ## Design of behavioural aspects
--Some things.
+![alt text](Behavioural_Aspects-menu.png "Menu")
+![alt text](Behavioural_Aspects-game.png "Game")
 ## Design Patterns to use
 1. Singleton - for the main game class (provisory).
 
