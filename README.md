@@ -14,6 +14,19 @@ up201503145@fe.up.pt
 
 ## Package and class diagram (UML), documenting (describing) each class' responsibility
 ![alt text](ClassDiagram.png "Classes")
+
+GAME: The class that handles the game's basic gameplay loop (receiving input, checking for loss, etc.)
+
+The Entity/Character/Pickup/Hero/Enemy classes are split into three classes each (based on the MVC method). Generically, they are described as such:
+    - Body (the "Controller" part of the MVC, it handles operations between the Model and the View).
+    - Model (the Model includes the data for the class and includes methods to manipulate said data).
+    - View (the View handles the reception of data to be manipulated through the Body).
+
+ENTITY: The generic game element that is not fixed in the world. It can be split into two types: Characters and Powerups.
+CHARACTER: An entity that represents a game character (whether it's a playable character or an enemy).
+HERO: The player character, which is controlled by the user.
+ENEMY: An enemy. These characters can cause the game to end prematurely.
+PICKUP: Pickups are entities that bestow the player character additional attributes.
 ## Design of behavioural aspects
 ![alt text](Behavioural_Aspects-menu.png "Menu")
 ![alt text](Behavioural_Aspects-game.png "Game")
