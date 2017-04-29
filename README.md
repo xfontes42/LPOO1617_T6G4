@@ -13,13 +13,17 @@ up201503145@fe.up.pt
 # Architecture Design:
 
 ## Package and class diagram (UML), documenting (describing) each class' responsibility
--Some things.
+![alt text](ClassDiagram.png "Classes")
 ## Design of behavioural aspects
 ![alt text](Behavioural_Aspects-menu.png "Menu")
 ![alt text](Behavioural_Aspects-game.png "Game")
 ## Design Patterns to use
-1. Singleton - for the main game class (provisory).
-
+1. Singleton - for the main game class.
+2. Decorator - for the powerups.
+3. Observer - for the controllers.
+4. State - for the different states of the gameplay.
+5. Abstract Factory - to get the clouds.
+6. Strategy - not yet determined.
 # GUI Design
 ## Identification of the main functionalities
 1. The game will be playable in Single Player or against another player.
