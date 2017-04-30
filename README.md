@@ -35,6 +35,8 @@ The Entity/Character/Pickup/Hero/Enemy classes are split into three classes each
 
 **Pickup**: Pickups are entities that bestow the player character additional attributes.
 
+**Platform**: The entities the player character stands on. They are solid entities.
+
 ## Design of behavioural aspects
 ![alt text](Behavioural_Aspects-menu.png "Menu")
 ![alt text](Behavioural_Aspects-game.png "Game")
