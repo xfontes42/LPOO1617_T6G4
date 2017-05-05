@@ -1,17 +1,19 @@
 package com.dxenterprise.cumulus.view;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
@@ -24,7 +26,7 @@ public class MainMenuView extends ScreenAdapter {
 
     private final int MAIN_MENU_WIDTH = 1080;
     private final int MAIN_MENU_HEIGHT = 720;
-
+    private final float PIXEL_TO_METER = 0.44f;
     private MyCumulusGame game;
     private Stage stage;
     private Viewport viewport;
@@ -33,6 +35,7 @@ public class MainMenuView extends ScreenAdapter {
 
     public MainMenuView(MyCumulusGame game){
         this.game = game;
+        loadAssets();
         camera = new OrthographicCamera();
         viewport = new FitViewport(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT, camera);
         viewport.apply();
@@ -51,16 +54,49 @@ public class MainMenuView extends ScreenAdapter {
     public void show() {
         //Create buttons
         TextButton singlePlayer = new TextButton("Singleplayer", skinButtons);
-        singlePlayer.setSize(MAIN_MENU_WIDTH/3,MAIN_MENU_HEIGHT/6);
+        singlePlayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6);
         singlePlayer.setPosition(MAIN_MENU_WIDTH/2-singlePlayer.getWidth()/2,3*MAIN_MENU_HEIGHT/5);
+        stage.addActor(singlePlayer);
 
         TextButton multiplayer = new TextButton("Multiplayer", skinButtons);
-        multiplayer.setSize(MAIN_MENU_WIDTH/3,MAIN_MENU_HEIGHT/6);
+        multiplayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6);
         multiplayer.setPosition(MAIN_MENU_WIDTH/2-multiplayer.getWidth()/2,2*MAIN_MENU_HEIGHT/5);
+        stage.addActor(multiplayer);
 
-        TextButton settings = new TextButton("Settings", skinButtons);
-        settings.setSize(MAIN_MENU_WIDTH/3,MAIN_MENU_HEIGHT/6);
+        ImageButton settings = new ImageButton(skinButtons);
+        settings.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
         settings.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5);
+        stage.addActor(settings);
+
+        Drawable buttonDrawableSet = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconSettings.png")));
+        ImageButton settingsOver = new ImageButton(buttonDrawableSet);
+        settingsOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
+        settingsOver.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5);
+        stage.addActor(settingsOver);
+
+        ImageButton share = new ImageButton(skinButtons);
+        share.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
+        share.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5);
+        stage.addActor(share);
+
+        Drawable buttonDrawableSha = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconShare.png")));
+        ImageButton shareOver = new ImageButton(buttonDrawableSha);
+        shareOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
+        shareOver.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5);
+        stage.addActor(shareOver);
+
+        ImageButton highscores = new ImageButton(skinButtons);
+        highscores.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
+        highscores.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5);
+        stage.addActor(highscores);
+
+        Drawable  buttonDrawableHigh= new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconController.png")));
+        ImageButton highscoresOver = new ImageButton(buttonDrawableHigh);
+        highscoresOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
+        highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5);
+        stage.addActor(highscoresOver);
+
+        //criar botao para cumulus
 
 
 
@@ -68,28 +104,42 @@ public class MainMenuView extends ScreenAdapter {
         singlePlayer.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Singleplayer was clicked.");
                 //((Game)Gdx.app.getApplicationListener()).setScreen(new PlayScreen());
             }
         });
         multiplayer.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                System.out.println("Multiplayer was clicked.");
             }
         });
 
-        settings.addListener(new ClickListener(){
+        settingsOver.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Settings was clicked.");
+            }
+        });
 
+        shareOver.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Share was clicked.");
+            }
+        });
+
+        highscoresOver.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Highscores was clicked.");
             }
         });
 
 
-        //Add table to stage
-        stage.addActor(singlePlayer);
-        stage.addActor(multiplayer);
-        stage.addActor(settings);
+
+
+
     }
 
 

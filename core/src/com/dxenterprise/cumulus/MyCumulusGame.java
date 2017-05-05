@@ -2,6 +2,7 @@ package com.dxenterprise.cumulus;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dxenterprise.cumulus.view.MainMenuView;
 
@@ -17,8 +18,21 @@ public class MyCumulusGame extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
-
+		loadAssets();
 		startMainMenu();
+	}
+
+	public void loadAssets(){
+		assetManager.load("iconSettings.png",Texture.class);
+		assetManager.load("iconShare.png",Texture.class);
+		assetManager.load("iconController.png",Texture.class);
+		assetManager.load("iconPlay.png",Texture.class);
+		assetManager.load("iconCheck.png",Texture.class);
+		assetManager.load("iconBack.png",Texture.class);
+		assetManager.load("iconPause.png",Texture.class);
+		assetManager.load("Cumulus.png",Texture.class);
+		assetManager.load("Settings.png",Texture.class);
+		assetManager.finishLoading();
 	}
 
 	/**
