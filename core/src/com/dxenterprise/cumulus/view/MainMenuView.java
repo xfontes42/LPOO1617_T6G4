@@ -39,11 +39,7 @@ public class MainMenuView extends ScreenAdapter {
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
         stage = new Stage(viewport, game.getBatch());
-
-
         skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
-
-
         Gdx.input.setInputProcessor(stage);
     }
 
