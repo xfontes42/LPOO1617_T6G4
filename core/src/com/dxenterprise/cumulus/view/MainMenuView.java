@@ -23,9 +23,9 @@ import com.dxenterprise.cumulus.MyCumulusGame;
  */
 
 public class MainMenuView extends ScreenAdapter {
-
     private final int MAIN_MENU_WIDTH = 1080;
     private final int MAIN_MENU_HEIGHT = 720;
+    private final int DELTA_Y_MENU = 100;
     private final float PIXEL_TO_METER = 0.44f;
     private MyCumulusGame game;
     private Stage stage;
@@ -55,57 +55,61 @@ public class MainMenuView extends ScreenAdapter {
         //Create buttons
         TextButton singlePlayer = new TextButton("Singleplayer", skinButtons);
         singlePlayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6);
-        singlePlayer.setPosition(MAIN_MENU_WIDTH/2-singlePlayer.getWidth()/2,3*MAIN_MENU_HEIGHT/5);
+        singlePlayer.setPosition(MAIN_MENU_WIDTH/2-singlePlayer.getWidth()/2,3*MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(singlePlayer);
 
         TextButton multiplayer = new TextButton("Multiplayer", skinButtons);
         multiplayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6);
-        multiplayer.setPosition(MAIN_MENU_WIDTH/2-multiplayer.getWidth()/2,2*MAIN_MENU_HEIGHT/5);
+        multiplayer.setPosition(MAIN_MENU_WIDTH/2-multiplayer.getWidth()/2,2*MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(multiplayer);
 
         ImageButton settings = new ImageButton(skinButtons);
         settings.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        settings.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5);
+        settings.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(settings);
 
         Drawable buttonDrawableSet = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconSettings.png")));
         ImageButton settingsOver = new ImageButton(buttonDrawableSet);
         settingsOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        settingsOver.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5);
+        settingsOver.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(settingsOver);
 
         ImageButton share = new ImageButton(skinButtons);
         share.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        share.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5);
+        share.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(share);
 
         Drawable buttonDrawableSha = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconShare.png")));
         ImageButton shareOver = new ImageButton(buttonDrawableSha);
         shareOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        shareOver.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5);
+        shareOver.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(shareOver);
 
         ImageButton highscores = new ImageButton(skinButtons);
         highscores.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        highscores.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5);
+        highscores.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(highscores);
 
         Drawable  buttonDrawableHigh= new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconController.png")));
         ImageButton highscoresOver = new ImageButton(buttonDrawableHigh);
         highscoresOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5);
+        highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(highscoresOver);
 
-        //criar botao para cumulus
 
-
+        Drawable buttonDrawableCumulus = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Cumulus.png")));
+        ImageButton cumulusButtonOver = new ImageButton(buttonDrawableCumulus);
+        cumulusButtonOver.setSize(MAIN_MENU_WIDTH*1.5f,MAIN_MENU_HEIGHT/2);
+        cumulusButtonOver.setPosition(MAIN_MENU_WIDTH/2-cumulusButtonOver.getWidth()/2,MAIN_MENU_HEIGHT/1.75f);
+        stage.addActor(cumulusButtonOver);
 
         //Add listeners to buttons
         singlePlayer.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Singleplayer was clicked.");
-                //((Game)Gdx.app.getApplicationListener()).setScreen(new PlayScreen());
+                ((MyCumulusGame)Gdx.app.getApplicationListener()).setScreen(
+                        new SinglePGameView(((MyCumulusGame)Gdx.app.getApplicationListener())));
             }
         });
         multiplayer.addListener(new ClickListener(){
@@ -136,9 +140,12 @@ public class MainMenuView extends ScreenAdapter {
             }
         });
 
-
-
-
+        cumulusButtonOver.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Cumulus Title was clicked.");
+            }
+        });
 
     }
 
