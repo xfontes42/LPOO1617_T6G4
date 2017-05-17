@@ -23,6 +23,6 @@ public class BirdModel extends EntityModel {
 
     @Override
     public ModelType getType() {
-        return ModelType.PLAYER;
+        return ModelType.PLAYER; 
     }
 }
