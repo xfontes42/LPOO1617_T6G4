@@ -25,7 +25,7 @@ public class SinglePGameView extends ScreenAdapter {
     /**
      * How much meters does a pixel represent.
      */
-    public final static float PIXEL_TO_METER = 0.04f;
+    public final static float PIXEL_TO_METER = 0.01f;
 
     /**
      * The width of the viewport in meters. The height is

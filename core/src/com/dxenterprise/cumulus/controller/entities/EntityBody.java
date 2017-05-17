@@ -35,7 +35,7 @@ public abstract class EntityBody {
      * @param world The world this body lives on.
      * @param model The model representing the body.
      */
-    EntityBody(World world, EntityModel model) {
+    protected EntityBody(World world, EntityModel model) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(model.getX(), model.getY());
