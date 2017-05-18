@@ -19,11 +19,8 @@ import static com.dxenterprise.cumulus.view.SinglePGameView.PIXEL_TO_METER;
  */
 public abstract class EntityBody {
     final static short PLAYER_BODY = 0x0001;
-    final static short B_CLOUD = 0x0002;
-    final static short M_CLOUD = 0x0004;
-    final static short S_CLOUD = 0x0008;
-    final static short POWUP = 0x0010;
-    final static short POWDN = 0x0020;
+    final static short CLOUD_BODY = 0x0002;
+    final static short POW_BODY = 0x0004;
     /**
      * The Box2D body that supports this body.
      */
