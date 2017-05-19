@@ -84,7 +84,7 @@ public class SinglePGameController implements ContactListener {
      *
      */
     private SinglePGameController(){
-        world = new World(new Vector2(0.01f, -1f), true);
+        world = new World(new Vector2(0,0), true);
 
         playerBody = new BirdBody(world, SinglePGameModel.getInstance().getPlayer());
         //instanciate

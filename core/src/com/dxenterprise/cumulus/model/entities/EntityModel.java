@@ -10,6 +10,26 @@ package com.dxenterprise.cumulus.model.entities;
 public abstract class EntityModel {
     public enum ModelType {BIGCLOUD, MEDIUMCLOUD, SMALLCLOUD, PLAYER, POWERUP, POWERDOWN};
 
+    public float getVx() {
+        return vx;
+    }
+
+    public void setVx(float vx) {
+        this.vx = vx;
+    }
+
+    public float getVy() {
+        return vy;
+    }
+
+    public void setVy(float vy) {
+        this.vy = vy;
+    }
+
+    private float vx;
+    private float vy;
+
+
     /**
      * The x-coordinate of this model in meters.
      */

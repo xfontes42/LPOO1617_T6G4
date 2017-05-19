@@ -32,6 +32,10 @@ public class MyCumulusGame extends Game {
 		assetManager.load("iconPause.png",Texture.class);
 		assetManager.load("Cumulus.png",Texture.class);
 		assetManager.load("Settings.png",Texture.class);
+		assetManager.load("bird.png",Texture.class);
+		assetManager.load("cloudSmall.png",Texture.class);
+		assetManager.load("cloudMedium.png",Texture.class);
+		assetManager.load("cloudBig.png",Texture.class);
 		assetManager.finishLoading();
 	}
 

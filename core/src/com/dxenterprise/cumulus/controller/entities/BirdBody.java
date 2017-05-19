@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.dxenterprise.cumulus.model.SinglePGameModel;
 import com.dxenterprise.cumulus.model.entities.BirdModel;
 import com.dxenterprise.cumulus.model.entities.EntityModel;
 
@@ -36,10 +37,10 @@ public class BirdBody extends EntityBody {
     public BirdBody(World world, BirdModel player) {
         super(world, player);
 
-        float density = 1f, friction = 0.2f, restitution = 0.1f;
+        float density = 1f, friction = 0f, restitution = 0.1f;
         int width = 512, height = 512;
 
         createFixtureBird(body, width, height, density, friction, restitution, CLOUD_BODY, (short) (CLOUD_BODY | PLAYER_BODY | POW_BODY));
-
+        body.setLinearVelocity(SinglePGameModel.getInstance().getPlayer().getVx(),SinglePGameModel.getInstance().getPlayer().getVy());
     }
 }

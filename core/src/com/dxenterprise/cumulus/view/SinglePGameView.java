@@ -8,9 +8,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
 import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.SinglePGameModel;
+import com.dxenterprise.cumulus.model.entities.BirdModel;
+import com.dxenterprise.cumulus.view.entities.EntityView;
+import com.dxenterprise.cumulus.view.entities.ViewFactory;
 
 /**
  * Created by Xavier Fontes on 05/05/2017.
@@ -25,7 +29,7 @@ public class SinglePGameView extends ScreenAdapter {
     /**
      * How much meters does a pixel represent.
      */
-    public final static float PIXEL_TO_METER = 0.01f;
+    public final static float PIXEL_TO_METER = 1/450f;
 
     /**
      * The width of the viewport in meters. The height is
@@ -61,9 +65,7 @@ public class SinglePGameView extends ScreenAdapter {
      */
     public SinglePGameView(MyCumulusGame game) {
         this.game = game;
-
         loadAssets();
-
         camera = createCamera();
     }
 
@@ -74,7 +76,6 @@ public class SinglePGameView extends ScreenAdapter {
      */
     private OrthographicCamera createCamera() {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()));
-
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
@@ -93,7 +94,7 @@ public class SinglePGameView extends ScreenAdapter {
     private void loadAssets() {
         //put clouds here
 
-        this.game.getAssetManager().finishLoading();
+        //this.game.getAssetManager().finishLoading();
     }
 
     /**
@@ -136,6 +137,7 @@ public class SinglePGameView extends ScreenAdapter {
      * @param delta time since last time inputs where handled in seconds
      */
     private void handleInputs(float delta) {
+
 /*        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             GameController.getInstance().rotateLeft(delta);
         }
@@ -154,7 +156,7 @@ public class SinglePGameView extends ScreenAdapter {
      * Draws the entities to the screen.
      */
     private void drawEntities() {
-//        List<AsteroidModel> asteroids = GameModel.getInstance().getAsteroids();
+       // List<AsteroidModel> asteroids = GameModel.getInstance().getAsteroids();
 //        for (AsteroidModel asteroid : asteroids) {
 //            EntityView view = ViewFactory.makeView(game, asteroid);
 //            view.update(asteroid);
@@ -168,10 +170,10 @@ public class SinglePGameView extends ScreenAdapter {
 //            view.draw(game.getBatch());
 //        }
 //
-//        ShipModel ship = GameModel.getInstance().getShip();
-//        EntityView view = ViewFactory.makeView(game, ship);
-//        view.update(ship);
-//        view.draw(game.getBatch());
+        BirdModel bird = SinglePGameModel.getInstance().getPlayer();
+        EntityView view = ViewFactory.makeView(game, bird);
+        view.update(bird);
+        view.draw(game.getBatch());
     }
 
     /**

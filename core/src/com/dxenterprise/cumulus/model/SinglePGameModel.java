@@ -147,4 +147,11 @@ public class SinglePGameModel {
 //            if (bullet.decreaseTimeToLive(delta))
 //                bullet.setFlaggedForRemoval(true);
 //    }
+
+    public  void update(float delta){
+        SinglePGameController.getInstance().getWorld().step(delta,6,2);
+        playerModel.setPosition(playerModel.getX()+delta*playerModel.getVx(),playerModel.getY());
+
+
+    }
 }

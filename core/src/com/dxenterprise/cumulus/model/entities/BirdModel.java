@@ -9,6 +9,27 @@ import com.dxenterprise.cumulus.controller.entities.EntityBody;
 
 public class BirdModel extends EntityModel {
 
+    private boolean walking = false;
+
+    /**
+     * Set the walking flag for this bird
+     *
+     * @param walking the accelerating tag
+     */
+    public void setWalking(boolean walking) {
+        this.walking = walking;
+    }
+
+    /**
+     * Is the bird walking in this update
+     *
+     * @return the walking flag
+     */
+    public boolean isWalking() {
+        return walking;
+    }
+
+
     /**
      * Creates a new bird model in a certain position and having a certain rotation.
      *
@@ -18,6 +39,7 @@ public class BirdModel extends EntityModel {
      */
     public BirdModel(float x, float y, int rotation) {
        super(x, y,rotation);
+        setVx(1);
     }
 
 
@@ -25,4 +47,5 @@ public class BirdModel extends EntityModel {
     public ModelType getType() {
         return ModelType.PLAYER;
     }
+
 }
