@@ -28,7 +28,7 @@ public class BigCloudView extends EntityView {
      * @return the sprite representing this asteroid
      */
     public Sprite createSprite(MyCumulusGame game) {
-        Texture texture = game.getAssetManager().get("cloudMedium.png");
+        Texture texture = game.getAssetManager().get("cloudBig.png");
         return new Sprite(texture, texture.getWidth(), texture.getHeight());
     }
 }

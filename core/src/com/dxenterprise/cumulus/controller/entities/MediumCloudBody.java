@@ -18,7 +18,7 @@ public class MediumCloudBody extends EntityBody {
     public MediumCloudBody(World world, CloudModel model) {
         super(world, model);
 
-        float density = 1f, friction = 0.2f, restitution = 0.1f;
+        float density = 100f, friction = 0.2f, restitution = 0f;
         int width = 2048, height = 512;
 
         createFixture(body, new float[]{

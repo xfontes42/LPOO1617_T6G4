@@ -13,8 +13,11 @@ import com.dxenterprise.cumulus.MyCumulusGame;
 import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.SinglePGameModel;
 import com.dxenterprise.cumulus.model.entities.BirdModel;
+import com.dxenterprise.cumulus.model.entities.CloudModel;
 import com.dxenterprise.cumulus.view.entities.EntityView;
 import com.dxenterprise.cumulus.view.entities.ViewFactory;
+
+import java.util.List;
 
 /**
  * Created by Xavier Fontes on 05/05/2017.
@@ -116,8 +119,10 @@ public class SinglePGameView extends ScreenAdapter {
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
-        Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
+        //Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1); //todo for better debug of physics
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+
 
         game.getBatch().begin();
         drawBackground();
@@ -156,12 +161,12 @@ public class SinglePGameView extends ScreenAdapter {
      * Draws the entities to the screen.
      */
     private void drawEntities() {
-       // List<AsteroidModel> asteroids = GameModel.getInstance().getAsteroids();
-//        for (AsteroidModel asteroid : asteroids) {
-//            EntityView view = ViewFactory.makeView(game, asteroid);
-//            view.update(asteroid);
-//            view.draw(game.getBatch());
-//        }
+        List<CloudModel> clouds = SinglePGameModel.getInstance().getClouds();
+        for (CloudModel cloud : clouds) {
+            EntityView view = ViewFactory.makeView(game, cloud);
+            view.update(cloud);
+            view.draw(game.getBatch());
+        }
 //
 //        List<BulletModel> bullets = GameModel.getInstance().getBullets();
 //        for (BulletModel bullet : bullets) {

@@ -1,17 +1,26 @@
 package com.dxenterprise.cumulus.controller;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
+import com.dxenterprise.cumulus.controller.entities.BigCloudBody;
 import com.dxenterprise.cumulus.controller.entities.BirdBody;
+import com.dxenterprise.cumulus.controller.entities.EntityBody;
+import com.dxenterprise.cumulus.controller.entities.MediumCloudBody;
+import com.dxenterprise.cumulus.controller.entities.SmallCloudBody;
 import com.dxenterprise.cumulus.model.SinglePGameModel;
 import com.dxenterprise.cumulus.model.entities.CloudModel;
+import com.dxenterprise.cumulus.model.entities.EntityModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.dxenterprise.cumulus.model.SinglePGameModel.NUMBER_CLOUDS;
 
 /**
  * Created by Xavier Fontes on 05/05/2017.
@@ -61,12 +70,8 @@ public class SinglePGameController implements ContactListener {
     /**
      * Clouds that are visible to the player
      */
-    private List<CloudModel> cloudsShowing = new ArrayList<CloudModel>();
+    private List<CloudModel> clouds = new ArrayList<CloudModel>();
 
-    /**
-     * Clouds that are visible to the player
-     */
-    private List<CloudModel> cloudsToShow = new ArrayList<CloudModel>();
 
     /**
      * Returns a singleton instance of a game controller
@@ -85,9 +90,18 @@ public class SinglePGameController implements ContactListener {
      */
     private SinglePGameController(){
         world = new World(new Vector2(0,0), true);
-
         playerBody = new BirdBody(world, SinglePGameModel.getInstance().getPlayer());
         //instanciate
+        List<CloudModel> all_clouds = SinglePGameModel.getInstance().getClouds();
+        for(CloudModel cloud : all_clouds){
+            if(cloud.getSize() == CloudModel.CloudSize.BIG)
+                new BigCloudBody(world,cloud);
+            else if(cloud.getSize() == CloudModel.CloudSize.MEDIUM)
+                new MediumCloudBody(world, cloud);
+            else if(cloud.getSize() == CloudModel.CloudSize.SMALL)
+                new SmallCloudBody(world, cloud);
+        }
+
         //
 
 //        cloudsToShow
@@ -118,6 +132,24 @@ public class SinglePGameController implements ContactListener {
     }
 
     public void removeFlagged() {
+        int i = 0;
+       // float deltaClouds = WORLD_WIDTH / SinglePGameModel.NUMBER_CLOUDS;
+
+        Array<Body> bodies = new Array<Body>();
+        world.getBodies(bodies);
+
+        for (Body body : bodies) {
+            if(((EntityModel) body.getUserData()).isFlaggedToBeRemoved())
+                ((EntityModel) body.getUserData()).setFlaggedForRemoval(false);
+                body.setTransform(
+                        body.getPosition().x + SinglePGameController.WORLD_WIDTH ,
+                        body.getPosition().y,
+                        0
+                );
+
+
+
+        }
     }
 
     public void createNewClouds() {
@@ -147,6 +179,12 @@ public class SinglePGameController implements ContactListener {
         }
 
          */
+
+        Array<Body> bodies = new Array<Body>();
+        world.getBodies(bodies);
+        for (Body body : bodies) {
+            ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
+        }
     }
 
     /**

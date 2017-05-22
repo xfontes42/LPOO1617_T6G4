@@ -1,11 +1,14 @@
 package com.dxenterprise.cumulus.model;
 
 ;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
+
 import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.entities.BirdModel;
 import com.dxenterprise.cumulus.model.entities.CloudModel;
 
+
+import java.util.List;
+import java.util.ArrayList;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
@@ -23,7 +26,7 @@ public class SinglePGameModel {
     /**
      * Number of cloud to generate per visual screen
      */
-    public static final int NUMBER_CLOUDS = 4;
+    public static final int NUMBER_CLOUDS = 5;
 
 
     /**
@@ -49,8 +52,32 @@ public class SinglePGameModel {
     }
 
     private SinglePGameModel(){
+        clouds = new ArrayList<CloudModel>();
         playerModel = new BirdModel(SinglePGameController.WORLD_WIDTH / 2, SinglePGameController.WORLD_HEIGHT / 2, 0);
         //generate clouds in own function...
+
+        //these are the clouds that are showing
+        float deltaClouds = SinglePGameController.WORLD_WIDTH / NUMBER_CLOUDS;
+        for (int i = 0; i < NUMBER_CLOUDS; i++){
+            int rand = random.nextInt();
+            CloudModel.CloudSize c;
+            if(rand % 3 == 0)
+                c = CloudModel.CloudSize.BIG;
+            else if (rand % 3 == 1)
+                c = CloudModel.CloudSize.MEDIUM;
+            else c = CloudModel.CloudSize.SMALL;
+
+            CloudModel atual = new CloudModel(
+                    deltaClouds*i,
+                    //random.nextFloat() * SinglePGameController.WORLD_HEIGHT/5,
+                    -1,
+                    (float) 0,
+                    c);
+            atual.setFlaggedForRemoval(false);
+            clouds.add(atual);
+
+        }
+
     }
 
     public BirdModel getPlayer() {
@@ -151,7 +178,19 @@ public class SinglePGameModel {
     public  void update(float delta){
         SinglePGameController.getInstance().getWorld().step(delta,6,2);
         playerModel.setPosition(playerModel.getX()+delta*playerModel.getVx(),playerModel.getY());
+        for(CloudModel cloud : clouds){
+            if(cloud.getX() < playerModel.getX()-SinglePGameController.WORLD_WIDTH/2){
+                if(cloud.isFlaggedToBeRemoved() == false){
+                    System.out.println(cloud.isFlaggedToBeRemoved());
+                    cloud.setFlaggedForRemoval(true);
+                    System.out.println(cloud.isFlaggedToBeRemoved());
+                    System.out.println("fui flagged");
+                }
+            }
 
+
+
+        }
 
     }
 }

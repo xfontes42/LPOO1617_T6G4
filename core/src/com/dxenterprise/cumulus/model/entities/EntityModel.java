@@ -48,7 +48,7 @@ public abstract class EntityModel {
     /**
      * Has this model been flagged for removal?
      */
-    private boolean flaggedForRemoval = false;
+    private Boolean flaggedForRemoval = false;
 
     /**
      * Constructs a model with a position and a rotation.
