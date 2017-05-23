@@ -14,6 +14,7 @@ import com.dxenterprise.cumulus.controller.entities.EntityBody;
 import com.dxenterprise.cumulus.controller.entities.MediumCloudBody;
 import com.dxenterprise.cumulus.controller.entities.SmallCloudBody;
 import com.dxenterprise.cumulus.model.SinglePGameModel;
+import com.dxenterprise.cumulus.model.entities.BirdModel;
 import com.dxenterprise.cumulus.model.entities.CloudModel;
 import com.dxenterprise.cumulus.model.entities.EntityModel;
 
@@ -49,14 +50,14 @@ public class SinglePGameController implements ContactListener {
      * The force in y applied by jumping
      *
      */
-    public static final float JUMP_Y = 140f;
+    public static final float JUMP_Y = 240f;
 
     /**
      *
      * The force in x applied by jumping
      *
      */
-    public static final float JUMP_X = 50f;
+    public static final float JUMP_X = 25f;
 
     /**
      * The physics world controlled by this controller.
@@ -91,11 +92,11 @@ public class SinglePGameController implements ContactListener {
      *
      */
     private SinglePGameController(){
-        world = new World(new Vector2(0f,-10), true);
+        world = new World(new Vector2(0.8f,-10), true);
         playerBody = new BirdBody(world, SinglePGameModel.getInstance().getPlayer());
-        //instanciate
-        List<CloudModel> all_clouds = SinglePGameModel.getInstance().getClouds();
-        for(CloudModel cloud : all_clouds){
+        //instanciate clouds
+        clouds = SinglePGameModel.getInstance().getClouds();
+        for(CloudModel cloud : clouds){
             if(cloud.getSize() == CloudModel.CloudSize.BIG)
                 new BigCloudBody(world,cloud);
             else if(cloud.getSize() == CloudModel.CloudSize.MEDIUM)
@@ -116,6 +117,14 @@ public class SinglePGameController implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
         System.out.println("bati nalguma coisa");
+        Body bodyA = contact.getFixtureA().getBody();
+        Body bodyB = contact.getFixtureB().getBody();
+
+        if (bodyA.getUserData() instanceof CloudModel && bodyB.getUserData() instanceof BirdModel)
+            ((BirdModel) bodyB.getUserData()).setWalking(true);
+        if (bodyB.getUserData() instanceof CloudModel && bodyA.getUserData() instanceof BirdModel)
+            ((BirdModel) bodyA.getUserData()).setWalking(true);
+
     }
 
     @Override
@@ -159,6 +168,8 @@ public class SinglePGameController implements ContactListener {
 
     public void update(float delta) {
         SinglePGameModel.getInstance().update(delta);
+        playerBody.setTransform(playerBody.getX(),playerBody.getY(),0); //force rotation zero
+
 
         /*
     similar
@@ -186,7 +197,7 @@ public class SinglePGameController implements ContactListener {
         world.getBodies(bodies);
         for (Body body : bodies) {
             ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
-            ((EntityModel) body.getUserData()).setRotation(body.getAngle());
+            //((EntityModel) body.getUserData()).setRotation(body.getAngle());
             verifyBounds(body);
         }
     }
@@ -250,10 +261,15 @@ public class SinglePGameController implements ContactListener {
      * @param delta Duration of the jump in seconds.
      */
     public void jump(float delta) {
+        SinglePGameModel.getInstance().getPlayer().setWalking(false);
         playerBody.applyForceToCenter(JUMP_X,JUMP_Y, true);
        //set jumping pa dar double jump ((ShipModel)shipBody.getUserData()).setAccelerating(true);
     }
 
+
+    public void clear(){
+        instance = null;
+    }
 
 //
 //

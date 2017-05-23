@@ -28,7 +28,6 @@ public class MainMenuView extends ScreenAdapter {
     private final int MAIN_MENU_WIDTH = 1080;
     private final int MAIN_MENU_HEIGHT = 720;
     private final int DELTA_Y_MENU = 100;
-    private final float PIXEL_TO_METER = 0.44f;
     private MyCumulusGame game;
     private Stage stage;
     private  TextButton singlePlayer, multiplayer;
@@ -52,6 +51,16 @@ public class MainMenuView extends ScreenAdapter {
     }
 
     private void loadAssets() {
+        game.getAssetManager().load("iconSettings.png",Texture.class);
+        game.getAssetManager().load("iconShare.png",Texture.class);
+        game.getAssetManager().load("iconController.png",Texture.class);
+        game.getAssetManager().load("iconPlay.png",Texture.class);
+        game.getAssetManager().load("iconCheck.png",Texture.class);
+        game.getAssetManager().load("iconBack.png",Texture.class);
+        game.getAssetManager().load("iconPause.png",Texture.class);
+        game.getAssetManager().load("Cumulus.png",Texture.class);
+        game.getAssetManager().load("Settings.png",Texture.class);
+        game.getAssetManager().finishLoading();
 
     }
 
@@ -108,50 +117,6 @@ public class MainMenuView extends ScreenAdapter {
         cumulusButtonOver.setPosition(MAIN_MENU_WIDTH/2-cumulusButtonOver.getWidth()/2,MAIN_MENU_HEIGHT/1.75f);
         stage.addActor(cumulusButtonOver);
 
-        //Add listeners to buttons
-//        singlePlayer.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("Singleplayer was clicked.");
-//                ((MyCumulusGame)Gdx.app.getApplicationListener()).setScreen(
-//                        new SinglePGameView(((MyCumulusGame)Gdx.app.getApplicationListener())));
-//            }
-//        });
-//        multiplayer.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("Multiplayer was clicked.");
-//            }
-//        });
-//
-//        settingsOver.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("Settings was clicked.");
-//            }
-//        });
-//
-//        shareOver.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("Share was clicked.");
-//            }
-//        });
-//
-//        highscoresOver.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("Highscores was clicked.");
-//            }
-//        });
-//
-//        cumulusButtonOver.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("Cumulus Title was clicked.");
-//            }
-//        });
-
     }
 
 
@@ -160,12 +125,18 @@ public class MainMenuView extends ScreenAdapter {
 	public void render (float delta) {
 		Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(singlePlayer.isPressed())
+        if(singlePlayer.isPressed()){
+            dispose();
             game.setScreen(new SinglePGameView(game));
-        if(multiplayer.isPressed())
-            System.out.println("Multiplayer");
-        if(settingsOver.isPressed())
-            System.out.println("Settings");
+        }
+        if(multiplayer.isPressed()){
+            dispose();
+            game.setScreen(new MultiPGameView(game));
+        }
+        if(settingsOver.isPressed()) {
+            dispose();
+            game.setScreen(new SettingsView(game));
+        }
         if(highscoresOver.isPressed())
             System.out.println("Highscores");
         if(shareOver.isPressed())

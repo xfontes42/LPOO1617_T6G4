@@ -37,7 +37,7 @@ public class BirdBody extends EntityBody {
     public BirdBody(World world, BirdModel player) {
         super(world, player);
 
-        float density = 1f, friction = 0f, restitution = 0.1f;
+        float density = 1f, friction = 0.50f, restitution = 0.1f;
         int width = 512, height = 512;
 
         createFixtureBird(body, width, height, density, friction, restitution, CLOUD_BODY, (short) (CLOUD_BODY | PLAYER_BODY | POW_BODY));

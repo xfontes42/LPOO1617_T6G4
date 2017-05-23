@@ -105,6 +105,7 @@ public class SinglePGameModel {
         SinglePGameController.getInstance().getWorld().step(delta,6,2);
         playerModel.setPosition(playerModel.getX()+delta*playerModel.getVx(),playerModel.getY());
 
+
     }
 
     public CloudModel addCloud(float x, float y, float ang){
@@ -118,6 +119,11 @@ public class SinglePGameModel {
         CloudModel newCloud = new CloudModel(x,y,ang,c);
         clouds.add(newCloud);
         return newCloud;
+    }
+
+
+    public void clear(){
+        instance = null;
     }
 
 //

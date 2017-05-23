@@ -38,7 +38,7 @@ public class SinglePGameView extends ScreenAdapter {
      * The width of the viewport in meters. The height is
      * automatically calculated using the screen ratio.
      */
-    private static final float VIEWPORT_WIDTH = 20;
+    private static final float VIEWPORT_WIDTH = 18;
 
     /**
      * The game this screen belongs to.
@@ -95,9 +95,11 @@ public class SinglePGameView extends ScreenAdapter {
      * Loads the assets needed by this screen.
      */
     private void loadAssets() {
-        //put clouds here
-
-        //this.game.getAssetManager().finishLoading();
+        game.getAssetManager().load("bird.png",Texture.class);
+        game.getAssetManager().load("cloudSmall.png",Texture.class);
+        game.getAssetManager().load("cloudMedium.png",Texture.class);
+        game.getAssetManager().load("cloudBig.png",Texture.class);
+        game.getAssetManager().finishLoading();
     }
 
     /**
@@ -114,7 +116,9 @@ public class SinglePGameView extends ScreenAdapter {
         handleInputs(delta);
 
         SinglePGameController.getInstance().update(delta);
-       camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
+       //camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
+        camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, (SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER, 0);
+
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
@@ -150,6 +154,8 @@ public class SinglePGameView extends ScreenAdapter {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             dispose();
+            SinglePGameController.getInstance().clear();
+            SinglePGameModel.getInstance().clear();
             game.setScreen(new MainMenuView(game));
         }
 

@@ -23,20 +23,7 @@ public class MyCumulusGame extends Game {
 	}
 
 	public void loadAssets(){
-		assetManager.load("iconSettings.png",Texture.class);
-		assetManager.load("iconShare.png",Texture.class);
-		assetManager.load("iconController.png",Texture.class);
-		assetManager.load("iconPlay.png",Texture.class);
-		assetManager.load("iconCheck.png",Texture.class);
-		assetManager.load("iconBack.png",Texture.class);
-		assetManager.load("iconPause.png",Texture.class);
-		assetManager.load("Cumulus.png",Texture.class);
-		assetManager.load("Settings.png",Texture.class);
-		assetManager.load("bird.png",Texture.class);
-		assetManager.load("cloudSmall.png",Texture.class);
-		assetManager.load("cloudMedium.png",Texture.class);
-		assetManager.load("cloudBig.png",Texture.class);
-		assetManager.finishLoading();
+
 	}
 
 	/**

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dxenterprise.cumulus.MyCumulusGame;
+import com.dxenterprise.cumulus.model.SinglePGameModel;
 import com.dxenterprise.cumulus.model.entities.BirdModel;
 import com.dxenterprise.cumulus.model.entities.EntityModel;
 
@@ -37,10 +38,7 @@ public class BirdView extends EntityView {
      */
     private float stateTime = 0;
 
-    /**
-     * Is the bird flying
-     */
-    private boolean walking;
+
 
 
     /**
@@ -111,8 +109,6 @@ public class BirdView extends EntityView {
     public void update(EntityModel model) {
         super.update(model);
 
-        walking = ((BirdModel)model).isWalking();
-        ((BirdModel)model).setWalking(true);
     }
 
     /**
@@ -126,7 +122,7 @@ public class BirdView extends EntityView {
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
 
-        if (walking)
+        if (SinglePGameModel.getInstance().getPlayer().isWalking())
             sprite.setRegion(walkingAnimation.getKeyFrame(stateTime, true));
         else
             sprite.setRegion(jumpingAnimation);
