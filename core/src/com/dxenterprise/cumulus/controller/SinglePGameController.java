@@ -185,9 +185,9 @@ public class SinglePGameController implements ContactListener {
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
         for (Body body : bodies) {
-            verifyBounds(body);
             ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
             ((EntityModel) body.getUserData()).setRotation(body.getAngle());
+            verifyBounds(body);
         }
     }
 
@@ -199,8 +199,27 @@ public class SinglePGameController implements ContactListener {
      */
     private void verifyBounds(Body body) {
         if (body.getUserData() instanceof CloudModel){
-            if (body.getPosition().x < playerBody.getX()-WORLD_WIDTH/2)
-                body.setTransform(playerBody.getX()+WORLD_WIDTH/2, body.getPosition().y, body.getAngle());
+            if (body.getPosition().x < playerBody.getX()-WORLD_WIDTH/2){
+               // body.setTransform(playerBody.getX()+WORLD_WIDTH/2, body.getPosition().y, body.getAngle());
+                //^ COMO ESTAVA
+                //apagar nuvens que sairam
+                SinglePGameModel.getInstance().remove((EntityModel)body.getUserData());
+                world.destroyBody(body);
+                //cria uma nova nuvem
+                CloudModel newCloud = SinglePGameModel.getInstance().addCloud(
+                        playerBody.getX()+WORLD_WIDTH/2,
+                        body.getPosition().y,
+                        body.getAngle());
+
+                if(newCloud.getSize() == CloudModel.CloudSize.BIG)
+                    new BigCloudBody(world,newCloud);
+                else if(newCloud.getSize() == CloudModel.CloudSize.MEDIUM)
+                    new MediumCloudBody(world, newCloud);
+                else if(newCloud.getSize() == CloudModel.CloudSize.SMALL)
+                    new SmallCloudBody(world, newCloud);
+
+            }
+
         }
 //
 //

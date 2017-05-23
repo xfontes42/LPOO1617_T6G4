@@ -5,6 +5,7 @@ package com.dxenterprise.cumulus.model;
 import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.entities.BirdModel;
 import com.dxenterprise.cumulus.model.entities.CloudModel;
+import com.dxenterprise.cumulus.model.entities.EntityModel;
 
 
 import java.util.List;
@@ -85,6 +86,39 @@ public class SinglePGameModel {
     }
 
     public List<CloudModel> getClouds() { return clouds;}
+
+
+    /**
+     * Removes a model from this game.
+     *
+     * @param model the model to be removed
+     */
+    public void remove(EntityModel model) {
+        if (model instanceof CloudModel) {
+            clouds.remove(model);
+        }
+    }
+
+
+    public  void update(float delta){
+        //this 2 instructions probably can be done in some other better way
+        SinglePGameController.getInstance().getWorld().step(delta,6,2);
+        playerModel.setPosition(playerModel.getX()+delta*playerModel.getVx(),playerModel.getY());
+
+    }
+
+    public CloudModel addCloud(float x, float y, float ang){
+        CloudModel.CloudSize c;
+        int rand = random.nextInt();
+        if(rand % 3 == 0)
+            c = CloudModel.CloudSize.BIG;
+        else if (rand % 3 == 1)
+            c = CloudModel.CloudSize.MEDIUM;
+        else c = CloudModel.CloudSize.SMALL;
+        CloudModel newCloud = new CloudModel(x,y,ang,c);
+        clouds.add(newCloud);
+        return newCloud;
+    }
 
 //
 //
@@ -175,19 +209,5 @@ public class SinglePGameModel {
 //                bullet.setFlaggedForRemoval(true);
 //    }
 
-    public  void update(float delta){
-        SinglePGameController.getInstance().getWorld().step(delta,6,2);
-        playerModel.setPosition(playerModel.getX()+delta*playerModel.getVx(),playerModel.getY());
-//        for(CloudModel cloud : clouds){
-//            if(cloud.getX() < playerModel.getX()-SinglePGameController.WORLD_WIDTH/2){
-//                if(cloud.isFlaggedToBeRemoved() == false){
-//                    System.out.println(cloud.isFlaggedToBeRemoved());
-//                    cloud.setFlaggedForRemoval(true);
-//                    System.out.println(cloud.isFlaggedToBeRemoved());
-//                    System.out.println("fui flagged");
-//                }
-//            }
-        //}
 
-    }
 }
