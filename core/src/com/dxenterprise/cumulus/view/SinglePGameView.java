@@ -107,8 +107,8 @@ public class SinglePGameView extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        SinglePGameController.getInstance().removeFlagged();
-        SinglePGameController.getInstance().createNewClouds();
+        //SinglePGameController.getInstance().removeFlagged();
+        //SinglePGameController.getInstance().createNewClouds();
         //maybe create new powerups and downs
 
         handleInputs(delta);

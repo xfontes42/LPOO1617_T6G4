@@ -1,5 +1,6 @@
 package com.dxenterprise.cumulus.controller.entities;
 
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dxenterprise.cumulus.model.entities.CloudModel;
 
@@ -18,11 +19,13 @@ public class BigCloudBody extends EntityBody {
     public BigCloudBody(World world, CloudModel model) {
         super(world, model);
 
-        float density = 100f, friction = 0.2f, restitution = 0f;
+        float density = 1000f, friction = 0.2f, restitution = 0f;
         int width = 2560, height = 512;
 
         createFixture(body, new float[]{
                 83, 87,    531, 5,     2083, 5,     2509, 121,      2453, 467,      90, 469
         }, width, height, density, friction, restitution, CLOUD_BODY, (short) (CLOUD_BODY | PLAYER_BODY | POW_BODY));
+
+        body.setType(BodyDef.BodyType.StaticBody);
     }
 }

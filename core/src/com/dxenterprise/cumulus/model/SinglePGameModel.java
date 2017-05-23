@@ -178,19 +178,16 @@ public class SinglePGameModel {
     public  void update(float delta){
         SinglePGameController.getInstance().getWorld().step(delta,6,2);
         playerModel.setPosition(playerModel.getX()+delta*playerModel.getVx(),playerModel.getY());
-        for(CloudModel cloud : clouds){
-            if(cloud.getX() < playerModel.getX()-SinglePGameController.WORLD_WIDTH/2){
-                if(cloud.isFlaggedToBeRemoved() == false){
-                    System.out.println(cloud.isFlaggedToBeRemoved());
-                    cloud.setFlaggedForRemoval(true);
-                    System.out.println(cloud.isFlaggedToBeRemoved());
-                    System.out.println("fui flagged");
-                }
-            }
-
-
-
-        }
+//        for(CloudModel cloud : clouds){
+//            if(cloud.getX() < playerModel.getX()-SinglePGameController.WORLD_WIDTH/2){
+//                if(cloud.isFlaggedToBeRemoved() == false){
+//                    System.out.println(cloud.isFlaggedToBeRemoved());
+//                    cloud.setFlaggedForRemoval(true);
+//                    System.out.println(cloud.isFlaggedToBeRemoved());
+//                    System.out.println("fui flagged");
+//                }
+//            }
+        //}
 
     }
 }

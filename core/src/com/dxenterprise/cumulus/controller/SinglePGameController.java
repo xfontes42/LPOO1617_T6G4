@@ -89,7 +89,7 @@ public class SinglePGameController implements ContactListener {
      *
      */
     private SinglePGameController(){
-        world = new World(new Vector2(0,0), true);
+        world = new World(new Vector2(0,-10), true);
         playerBody = new BirdBody(world, SinglePGameModel.getInstance().getPlayer());
         //instanciate
         List<CloudModel> all_clouds = SinglePGameModel.getInstance().getClouds();
@@ -113,12 +113,12 @@ public class SinglePGameController implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-
+        System.out.println("bati nalguma coisa");
     }
 
     @Override
     public void endContact(Contact contact) {
-
+        System.out.println("ja bazei");
     }
 
     @Override
@@ -131,26 +131,26 @@ public class SinglePGameController implements ContactListener {
 
     }
 
-    public void removeFlagged() {
-        int i = 0;
-       // float deltaClouds = WORLD_WIDTH / SinglePGameModel.NUMBER_CLOUDS;
-
-        Array<Body> bodies = new Array<Body>();
-        world.getBodies(bodies);
-
-        for (Body body : bodies) {
-            if(((EntityModel) body.getUserData()).isFlaggedToBeRemoved())
-                ((EntityModel) body.getUserData()).setFlaggedForRemoval(false);
-                body.setTransform(
-                        body.getPosition().x + SinglePGameController.WORLD_WIDTH ,
-                        body.getPosition().y,
-                        0
-                );
-
-
-
-        }
-    }
+//    public void removeFlagged() {
+//        int i = 0;
+//       // float deltaClouds = WORLD_WIDTH / SinglePGameModel.NUMBER_CLOUDS;
+//
+//        Array<Body> bodies = new Array<Body>();
+//        world.getBodies(bodies);
+//
+//        for (Body body : bodies) {
+//            if(((EntityModel) body.getUserData()).isFlaggedToBeRemoved())
+//                ((EntityModel) body.getUserData()).setFlaggedForRemoval(false);
+//                body.setTransform(
+//                        body.getPosition().x + SinglePGameController.WORLD_WIDTH ,
+//                        body.getPosition().y,
+//                        0
+//                );
+//
+//
+//
+//        }
+//    }
 
     public void createNewClouds() {
     }
@@ -183,9 +183,36 @@ public class SinglePGameController implements ContactListener {
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
         for (Body body : bodies) {
+            verifyBounds(body);
             ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
+            ((EntityModel) body.getUserData()).setRotation(body.getAngle());
         }
     }
+
+    /**
+     * Verifies if the body is inside the arena bounds and if not
+     * wraps it around to the other side.
+     *
+     * @param body The body to be verified.
+     */
+    private void verifyBounds(Body body) {
+        if (body.getUserData() instanceof CloudModel){
+            if (body.getPosition().x < playerBody.getX()-WORLD_WIDTH/2)
+                body.setTransform(playerBody.getX()+WORLD_WIDTH/2, body.getPosition().y, body.getAngle());
+        }
+//
+//
+//        if (body.getPosition().y < 0)
+//            body.setTransform(body.getPosition().x, WORLD_HEIGHT, body.getAngle());
+//
+//        if (body.getPosition().x > WORLD_WIDTH)
+//            body.setTransform(0, body.getPosition().y, body.getAngle());
+//
+//        if (body.getPosition().y > WORLD_HEIGHT)
+//            body.setTransform(body.getPosition().x, 0, body.getAngle());
+    }
+
+
 
     /**
      * Returns the world controlled by this controller. Needed for debugging purposes only.
