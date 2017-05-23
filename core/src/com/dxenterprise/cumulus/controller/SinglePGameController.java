@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.dxenterprise.cumulus.model.SinglePGameModel.NUMBER_CLOUDS;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 /**
  * Created by Xavier Fontes on 05/05/2017.
@@ -47,14 +49,14 @@ public class SinglePGameController implements ContactListener {
      * The force in y applied by jumping
      *
      */
-    public static final float JUMP_Y = 1f;
+    public static final float JUMP_Y = 140f;
 
     /**
      *
      * The force in x applied by jumping
      *
      */
-    public static final float JUMP_X = 0.5f;
+    public static final float JUMP_X = 50f;
 
     /**
      * The physics world controlled by this controller.
@@ -89,7 +91,7 @@ public class SinglePGameController implements ContactListener {
      *
      */
     private SinglePGameController(){
-        world = new World(new Vector2(0.5f,-10), true);
+        world = new World(new Vector2(0f,-10), true);
         playerBody = new BirdBody(world, SinglePGameModel.getInstance().getPlayer());
         //instanciate
         List<CloudModel> all_clouds = SinglePGameModel.getInstance().getClouds();
@@ -223,6 +225,15 @@ public class SinglePGameController implements ContactListener {
         return world;
     }
 
+    /**
+     * The bird jumps
+     *
+     * @param delta Duration of the jump in seconds.
+     */
+    public void jump(float delta) {
+        playerBody.applyForceToCenter(JUMP_X,JUMP_Y, true);
+       //set jumping pa dar double jump ((ShipModel)shipBody.getUserData()).setAccelerating(true);
+    }
 
 
 //

@@ -114,8 +114,7 @@ public class SinglePGameView extends ScreenAdapter {
         handleInputs(delta);
 
         SinglePGameController.getInstance().update(delta);
-
-        camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
+       camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
@@ -142,6 +141,18 @@ public class SinglePGameView extends ScreenAdapter {
      * @param delta time since last time inputs where handled in seconds
      */
     private void handleInputs(float delta) {
+
+        if(Gdx.input.justTouched()){
+            Gdx.input.vibrate(90);
+            SinglePGameController.getInstance().jump(delta);
+            System.out.println("jump");
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            dispose();
+            game.setScreen(new MainMenuView(game));
+        }
+
 
 /*        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             GameController.getInstance().rotateLeft(delta);

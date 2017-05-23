@@ -1,6 +1,7 @@
 package com.dxenterprise.cumulus.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -47,6 +48,7 @@ public class MainMenuView extends ScreenAdapter {
         stage = new Stage(viewport, game.getBatch());
         skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void loadAssets() {
@@ -168,6 +170,10 @@ public class MainMenuView extends ScreenAdapter {
             System.out.println("Highscores");
         if(shareOver.isPressed())
             System.out.println("Share");
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            dispose();
+            Gdx.app.exit();
+        }
         stage.act();
         stage.draw();
 	}
