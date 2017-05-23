@@ -72,6 +72,8 @@ public class SinglePGameView extends ScreenAdapter {
         camera = createCamera();
     }
 
+
+
     /**
      * Creates the camera used to show the viewport.
      *
@@ -80,6 +82,8 @@ public class SinglePGameView extends ScreenAdapter {
     private OrthographicCamera createCamera() {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()));
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        SinglePGameController.getInstance().setCamX(camera.viewportWidth / 2f);
+        SinglePGameController.getInstance().setCamY(camera.viewportWidth / 2f);
         camera.update();
 
         if (DEBUG_PHYSICS) {
@@ -117,8 +121,14 @@ public class SinglePGameView extends ScreenAdapter {
 
         SinglePGameController.getInstance().update(delta);
        //camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
-        camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, (SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER, 0);
+       // camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, (SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER, 0);
 
+        SinglePGameController.getInstance().setCamX(SinglePGameController.getInstance().getCamX()+ (delta*SinglePGameController.getInstance().getCamVX() / PIXEL_TO_METER));
+        SinglePGameController.getInstance().setCamY((SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER);
+        camera.position.set( SinglePGameController.getInstance().getCamX(),
+                SinglePGameController.getInstance().getCamY(),
+                0);
+        SinglePGameController.getInstance().setCamVX(SinglePGameController.getInstance().getCamVX()+SinglePGameController.getInstance().getCamAX());
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 

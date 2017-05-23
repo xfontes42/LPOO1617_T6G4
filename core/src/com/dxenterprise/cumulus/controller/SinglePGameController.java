@@ -30,6 +30,51 @@ import static java.lang.Math.sin;
  */
 
 public class SinglePGameController implements ContactListener {
+
+    //camera x position in-game
+    private float camX;
+    //camera y position in-game
+    private float camY;
+    //camera x velocity in-game
+    private float camVX = 5;
+    //camera x acceleration in-game
+    private float camAX = 0;
+
+    public float getCamX() {
+        return camX;
+    }
+
+    public void setCamX(float camX) {
+        this.camX = camX;
+    }
+
+    public float getCamY() {
+        return camY;
+    }
+
+    public void setCamY(float camY) {
+        this.camY = camY;
+    }
+
+    public float getCamVX() {
+        return camVX;
+    }
+
+    public void setCamVX(float camVX) {
+        this.camVX = camVX;
+    }
+
+    public float getCamAX() {
+        return camAX;
+    }
+
+    public void setCamAX(float camAX) {
+        this.camAX = camAX;
+    }
+
+
+
+
     /**
      * The singleton instance of this controller
      */
@@ -208,7 +253,7 @@ public class SinglePGameController implements ContactListener {
      *
      * @param body The body to be verified.
      */
-    private void verifyBounds(Body body) {
+    private void verifyBounds(Body body) { //todo check if this works perfectly
         if (body.getUserData() instanceof CloudModel){
             if (body.getPosition().x < playerBody.getX()-WORLD_WIDTH/2){
                // body.setTransform(playerBody.getX()+WORLD_WIDTH/2, body.getPosition().y, body.getAngle());
