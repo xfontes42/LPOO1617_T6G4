@@ -57,10 +57,10 @@ public class SinglePGameModel {
         //generate clouds in own function...
 
         //these are the clouds that are showing
-        float deltaClouds = SinglePGameController.WORLD_WIDTH / NUMBER_CLOUDS;
+        float deltaClouds = (float)SinglePGameController.WORLD_WIDTH / NUMBER_CLOUDS;
         for (int i = 0; i < NUMBER_CLOUDS; i++){
-            int rand = random.nextInt();
             CloudModel.CloudSize c;
+            int rand = random.nextInt();
             if(rand % 3 == 0)
                 c = CloudModel.CloudSize.BIG;
             else if (rand % 3 == 1)
@@ -70,7 +70,7 @@ public class SinglePGameModel {
             CloudModel atual = new CloudModel(
                     deltaClouds*i,
                     //random.nextFloat() * SinglePGameController.WORLD_HEIGHT/5,
-                    -1,
+                    (float)-2.2-2*random.nextFloat(),
                     (float) 0,
                     c);
             atual.setFlaggedForRemoval(false);
