@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -61,6 +62,12 @@ public class SinglePGameView extends ScreenAdapter {
      */
     private Matrix4 debugCamera;
 
+    //old value of accelerometer in x
+    private float accelerometerX = 0;
+    //old value of accelerometer in y
+    private float accelerometerY = 0;
+
+
     /**
      * Creates this screen.
      *
@@ -103,6 +110,7 @@ public class SinglePGameView extends ScreenAdapter {
         game.getAssetManager().load("cloudSmall.png",Texture.class);
         game.getAssetManager().load("cloudMedium.png",Texture.class);
         game.getAssetManager().load("cloudBig.png",Texture.class);
+        game.getAssetManager().load("sky_background.jpg",Texture.class);
         game.getAssetManager().finishLoading();
     }
 
@@ -136,9 +144,13 @@ public class SinglePGameView extends ScreenAdapter {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1); //todo for better debug of physics
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
+        if(accelerometerX == 0)
+            accelerometerX = Gdx.input.getAccelerometerX();
+        if(accelerometerY == 0)
+            accelerometerY = Gdx.input.getAccelerometerY();
 
         game.getBatch().begin();
-        drawBackground();
+        drawBackground(Gdx.input.getAccelerometerX() - accelerometerX, Gdx.input.getAccelerometerY() - accelerometerY );
         drawEntities();
         game.getBatch().end();
 
@@ -211,7 +223,20 @@ public class SinglePGameView extends ScreenAdapter {
     /**
      * Draws the background
      */
-    private void drawBackground() {
+    private void drawBackground(float deltaX, float deltaY) {
+        Texture background = game.getAssetManager().get("sky_background.jpg", Texture.class);
+        background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        game.getBatch().draw(background,
+                SinglePGameController.getInstance().getCamX(),// - (SinglePGameController.WORLD_WIDTH / 2f)) ,  //x
+                SinglePGameController.getInstance().getCamY(),// - (SinglePGameController.WORLD_HEIGHT / 2f)),  //y
+                VIEWPORT_WIDTH / PIXEL_TO_METER,
+                VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()),
+                (float)0,
+                (float)0,
+                (float)1,
+                (float)1);  //mexer nestes ultimos com acelerometro
+
+
 //        Texture background = game.getAssetManager().get("background.png", Texture.class);
 //        background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 //        game.getBatch().draw(background, 0, 0, 0, 0, (int)(ARENA_WIDTH / PIXEL_TO_METER), (int) (ARENA_HEIGHT / PIXEL_TO_METER));
