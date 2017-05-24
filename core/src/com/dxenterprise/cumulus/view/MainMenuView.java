@@ -60,6 +60,14 @@ public class MainMenuView extends ScreenAdapter {
         game.getAssetManager().load("iconPause.png",Texture.class);
         game.getAssetManager().load("Cumulus.png",Texture.class);
         game.getAssetManager().load("Settings.png",Texture.class);
+        game.getAssetManager().load("text_back.png",Texture.class);
+        game.getAssetManager().load("text_SP.png",Texture.class);
+        game.getAssetManager().load("text_MP.png",Texture.class);
+        game.getAssetManager().load("textMusicOn.png",Texture.class);
+        game.getAssetManager().load("textSoundOn.png",Texture.class);
+        game.getAssetManager().load("text_sensitivity.png",Texture.class);
+        game.getAssetManager().load("textMusicOff.png",Texture.class);
+        game.getAssetManager().load("textSoundOff.png",Texture.class);
         game.getAssetManager().finishLoading();
 
     }

@@ -9,6 +9,8 @@ import com.dxenterprise.cumulus.view.MainMenuView;
 public class MyCumulusGame extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
+	private boolean soundOn = true;
+	private boolean musicOn = true;
 
 	/**
 	 * Creates the game. Initializes the sprite batch and asset manager.
@@ -24,6 +26,22 @@ public class MyCumulusGame extends Game {
 
 	public void loadAssets(){
 
+	}
+
+	public void toggleSound(){
+		soundOn = !soundOn;
+	}
+
+	public void toggleMusic(){
+		musicOn = !musicOn;
+	}
+
+	public boolean isSoundOn(){
+		return soundOn;
+	}
+
+	public boolean isMusicOn(){
+		return soundOn;
 	}
 
 	/**

@@ -56,24 +56,43 @@ public class SettingsView extends ScreenAdapter {
     private Viewport viewport;
     private OrthographicCamera camera;
     private Skin skinButtons;
+    private ImageButton SoundText, SoundToggle, MusicText, MusicToggle, Sensitivity, BackButton;
 
     @Override
     public void show() {
         //Create buttons
 
-        Drawable buttonDrawableCumulus = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Cumulus.png")));
-//        Drawable  buttonDrawableHigh= new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconController.png")));
-//        highscoresOver = new ImageButton(buttonDrawableHigh);
-//        highscoresOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-//        highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
-//        stage.addActor(highscoresOver);
 
-
+        //title
         Drawable buttonDrawableSettings = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Settings.png")));
         ImageButton SettingsOver = new ImageButton(buttonDrawableSettings);
-        SettingsOver.setSize(MENU_WIDTH*1.5f,MENU_HEIGHT/2);
-        SettingsOver.setPosition(MENU_WIDTH/2-SettingsOver.getWidth()/2,MENU_HEIGHT/1.75f);
+        SettingsOver.setSize(MENU_WIDTH*1.5f,MENU_HEIGHT/3);
+        SettingsOver.setPosition(MENU_WIDTH/2-SettingsOver.getWidth()/2, MENU_HEIGHT/1.9f +SettingsOver.getHeight()/2);
         stage.addActor(SettingsOver);
+
+        //sound label
+        Drawable buttonDrawableSound;
+        if(game.isSoundOn())
+            buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOn.png")));
+        else
+            buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOff.png")));
+        SoundText = new ImageButton(buttonDrawableSound);
+        SoundText.setSize(MENU_WIDTH/5,MENU_HEIGHT/6);
+        SoundText.setPosition(MENU_WIDTH/2-SoundText.getWidth()/2,MENU_HEIGHT/1.5f-DELTA_Y_MENU);
+        stage.addActor(SoundText);
+
+        //music label
+        Drawable buttonDrawableMusic;
+        if(game.isMusicOn())
+            buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textMusicOn.png")));
+        else
+            buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textMusicOff.png")));
+        MusicText = new ImageButton(buttonDrawableMusic);
+        MusicText.setSize(MENU_WIDTH/5,MENU_HEIGHT/6);
+        MusicText.setPosition(MENU_WIDTH/2-SoundText.getWidth()/2,MENU_HEIGHT/2-DELTA_Y_MENU);
+        stage.addActor(MusicText);
+
+
 
     }
 
