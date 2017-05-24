@@ -18,6 +18,7 @@ import com.dxenterprise.cumulus.model.entities.CloudModel;
 import com.dxenterprise.cumulus.view.entities.EntityView;
 import com.dxenterprise.cumulus.view.entities.ViewFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,11 +63,23 @@ public class SinglePGameView extends ScreenAdapter {
      */
     private Matrix4 debugCamera;
 
-    //old value of accelerometer in x
-    private float accelerometerX = 0;
-    //old value of accelerometer in y
-    private float accelerometerY = 0;
 
+    //for the low pass filter
+    //size of readings
+    private final int size_readings = 5;
+    //data of accelerometer in x
+    private ArrayList<Float> X_values = new ArrayList<Float>(size_readings);
+    //data of accelerometer in y
+    private ArrayList<Float> Y_values = new ArrayList<Float>(size_readings);
+    //readings
+    private Float readingY = new Float(0);
+    private Float readingX = new Float(0);
+
+    private float texCoordX = 0;
+    private float texCoordY = 0;
+    private float textDeltaX = 0.5f;
+    private float texDeltaY = 0.5f;
+    private float sensitivity = 2.0f;
 
     /**
      * Creates this screen.
@@ -77,6 +90,13 @@ public class SinglePGameView extends ScreenAdapter {
         this.game = game;
         loadAssets();
         camera = createCamera();
+
+        //init for low pass filter
+        for(int i = 0; i < size_readings; i++){
+            X_values.add(new Float(0));
+            Y_values.add(new Float(0));
+        }
+
     }
 
 
@@ -144,15 +164,13 @@ public class SinglePGameView extends ScreenAdapter {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1); //todo for better debug of physics
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
-        if(accelerometerX == 0)
-            accelerometerX = Gdx.input.getAccelerometerX();
-        if(accelerometerY == 0)
-            accelerometerY = Gdx.input.getAccelerometerY();
 
         game.getBatch().begin();
-        drawBackground(Gdx.input.getAccelerometerX() - accelerometerX, Gdx.input.getAccelerometerY() - accelerometerY );
+        drawBackground();
         drawEntities();
         game.getBatch().end();
+
+
 
         if (DEBUG_PHYSICS) {
             debugCamera = camera.combined.cpy();
@@ -181,6 +199,13 @@ public class SinglePGameView extends ScreenAdapter {
             game.setScreen(new MainMenuView(game));
         }
 
+        X_values.remove(0);
+        X_values.add(new Float(Gdx.input.getAccelerometerY()*delta));
+        Y_values.remove(0);
+        Y_values.add(new Float(Gdx.input.getAccelerometerX()*delta));
+
+        readingX = sensitivity*average(X_values);
+        readingY = sensitivity*average(Y_values);
 
 /*        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             GameController.getInstance().rotateLeft(delta);
@@ -223,22 +248,33 @@ public class SinglePGameView extends ScreenAdapter {
     /**
      * Draws the background
      */
-    private void drawBackground(float deltaX, float deltaY) {
+    private void drawBackground() {
         Texture background = game.getAssetManager().get("sky_background.jpg", Texture.class);
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        System.out.println("dX: " + readingX);
+        System.out.println("dY: " + readingY);
         game.getBatch().draw(background,
-                SinglePGameController.getInstance().getCamX(),// - (SinglePGameController.WORLD_WIDTH / 2f)) ,  //x
-                SinglePGameController.getInstance().getCamY(),// - (SinglePGameController.WORLD_HEIGHT / 2f)),  //y
+                SinglePGameController.getInstance().getCamX()-(SinglePGameController.WORLD_WIDTH/4f)/PIXEL_TO_METER-1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_WIDTH / 2f)) ,  //x
+                SinglePGameController.getInstance().getCamY()-(SinglePGameController.WORLD_HEIGHT/2f) /PIXEL_TO_METER-1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_HEIGHT / 2f)),  //y
                 VIEWPORT_WIDTH / PIXEL_TO_METER,
                 VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()),
-                (float)0,
-                (float)0,
-                (float)1,
-                (float)1);  //mexer nestes ultimos com acelerometro
+                texCoordY,
+                texCoordX+textDeltaX,
+                texCoordY+texDeltaY,
+                texCoordX);  //mexer nestes ultimos com acelerometro
 
+                texCoordX += readingX*Gdx.graphics.getDeltaTime();
+                texCoordY += readingY*Gdx.graphics.getDeltaTime();
 
 //        Texture background = game.getAssetManager().get("background.png", Texture.class);
 //        background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 //        game.getBatch().draw(background, 0, 0, 0, 0, (int)(ARENA_WIDTH / PIXEL_TO_METER), (int) (ARENA_HEIGHT / PIXEL_TO_METER));
+    }
+
+    public Float average(ArrayList<Float> arr){
+        Float sum = new Float(0);
+        for(Float f : arr)
+            sum += f;
+        return sum/arr.size();
     }
 }
