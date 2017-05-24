@@ -75,6 +75,7 @@ public class SinglePGameView extends ScreenAdapter {
     private Float readingY = new Float(0);
     private Float readingX = new Float(0);
 
+    //textels coordinates
     private float texCoordX = 0;
     private float texCoordY = 0;
     private float textDeltaX = 0.5f;

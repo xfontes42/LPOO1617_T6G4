@@ -36,7 +36,7 @@ public class SinglePGameController implements ContactListener {
     //camera y position in-game
     private float camY;
     //camera x velocity in-game
-    private float camVX = 5;
+    private float camVX = 4.5f;
     //camera x acceleration in-game
     private float camAX = 0;
 
@@ -102,7 +102,7 @@ public class SinglePGameController implements ContactListener {
      * The force in x applied by jumping
      *
      */
-    public static final float JUMP_X = 25f;
+    public static final float JUMP_X = 15f;
 
     /**
      * The physics world controlled by this controller.
