@@ -56,7 +56,7 @@ public class SettingsView extends ScreenAdapter {
     private Viewport viewport;
     private OrthographicCamera camera;
     private Skin skinButtons;
-    private ImageButton SoundText, SoundToggle, MusicText, MusicToggle, Sensitivity, BackButton;
+    private ImageButton SoundText,  MusicText, Sensitivity, BackButton;
 
     @Override
     public void show() {
@@ -92,6 +92,11 @@ public class SettingsView extends ScreenAdapter {
         MusicText.setPosition(MENU_WIDTH/2-SoundText.getWidth()/2,MENU_HEIGHT/2-DELTA_Y_MENU);
         stage.addActor(MusicText);
 
+       Drawable buttonDrawableSens = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_sensitivity.png")));
+        MusicText = new ImageButton(buttonDrawableSens);
+        MusicText.setSize(MENU_WIDTH/5,MENU_HEIGHT/6);
+        MusicText.setPosition(MENU_WIDTH/2-SoundText.getWidth()/2,MENU_HEIGHT/3-DELTA_Y_MENU);
+        stage.addActor(MusicText);
 
 
     }
