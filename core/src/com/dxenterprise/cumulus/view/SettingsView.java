@@ -1,6 +1,18 @@
 package com.dxenterprise.cumulus.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
 
 /**
@@ -21,6 +33,98 @@ public class SettingsView extends ScreenAdapter {
      */
     public SettingsView(MyCumulusGame game) {
         this.game = game;
+        //loadAssets();
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(MENU_WIDTH, MENU_HEIGHT, camera);
+        viewport.apply();
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
+        stage = new Stage(viewport, game.getBatch());
+        //skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
+        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
+    }
+
+    /**
+     * Menu dimensions.
+     */
+    private final int MENU_WIDTH = 1080;
+    private final int MENU_HEIGHT = 720;
+    private final int DELTA_Y_MENU = 100;
+    private Stage stage;
+    private ImageButton soundToggle;
+    private Viewport viewport;
+    private OrthographicCamera camera;
+    private Skin skinButtons;
+
+    @Override
+    public void show() {
+        //Create buttons
+
+        Drawable buttonDrawableCumulus = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Cumulus.png")));
+//        Drawable  buttonDrawableHigh= new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconController.png")));
+//        highscoresOver = new ImageButton(buttonDrawableHigh);
+//        highscoresOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
+//        highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
+//        stage.addActor(highscoresOver);
+
+
+        Drawable buttonDrawableSettings = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Settings.png")));
+        ImageButton SettingsOver = new ImageButton(buttonDrawableSettings);
+        SettingsOver.setSize(MENU_WIDTH*1.5f,MENU_HEIGHT/2);
+        SettingsOver.setPosition(MENU_WIDTH/2-SettingsOver.getWidth()/2,MENU_HEIGHT/1.75f);
+        stage.addActor(SettingsOver);
+
+    }
+
+
+    @Override
+    public void render (float delta) {
+        Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+//        if (settingsOver.isPressed()) {
+//            dispose();
+//            game.setScreen(new SettingsView(game));
+//        }
+//        if (highscoresOver.isPressed())
+//            System.out.println("Highscores");
+//        if (shareOver.isPressed())
+//            S ystem.out.println("Share");
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+//            dispose();
+//            Gdx.app.exit();
+//        }
+        stage.act();
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        skinButtons.dispose();
     }
 
 
