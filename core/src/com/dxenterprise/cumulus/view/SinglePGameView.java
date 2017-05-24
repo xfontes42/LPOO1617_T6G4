@@ -252,8 +252,8 @@ public class SinglePGameView extends ScreenAdapter {
     private void drawBackground() {
         Texture background = game.getAssetManager().get("sky_background.jpg", Texture.class);
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        System.out.println("dX: " + readingX);
-        System.out.println("dY: " + readingY);
+//        System.out.println("dX: " + readingX);
+//        System.out.println("dY: " + readingY);
         game.getBatch().draw(background,
                 SinglePGameController.getInstance().getCamX()-(SinglePGameController.WORLD_WIDTH/4f)/PIXEL_TO_METER-1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_WIDTH / 2f)) ,  //x
                 SinglePGameController.getInstance().getCamY()-(SinglePGameController.WORLD_HEIGHT/2f) /PIXEL_TO_METER-1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_HEIGHT / 2f)),  //y
