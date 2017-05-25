@@ -70,8 +70,13 @@ public class SettingsView extends ScreenAdapter {
 
     @Override
     public void show() {
-        //Create buttons
+        showTitleAndBack();
+        showMusic();
+        showSound();
+        showSensitivity();
+    }
 
+    private void showTitleAndBack(){
         //title
         Drawable buttonDrawableSettings = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Settings.png")));
         ImageButton SettingsOver = new ImageButton(buttonDrawableSettings);
@@ -85,25 +90,9 @@ public class SettingsView extends ScreenAdapter {
         BackButton.setSize(MENU_WIDTH/8,MENU_HEIGHT/8);
         BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/8 -DELTA_Y_MENU);
         stage.addActor(BackButton);
+    }
 
-
-        //sound label
-        Drawable buttonDrawableSound;
-        buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOn.png")));
-        SoundTextOn = new ImageButton(buttonDrawableSound);
-        SoundTextOn.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
-        SoundTextOn.setPosition(MENU_WIDTH/4-SoundTextOn.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
-        stage.addActor(SoundTextOn);
-
-
-        buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOff.png")));
-        SoundTextOff = new ImageButton(buttonDrawableSound);
-        SoundTextOff.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
-        SoundTextOff.setPosition(MENU_WIDTH/4-SoundTextOff.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
-        stage.addActor(SoundTextOff);
-
-
-        //music label
+    private void showMusic(){
         Drawable buttonDrawableMusic;
         buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textMusicOn.png")));
         MusicTextOn = new ImageButton(buttonDrawableMusic);
@@ -117,15 +106,32 @@ public class SettingsView extends ScreenAdapter {
         MusicTextOff.setPosition(3*MENU_WIDTH/4-MusicTextOff.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(MusicTextOff);
 
-        if(game.isMusicOn())
-            MusicTextOff.setVisible(false);
+        if(game.isMusicOn()) MusicTextOff.setVisible(false);
         else MusicTextOn.setVisible(false);
 
-        if(game.isSoundOn())
-            SoundTextOff.setVisible(false);
-        else SoundTextOn.setVisible(false);
 
-       Drawable buttonDrawableSens = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_sensitivity.png")));
+    }
+
+    private void showSound(){
+        Drawable buttonDrawableSound;
+        buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOn.png")));
+        SoundTextOn = new ImageButton(buttonDrawableSound);
+        SoundTextOn.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
+        SoundTextOn.setPosition(MENU_WIDTH/4-SoundTextOn.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
+        stage.addActor(SoundTextOn);
+
+        buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOff.png")));
+        SoundTextOff = new ImageButton(buttonDrawableSound);
+        SoundTextOff.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
+        SoundTextOff.setPosition(MENU_WIDTH/4-SoundTextOff.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
+        stage.addActor(SoundTextOff);
+
+        if(game.isSoundOn()) SoundTextOff.setVisible(false);
+        else SoundTextOn.setVisible(false);
+    }
+
+    private void showSensitivity(){
+        Drawable buttonDrawableSens = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_sensitivity.png")));
         ImageButton SensitivityText = new ImageButton(buttonDrawableSens);
         SensitivityText.setSize(MENU_WIDTH/4,MENU_HEIGHT/4);
         SensitivityText.setPosition(MENU_WIDTH/2-SensitivityText.getWidth()/2,MENU_HEIGHT/3.4f-DELTA_Y_MENU);
@@ -137,25 +143,33 @@ public class SettingsView extends ScreenAdapter {
         SensitivitySlider.setValue(SinglePGameView.sensitivity);
         //SensitivitySlider.setDebug(true);
         stage.addActor(SensitivitySlider);
-
-
     }
-
-
 
     @Override
     public void render (float delta) {
         Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        checkForBack();
+        checkForMusic();
+        checkForSound();
+        toggleSoundButtons();
+        toggleMusicButtons();
+
+        stage.act();
+        stage.draw();
+    }
+
+    private void checkForBack(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) ||
                 BackButton.isPressed()){
             Gdx.input.vibrate(50);
             dispose();
             game.setScreen(new MainMenuView(game)); //todo acomodar para quando se vai para as settings durante o jogo
         }
+    }
 
-
+    private void checkForMusic(){
         if(MusicTextOn.isPressed() && game.isMusicOn()){
             Gdx.input.vibrate(50);
             System.out.println("turned music off");
@@ -166,8 +180,10 @@ public class SettingsView extends ScreenAdapter {
             Gdx.input.vibrate(50);
             System.out.println("turned music on");
             game.toggleMusic();
-
         }
+    }
+
+    private void checkForSound(){
         if(SoundTextOn.isPressed() && game.isSoundOn()){
             Gdx.input.vibrate(50);
             System.out.println("turned sound off");
@@ -178,7 +194,9 @@ public class SettingsView extends ScreenAdapter {
             System.out.println("turned sound on");
             game.toggleSound();
         }
+    }
 
+    private void toggleSoundButtons(){
         if(game.isSoundOn()){
             SoundTextOff.setVisible(false);
             SoundTextOn.setVisible(true);
@@ -187,7 +205,9 @@ public class SettingsView extends ScreenAdapter {
             SoundTextOn.setVisible(false);
             SoundTextOff.setVisible(true);
         }
+    }
 
+    private void toggleMusicButtons(){
         if(game.isMusicOn()){
             MusicTextOff.setVisible(false);
             MusicTextOn.setVisible(true);
@@ -196,26 +216,6 @@ public class SettingsView extends ScreenAdapter {
             MusicTextOn.setVisible(false);
             MusicTextOff.setVisible(true);
         }
-
-
-
-
-
-
-//        if (settingsOver.isPressed()) {
-//            dispose();
-//            game.setScreen(new SettingsView(game));
-//        }
-//        if (highscoresOver.isPressed())
-//            System.out.println("Highscores");
-//        if (shareOver.isPressed())
-//            S ystem.out.println("Share");
-//        if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-//            dispose();
-//            Gdx.app.exit();
-//        }
-        stage.act();
-        stage.draw();
     }
 
     @Override
