@@ -149,6 +149,9 @@ public class SettingsView extends ScreenAdapter {
         Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        SinglePGameView.sensitivity =SensitivitySlider.getValue();
+        game.getPreferences().setSensitivity(SensitivitySlider.getValue());
+
         checkForBack();
         checkForMusic();
         checkForSound();

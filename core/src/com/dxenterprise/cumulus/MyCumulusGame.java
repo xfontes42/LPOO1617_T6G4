@@ -39,10 +39,16 @@ public class MyCumulusGame extends Game {
 
 	public void toggleSound(){
 		soundOn = !soundOn;
+		preferences.setSound(soundOn);
 	}
 
 	public void toggleMusic(){
 		musicOn = !musicOn;
+		preferences.setMusic(musicOn);
+	}
+
+	public MyCumulusPrefsInterface getPreferences(){
+		return preferences;
 	}
 
 	public boolean isSoundOn(){
@@ -59,7 +65,6 @@ public class MyCumulusGame extends Game {
 	public void startMainMenu(){
 		soundOn = preferences.getSound();
 		musicOn = preferences.getMusic();
-		SinglePGameView.sensitivity = preferences.getSensitivity();
 		setScreen(new MainMenuView(this));
 	}
 
