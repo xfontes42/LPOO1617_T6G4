@@ -82,7 +82,7 @@ public class GameOverView extends ScreenAdapter {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             dispose();
-            game.setScreen(new MainMenuView(game)); //todo acomodar para quando se vai para as settings durante o jogo
+            game.setScreen(new MainMenuView(game));
         }
 
         stage.act();

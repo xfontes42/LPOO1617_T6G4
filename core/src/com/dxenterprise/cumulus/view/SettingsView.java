@@ -79,19 +79,27 @@ public class SettingsView extends ScreenAdapter {
         SettingsOver.setPosition(MENU_WIDTH/2-SettingsOver.getWidth()/2, MENU_HEIGHT/1.9f +SettingsOver.getHeight()/2);
         stage.addActor(SettingsOver);
 
+        //back button
+        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_back.png")));
+        BackButton = new ImageButton(buttonDrawableBack);
+        BackButton.setSize(MENU_WIDTH/8,MENU_HEIGHT/8);
+        BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/8 -DELTA_Y_MENU);
+        stage.addActor(BackButton);
+
+
         //sound label
         Drawable buttonDrawableSound;
         buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOn.png")));
         SoundTextOn = new ImageButton(buttonDrawableSound);
-        SoundTextOn.setSize(MENU_WIDTH/5,MENU_HEIGHT/6);
-        SoundTextOn.setPosition(MENU_WIDTH/2-SoundTextOn.getWidth()/2,MENU_HEIGHT/1.5f-DELTA_Y_MENU);
+        SoundTextOn.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
+        SoundTextOn.setPosition(MENU_WIDTH/4-SoundTextOn.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(SoundTextOn);
 
 
         buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOff.png")));
         SoundTextOff = new ImageButton(buttonDrawableSound);
-        SoundTextOff.setSize(MENU_WIDTH/5,MENU_HEIGHT/6);
-        SoundTextOff.setPosition(MENU_WIDTH/2-SoundTextOff.getWidth()/2,MENU_HEIGHT/1.5f-DELTA_Y_MENU);
+        SoundTextOff.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
+        SoundTextOff.setPosition(MENU_WIDTH/4-SoundTextOff.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(SoundTextOff);
 
 
@@ -99,14 +107,14 @@ public class SettingsView extends ScreenAdapter {
         Drawable buttonDrawableMusic;
         buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textMusicOn.png")));
         MusicTextOn = new ImageButton(buttonDrawableMusic);
-        MusicTextOn.setSize(MENU_WIDTH/5,MENU_HEIGHT/6);
-        MusicTextOn.setPosition(MENU_WIDTH/2-MusicTextOn.getWidth()/2,MENU_HEIGHT/2-DELTA_Y_MENU);
+        MusicTextOn.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
+        MusicTextOn.setPosition(3*MENU_WIDTH/4-MusicTextOn.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(MusicTextOn);
 
         buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textMusicOff.png")));
         MusicTextOff = new ImageButton(buttonDrawableMusic);
-        MusicTextOff.setSize(MENU_WIDTH/5,MENU_HEIGHT/6);
-        MusicTextOff.setPosition(MENU_WIDTH/2-MusicTextOff.getWidth()/2,MENU_HEIGHT/2-DELTA_Y_MENU);
+        MusicTextOff.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
+        MusicTextOff.setPosition(3*MENU_WIDTH/4-MusicTextOff.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(MusicTextOff);
 
         if(game.isMusicOn())
@@ -117,15 +125,15 @@ public class SettingsView extends ScreenAdapter {
             SoundTextOff.setVisible(false);
         else SoundTextOn.setVisible(false);
 
-//       Drawable buttonDrawableSens = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_sensitivity.png")));
-//        MusicText = new ImageButton(buttonDrawableSens);
-//        MusicText.setSize(MENU_WIDTH/5,MENU_HEIGHT/6);
-//        MusicText.setPosition(MENU_WIDTH/2-SoundText.getWidth()/2,MENU_HEIGHT/3-DELTA_Y_MENU);
-//        stage.addActor(MusicText);
+       Drawable buttonDrawableSens = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_sensitivity.png")));
+        ImageButton SensitivityText = new ImageButton(buttonDrawableSens);
+        SensitivityText.setSize(MENU_WIDTH/4,MENU_HEIGHT/4);
+        SensitivityText.setPosition(MENU_WIDTH/2-SensitivityText.getWidth()/2,MENU_HEIGHT/3.4f-DELTA_Y_MENU);
+        stage.addActor(SensitivityText);
 
         SensitivitySlider = new Slider(1,5,0.5f,false,skinButtons);
         SensitivitySlider.setSize(MusicTextOn.getWidth(), MusicTextOn.getHeight());
-        SensitivitySlider.setPosition(MENU_WIDTH/2-SensitivitySlider.getWidth()/2,MENU_HEIGHT/3f-DELTA_Y_MENU);
+        SensitivitySlider.setPosition(MENU_WIDTH/2-SensitivitySlider.getWidth()/2,MENU_HEIGHT/4.8f-DELTA_Y_MENU);
         SensitivitySlider.setValue(SinglePGameView.sensitivity);
         //SensitivitySlider.setDebug(true);
         stage.addActor(SensitivitySlider);
@@ -140,9 +148,11 @@ public class SettingsView extends ScreenAdapter {
         Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) ||
+                BackButton.isPressed()){
+            Gdx.input.vibrate(50);
             dispose();
-            game.setScreen(new MainMenuView(game));
+            game.setScreen(new MainMenuView(game)); //todo acomodar para quando se vai para as settings durante o jogo
         }
 
 
