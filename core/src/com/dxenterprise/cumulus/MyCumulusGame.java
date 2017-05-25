@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.dxenterprise.cumulus.view.MainMenuView;
+import com.dxenterprise.cumulus.view.SinglePGameView;
 
 public class MyCumulusGame extends Game {
 	private SpriteBatch batch;
@@ -17,9 +18,6 @@ public class MyCumulusGame extends Game {
 		this.preferences = prefs;
 	}
 
-	public MyCumulusGame() {
-
-	}
 
 	/**
 	 * Creates the game. Initializes the sprite batch and asset manager.
@@ -59,6 +57,9 @@ public class MyCumulusGame extends Game {
 	 *Starts the main menu.
 	 */
 	public void startMainMenu(){
+		soundOn = preferences.getSound();
+		musicOn = preferences.getMusic();
+		SinglePGameView.sensitivity = preferences.getSensitivity();
 		setScreen(new MainMenuView(this));
 	}
 
