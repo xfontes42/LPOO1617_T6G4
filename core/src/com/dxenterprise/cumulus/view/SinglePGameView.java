@@ -3,6 +3,7 @@ package com.dxenterprise.cumulus.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -81,6 +82,8 @@ public class SinglePGameView extends ScreenAdapter {
     private float textDeltaX = 0.5f;
     private float texDeltaY = 0.5f;
     public static float sensitivity = 2.5f;
+
+    public static Sound flap =  Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
 
     /**
      * Creates this screen.
@@ -180,6 +183,8 @@ public class SinglePGameView extends ScreenAdapter {
         }
 
         if(SinglePGameController.getInstance().isGame_lost()){
+            SinglePGameController.getInstance().clear();
+            SinglePGameModel.getInstance().clear();
             game.setScreen(new GameOverView(game)); //todo clean the model and controller and store highscore
         }
     }
@@ -195,6 +200,8 @@ public class SinglePGameView extends ScreenAdapter {
         if(Gdx.input.justTouched()){
             Gdx.input.vibrate(60);
             SinglePGameController.getInstance().jump(delta);
+            if(game.isSoundOn())
+                flap.play(0.5f);
             System.out.println("jump");
         }
 

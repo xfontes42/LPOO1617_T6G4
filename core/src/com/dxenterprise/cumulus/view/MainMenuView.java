@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -35,6 +36,8 @@ public class MainMenuView extends ScreenAdapter {
     private Viewport viewport;
     private OrthographicCamera camera;
     private Skin skinButtons;
+    private final String musicName = "Gorillaz_Andromeda.mp3";
+    private Music music;
 
     public MainMenuView(MyCumulusGame game){
         this.game = game;
@@ -46,6 +49,10 @@ public class MainMenuView extends ScreenAdapter {
         camera.update();
         stage = new Stage(viewport, game.getBatch());
         skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
+        music = game.getAssetManager().get(musicName);
+        music.setLooping(true);
+        music.setVolume(0.8f);
+        music.play();
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
     }
@@ -61,6 +68,7 @@ public class MainMenuView extends ScreenAdapter {
     }
 
     private void loadMainMenuAssets(){
+        game.getAssetManager().load(musicName, Music.class);
         game.getAssetManager().load("Cumulus.png",Texture.class);
         game.getAssetManager().load("iconSettings.png",Texture.class);
         game.getAssetManager().load("iconShare.png",Texture.class);

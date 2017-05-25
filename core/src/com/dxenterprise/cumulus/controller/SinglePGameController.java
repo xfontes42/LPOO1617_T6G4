@@ -252,8 +252,10 @@ public class SinglePGameController implements ContactListener {
             verifyBounds(body);
         }
 
-        game_lost = SinglePGameModel.getInstance().isGame_lost() || (((EntityModel)playerBody.getUserData()).getX() <= (camX - WORLD_WIDTH/(SinglePGameView.PIXEL_TO_METER)));
 
+
+        game_lost = SinglePGameModel.getInstance().isGame_lost() || (((EntityModel)playerBody.getUserData()).getX()/(SinglePGameView.PIXEL_TO_METER) <= (camX - WORLD_WIDTH/(3.35*SinglePGameView.PIXEL_TO_METER)));
+        SinglePGameModel.getInstance().setGame_lost(game_lost);
     }
 
     /**
@@ -315,6 +317,9 @@ public class SinglePGameController implements ContactListener {
      * @param delta Duration of the jump in seconds.
      */
     public void jump(float delta) {
+        System.out.println("world:"+ WORLD_WIDTH/(3.2*SinglePGameView.PIXEL_TO_METER));
+        System.out.println("x " + ((EntityModel)playerBody.getUserData()).getX()/(SinglePGameView.PIXEL_TO_METER));
+        System.out.println("cam: " +camX);
         SinglePGameModel.getInstance().getPlayer().setWalking(false);
         playerBody.applyForceToCenter(JUMP_X,JUMP_Y, true);
        //set jumping pa dar double jump ((ShipModel)shipBody.getUserData()).setAccelerating(true);

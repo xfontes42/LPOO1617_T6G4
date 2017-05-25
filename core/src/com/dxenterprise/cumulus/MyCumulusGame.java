@@ -2,6 +2,7 @@ package com.dxenterprise.cumulus;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dxenterprise.cumulus.view.MainMenuView;
@@ -25,7 +26,8 @@ public class MyCumulusGame extends Game {
 	}
 
 	public void loadAssets(){
-
+//		assetManager.load("Gorillaz_Andromeda.mp3", Music.class);
+//		assetManager.finishLoading();
 	}
 
 	public void toggleSound(){

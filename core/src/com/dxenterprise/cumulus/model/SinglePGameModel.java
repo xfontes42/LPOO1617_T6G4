@@ -28,6 +28,10 @@ public class SinglePGameModel {
         return highscore;
     }
 
+    public void setGame_lost(boolean game_lost) {
+        this.game_lost = game_lost;
+    }
+
     private boolean game_lost = false;
 
     public boolean isGame_lost() {
