@@ -68,7 +68,7 @@ public class GameOverView extends ScreenAdapter {
         //title
         Drawable buttonDrawableGameOver = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textGameOver.png")));
         ImageButton GameOverLabel = new ImageButton(buttonDrawableGameOver);
-        GameOverLabel.setSize(MENU_WIDTH*1.5f,MENU_HEIGHT/3);
+        GameOverLabel.setSize(MENU_WIDTH/1.5f,MENU_HEIGHT/3);
         GameOverLabel.setPosition(MENU_WIDTH/2-GameOverLabel.getWidth()/2, MENU_HEIGHT/1.9f +GameOverLabel.getHeight()/2);
         stage.addActor(GameOverLabel);
     }
