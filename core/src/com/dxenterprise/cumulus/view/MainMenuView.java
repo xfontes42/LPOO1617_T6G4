@@ -68,6 +68,7 @@ public class MainMenuView extends ScreenAdapter {
         game.getAssetManager().load("text_sensitivity.png",Texture.class);
         game.getAssetManager().load("textMusicOff.png",Texture.class);
         game.getAssetManager().load("textSoundOff.png",Texture.class);
+        game.getAssetManager().load("textGameOver.png",Texture.class);
         game.getAssetManager().finishLoading();
 
     }
@@ -145,8 +146,11 @@ public class MainMenuView extends ScreenAdapter {
             dispose();
             game.setScreen(new SettingsView(game));
         }
-        if(highscoresOver.isPressed())
+        if(highscoresOver.isPressed()){
             System.out.println("Highscores");
+            dispose();
+            game.setScreen(new GameOverView(game));
+        }
         if(shareOver.isPressed())
             System.out.println("Share");
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
