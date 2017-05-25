@@ -186,7 +186,7 @@ public class SinglePGameView extends ScreenAdapter {
      * @param delta time since last time inputs where handled in seconds
      */
     private void handleInputs(float delta) {
-        sensitivity = SettingsView.SensitivitySlider.getValue();
+        sensitivity = SettingsView.getSensitivity();
 
         if(Gdx.input.justTouched()){
             Gdx.input.vibrate(60);

@@ -62,6 +62,12 @@ public class SettingsView extends ScreenAdapter {
     private ImageButton SoundTextOn, SoundTextOff,  MusicTextOn, MusicTextOff, BackButton;
     public static Slider SensitivitySlider;
 
+    static public float getSensitivity() {
+        if(SensitivitySlider == null)
+            return SinglePGameView.sensitivity;
+        else return SensitivitySlider.getValue();
+    }
+
     @Override
     public void show() {
         //Create buttons
