@@ -179,7 +179,7 @@ public class SinglePGameView extends ScreenAdapter {
             debugRenderer.render(SinglePGameController.getInstance().getWorld(), debugCamera);
         }
 
-        if(SinglePGameModel.getInstance().isGame_lost()){
+        if(SinglePGameController.getInstance().isGame_lost()){
             game.setScreen(new GameOverView(game)); //todo clean the model and controller and store highscore
         }
     }

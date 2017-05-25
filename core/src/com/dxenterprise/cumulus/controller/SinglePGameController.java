@@ -18,6 +18,7 @@ import com.dxenterprise.cumulus.model.entities.BirdModel;
 import com.dxenterprise.cumulus.model.entities.CloudModel;
 import com.dxenterprise.cumulus.model.entities.EntityModel;
 import com.dxenterprise.cumulus.view.GameOverView;
+import com.dxenterprise.cumulus.view.SinglePGameView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,11 @@ public class SinglePGameController implements ContactListener {
     }
 
 
+    public boolean game_lost = false;
 
+    public boolean isGame_lost() {
+        return game_lost;
+    }
 
     /**
      * The singleton instance of this controller
@@ -247,6 +252,7 @@ public class SinglePGameController implements ContactListener {
             verifyBounds(body);
         }
 
+        game_lost = SinglePGameModel.getInstance().isGame_lost() || (((EntityModel)playerBody.getUserData()).getX() <= (camX - WORLD_WIDTH/(SinglePGameView.PIXEL_TO_METER)));
 
     }
 
