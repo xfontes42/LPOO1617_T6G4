@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Cumulus";
 		config.addIcon("icon.png", Files.FileType.Internal);
+		//MyCumulusPreference prefs = new MyCumulusPreference(this);
 		new LwjglApplication(new MyCumulusGame(), config);
 
 	}

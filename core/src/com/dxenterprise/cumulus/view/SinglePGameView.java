@@ -7,10 +7,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
 import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.SinglePGameModel;
@@ -165,8 +163,7 @@ public class SinglePGameView extends ScreenAdapter {
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
-        //Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1); //todo for better debug of physics
+        Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
 

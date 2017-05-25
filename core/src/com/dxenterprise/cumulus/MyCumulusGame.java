@@ -2,16 +2,24 @@ package com.dxenterprise.cumulus;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import com.dxenterprise.cumulus.view.MainMenuView;
 
 public class MyCumulusGame extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
 	private boolean soundOn = true;
-	private boolean musicOn = false;
+	private boolean musicOn = true;
+	private MyCumulusPrefsInterface preferences;
+
+	public MyCumulusGame(MyCumulusPrefsInterface prefs){
+		this.preferences = prefs;
+	}
+
+	public MyCumulusGame() {
+
+	}
 
 	/**
 	 * Creates the game. Initializes the sprite batch and asset manager.
@@ -28,6 +36,7 @@ public class MyCumulusGame extends Game {
 	public void loadAssets(){
 //		assetManager.load("Gorillaz_Andromeda.mp3", Music.class);
 //		assetManager.finishLoading();
+
 	}
 
 	public void toggleSound(){
