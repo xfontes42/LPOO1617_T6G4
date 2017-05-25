@@ -80,7 +80,7 @@ public class SinglePGameView extends ScreenAdapter {
     private float texCoordY = 0;
     private float textDeltaX = 0.5f;
     private float texDeltaY = 0.5f;
-    private float sensitivity = 2.0f;
+    public static float sensitivity = 2.5f;
 
     /**
      * Creates this screen.
@@ -186,9 +186,10 @@ public class SinglePGameView extends ScreenAdapter {
      * @param delta time since last time inputs where handled in seconds
      */
     private void handleInputs(float delta) {
+        sensitivity = SettingsView.SensitivitySlider.getValue();
 
         if(Gdx.input.justTouched()){
-            Gdx.input.vibrate(90);
+            Gdx.input.vibrate(60);
             SinglePGameController.getInstance().jump(delta);
             System.out.println("jump");
         }

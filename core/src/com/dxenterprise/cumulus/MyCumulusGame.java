@@ -41,7 +41,7 @@ public class MyCumulusGame extends Game {
 	}
 
 	public boolean isMusicOn(){
-		return soundOn;
+		return musicOn;
 	}
 
 	/**
