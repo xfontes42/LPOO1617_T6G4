@@ -6,6 +6,7 @@ import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.entities.BirdModel;
 import com.dxenterprise.cumulus.model.entities.CloudModel;
 import com.dxenterprise.cumulus.model.entities.EntityModel;
+import com.dxenterprise.cumulus.view.SinglePGameView;
 
 
 import java.util.List;
@@ -18,6 +19,21 @@ import static com.badlogic.gdx.math.MathUtils.random;
  */
 
 public class SinglePGameModel {
+
+
+
+    private int highscore = 0;
+
+    public int getHighscore() {
+        return highscore;
+    }
+
+    private boolean game_lost = false;
+
+    public boolean isGame_lost() {
+        return game_lost;
+    }
+
     /**
      * The singleton instance of this controller
      */
@@ -54,7 +70,7 @@ public class SinglePGameModel {
 
     private SinglePGameModel(){
         clouds = new ArrayList<CloudModel>();
-        playerModel = new BirdModel(SinglePGameController.WORLD_WIDTH / 2, SinglePGameController.WORLD_HEIGHT / 2, 0);
+        playerModel = new BirdModel(SinglePGameController.WORLD_WIDTH / 2f, SinglePGameController.WORLD_HEIGHT / 2, 0);
         //generate clouds in own function...
 
         //these are the clouds that are showing
@@ -104,7 +120,8 @@ public class SinglePGameModel {
         //this 2 instructions probably can be done in some other better way
         SinglePGameController.getInstance().getWorld().step(delta,6,2);
         playerModel.setPosition(playerModel.getX()+delta*playerModel.getVx(),playerModel.getY());
-
+        if(playerModel.getY() <= -SinglePGameController.WORLD_HEIGHT/1.5f)
+            game_lost = true;
 
     }
 
