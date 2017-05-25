@@ -192,10 +192,14 @@ public class MainMenuView extends ScreenAdapter {
         if(highscoresOver.isPressed()){
             System.out.println("Highscores");
             dispose();
-            game.setScreen(new GameOverView(game));
         }
-        if(shareOver.isPressed())
+        if(shareOver.isPressed()){
             System.out.println("Share");
+            if (!Gdx.net.openURI("fb://page/<page_id>")) { // opens app
+                Gdx.net.openURI("https://facebook.com/<page_name>"); // opens site if app not installed
+            } //check this out later
+        }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             dispose();
             Gdx.app.exit();

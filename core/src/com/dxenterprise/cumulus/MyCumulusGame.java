@@ -11,7 +11,7 @@ public class MyCumulusGame extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
 	private boolean soundOn = true;
-	private boolean musicOn = true;
+	private boolean musicOn = false;
 
 	/**
 	 * Creates the game. Initializes the sprite batch and asset manager.
