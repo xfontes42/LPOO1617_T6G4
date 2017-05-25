@@ -10,8 +10,8 @@ import com.dxenterprise.cumulus.view.SinglePGameView;
 public class MyCumulusGame extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
-	private boolean soundOn = true;
-	private boolean musicOn = true;
+	private boolean soundOn = false;
+	private boolean musicOn = false; //enquanto nao le das preferences
 	private MyCumulusPrefsInterface preferences;
 
 	public MyCumulusGame(MyCumulusPrefsInterface prefs){
