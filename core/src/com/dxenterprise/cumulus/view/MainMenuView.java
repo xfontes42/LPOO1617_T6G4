@@ -51,31 +51,57 @@ public class MainMenuView extends ScreenAdapter {
     }
 
     private void loadAssets() {
+        ///game.getAssetManager().load("iconCheck.png",Texture.class); //todo ver a necessidade isto
+        loadMainMenuAssets();
+        loadPauseMenuAssets();
+        loadHUDAssets();
+        loadSettingsMenuAssets();
+
+        game.getAssetManager().finishLoading();
+    }
+
+    private void loadMainMenuAssets(){
+        game.getAssetManager().load("Cumulus.png",Texture.class);
         game.getAssetManager().load("iconSettings.png",Texture.class);
         game.getAssetManager().load("iconShare.png",Texture.class);
         game.getAssetManager().load("iconController.png",Texture.class);
-        game.getAssetManager().load("iconPlay.png",Texture.class);
-        game.getAssetManager().load("iconCheck.png",Texture.class);
-        game.getAssetManager().load("iconBack.png",Texture.class);
-        game.getAssetManager().load("iconPause.png",Texture.class);
-        game.getAssetManager().load("Cumulus.png",Texture.class);
-        game.getAssetManager().load("Settings.png",Texture.class);
-        game.getAssetManager().load("text_back.png",Texture.class);
         game.getAssetManager().load("text_SP.png",Texture.class);
         game.getAssetManager().load("text_MP.png",Texture.class);
+    }
+
+    private void loadSettingsMenuAssets(){
         game.getAssetManager().load("textMusicOn.png",Texture.class);
         game.getAssetManager().load("textSoundOn.png",Texture.class);
         game.getAssetManager().load("text_sensitivity.png",Texture.class);
         game.getAssetManager().load("textMusicOff.png",Texture.class);
         game.getAssetManager().load("textSoundOff.png",Texture.class);
+        game.getAssetManager().load("Settings.png",Texture.class);
+        game.getAssetManager().load("text_back.png",Texture.class);
+    }
+
+    private void loadPauseMenuAssets(){
+        game.getAssetManager().load("iconBack.png",Texture.class);
+        game.getAssetManager().load("iconPlay.png",Texture.class);
+
+    }
+
+    private void loadHUDAssets(){
+        game.getAssetManager().load("iconPause.png",Texture.class);
         game.getAssetManager().load("textGameOver.png",Texture.class);
-        game.getAssetManager().finishLoading();
+        game.getAssetManager().load("textScore.png", Texture.class);
 
     }
 
     @Override
     public void show() {
-        //Create buttons
+        showSettings();
+        showSPMPbuttons();
+        showShare();
+        showHiScores();
+        showTitle();
+    }
+
+    private void showSPMPbuttons(){
         singlePlayer = new TextButton("Singleplayer", skinButtons);
         singlePlayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6+10);
         singlePlayer.setPosition(MAIN_MENU_WIDTH/2-singlePlayer.getWidth()/2,3*MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
@@ -85,7 +111,9 @@ public class MainMenuView extends ScreenAdapter {
         multiplayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6);
         multiplayer.setPosition(MAIN_MENU_WIDTH/2-multiplayer.getWidth()/2,2*MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(multiplayer);
+    }
 
+    private void showSettings(){
         settings = new ImageButton(skinButtons);
         settings.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
         settings.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
@@ -96,7 +124,9 @@ public class MainMenuView extends ScreenAdapter {
         settingsOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
         settingsOver.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(settingsOver);
+    }
 
+    private void showShare(){
         share = new ImageButton(skinButtons);
         share.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
         share.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
@@ -107,7 +137,17 @@ public class MainMenuView extends ScreenAdapter {
         shareOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
         shareOver.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(shareOver);
+    }
 
+    private void showTitle(){
+        Drawable buttonDrawableCumulus = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Cumulus.png")));
+        ImageButton cumulusButtonOver = new ImageButton(buttonDrawableCumulus);
+        cumulusButtonOver.setSize(MAIN_MENU_WIDTH*1.5f,MAIN_MENU_HEIGHT/2);
+        cumulusButtonOver.setPosition(MAIN_MENU_WIDTH/2-cumulusButtonOver.getWidth()/2,MAIN_MENU_HEIGHT/1.75f);
+        stage.addActor(cumulusButtonOver);
+    }
+
+    private void showHiScores(){
         highscores = new ImageButton(skinButtons);
         highscores.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
         highscores.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
@@ -118,17 +158,7 @@ public class MainMenuView extends ScreenAdapter {
         highscoresOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
         highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
         stage.addActor(highscoresOver);
-
-
-        Drawable buttonDrawableCumulus = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Cumulus.png")));
-        ImageButton cumulusButtonOver = new ImageButton(buttonDrawableCumulus);
-        cumulusButtonOver.setSize(MAIN_MENU_WIDTH*1.5f,MAIN_MENU_HEIGHT/2);
-        cumulusButtonOver.setPosition(MAIN_MENU_WIDTH/2-cumulusButtonOver.getWidth()/2,MAIN_MENU_HEIGHT/1.75f);
-        stage.addActor(cumulusButtonOver);
-
     }
-
-
 
     @Override
 	public void render (float delta) {
