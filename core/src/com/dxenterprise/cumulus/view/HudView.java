@@ -32,6 +32,8 @@ public class HudView implements Disposable{
 
     private Label timerLabel;
     private static Label scoreLabel;
+    private Label timerNameLabel;
+    private Label scoreNameLabel;
 
     public HudView(SpriteBatch sb){
         //define our tracking variables
@@ -63,15 +65,19 @@ public class HudView implements Disposable{
 
         //define our labels using the String, and a Label style consisting of a font and color
         timerLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(cloudsfont, Color.WHITE));
-        scoreLabel =new Label(String.format("%09d", score), new Label.LabelStyle(cloudsfont, Color.WHITE));
-       // timerLabel.setSize(VIEWPORT_WIDTH/(PIXEL_TO_METER*3f), VIEWPORT_WIDTH/PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth())/4f);
+        scoreLabel =new Label(String.format("%06d", score), new Label.LabelStyle(cloudsfont, Color.WHITE));
+       timerNameLabel = new Label("Timer: ", new Label.LabelStyle(cloudsfont, Color.WHITE));
+        scoreNameLabel = new Label("Score: ", new Label.LabelStyle(cloudsfont, Color.WHITE));
+        // timerLabel.setSize(VIEWPORT_WIDTH/(PIXEL_TO_METER*3f), VIEWPORT_WIDTH/PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth())/4f);
         //scoreLabel.setSize(VIEWPORT_WIDTH/3f, VIEWPORT_WIDTH* ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth())/4f);
 
 
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
+        table.add(timerNameLabel).expandX().padTop(PADDING);
         table.add(timerLabel).expandX().padTop(PADDING);
-        table.add().expandX();
+        table.add().expandX().padTop(PADDING);
+       table.add(scoreNameLabel).expandX().padTop(PADDING);
         table.add(scoreLabel).expandX().padTop(PADDING);
         table.row();
         //table.row();
