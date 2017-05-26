@@ -335,6 +335,10 @@ public class SinglePGameController implements ContactListener {
         else instance.getWorld().step(delta,velocityIters,positionIters);
     }
 
+
+    public int getScore(){
+        return SinglePGameModel.getInstance().getHighscore();
+    }
 //
 //
 //

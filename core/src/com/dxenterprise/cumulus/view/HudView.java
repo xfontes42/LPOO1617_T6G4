@@ -77,6 +77,7 @@ public class HudView implements Disposable{
         table.add(timerNameLabel).expandX().padTop(PADDING);
         table.add(timerLabel).expandX().padTop(PADDING);
         table.add().expandX().padTop(PADDING);
+        table.add().expandX().padTop(PADDING);
        table.add(scoreNameLabel).expandX().padTop(PADDING);
         table.add(scoreLabel).expandX().padTop(PADDING);
         table.row();
@@ -88,6 +89,8 @@ public class HudView implements Disposable{
 
     public void update(float dt){
         timeCount += dt;
+        if((int)(timeCount*100) >= 1)
+            scoreLabel.setText(String.format("%06d", score));
         if(timeCount >= 1){
             timer++;
             timerLabel.setText(String.format("%03d", timer));
@@ -96,9 +99,8 @@ public class HudView implements Disposable{
     }
 
 
-    public static void addScore(int value){
-        score += value;
-        scoreLabel.setText(String.format("%06d", score));
+    public static void setScore(int value){
+        score = value;
     }
 
     @Override

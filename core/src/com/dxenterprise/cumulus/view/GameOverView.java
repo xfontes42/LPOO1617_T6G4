@@ -22,7 +22,7 @@ import com.dxenterprise.cumulus.MyCumulusGame;
  */
 
 public class GameOverView extends ScreenAdapter {
-
+    int highscore = 0;
     /**
      * The game this screen belongs to.
      */
@@ -33,9 +33,10 @@ public class GameOverView extends ScreenAdapter {
      *
      * @param game The game this screen belongs to
      */
-    public GameOverView(MyCumulusGame game) {
+    public GameOverView(MyCumulusGame game, int score) {
 
         this.game = game;
+        highscore = score;
         //loadAssets();
         camera = new OrthographicCamera();
         viewport = new FitViewport(MENU_WIDTH, MENU_HEIGHT, camera);

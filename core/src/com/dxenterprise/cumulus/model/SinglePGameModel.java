@@ -127,6 +127,9 @@ public class SinglePGameModel {
         if(playerModel.getY() <= -SinglePGameController.WORLD_HEIGHT/1.5f)
             game_lost = true;
 
+        if(!game_lost){
+            highscore += playerModel.getX()*delta + playerModel.getVx();
+        }
     }
 
     public CloudModel addCloud(float x, float y, float ang){

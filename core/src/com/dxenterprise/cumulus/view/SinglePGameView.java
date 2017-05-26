@@ -158,6 +158,7 @@ public class SinglePGameView extends ScreenAdapter {
 
         SinglePGameController.getInstance().update(delta);
         hud.update(delta);
+        hud.setScore(SinglePGameController.getInstance().getScore());
        //camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
        // camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, (SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER, 0);
 
@@ -191,9 +192,10 @@ public class SinglePGameView extends ScreenAdapter {
         }
 
         if(SinglePGameController.getInstance().isGame_lost()){
+            int score = SinglePGameController.getInstance().getScore();
             SinglePGameController.getInstance().clear();
             SinglePGameModel.getInstance().clear();
-            game.setScreen(new GameOverView(game)); //todo clean the model and controller and store highscore
+            game.setScreen(new GameOverView(game, score)); //todo clean the model and controller and store highscore
         }
 
 
