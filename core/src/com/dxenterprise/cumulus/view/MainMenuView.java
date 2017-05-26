@@ -97,6 +97,7 @@ public class MainMenuView extends ScreenAdapter {
         game.getAssetManager().load("iconPause.png",Texture.class);
         game.getAssetManager().load("textGameOver.png",Texture.class);
         game.getAssetManager().load("textScore.png", Texture.class);
+        game.getAssetManager().load("textHallOfFame.png", Texture.class);
 
     }
 
@@ -190,8 +191,8 @@ public class MainMenuView extends ScreenAdapter {
             game.setScreen(new SettingsView(game));
         }
         if(highscoresOver.isPressed()){
-            System.out.println("Highscores");
             dispose();
+            game.setScreen(new HighScoreView(game));
         }
         if(shareOver.isPressed()){
             System.out.println("Share");
