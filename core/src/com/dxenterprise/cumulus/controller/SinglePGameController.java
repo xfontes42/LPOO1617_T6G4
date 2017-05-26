@@ -167,7 +167,6 @@ public class SinglePGameController implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("bati nalguma coisa");
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
@@ -180,7 +179,6 @@ public class SinglePGameController implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-        System.out.println("ja bazei");
     }
 
     @Override
@@ -317,9 +315,9 @@ public class SinglePGameController implements ContactListener {
      * @param delta Duration of the jump in seconds.
      */
     public void jump(float delta) {
-        System.out.println("world:"+ WORLD_WIDTH/(3.2*SinglePGameView.PIXEL_TO_METER));
-        System.out.println("x " + ((EntityModel)playerBody.getUserData()).getX()/(SinglePGameView.PIXEL_TO_METER));
-        System.out.println("cam: " +camX);
+//        System.out.println("world:"+ WORLD_WIDTH/(3.2*SinglePGameView.PIXEL_TO_METER));
+//        System.out.println("x " + ((EntityModel)playerBody.getUserData()).getX()/(SinglePGameView.PIXEL_TO_METER));
+//        System.out.println("cam: " +camX);
         SinglePGameModel.getInstance().getPlayer().setWalking(false);
         playerBody.applyForceToCenter(JUMP_X,JUMP_Y, true);
        //set jumping pa dar double jump ((ShipModel)shipBody.getUserData()).setAccelerating(true);

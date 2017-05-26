@@ -200,7 +200,6 @@ public class SinglePGameView extends ScreenAdapter {
             SinglePGameController.getInstance().jump(delta);
             if(game.isSoundOn())
                 flap.play(0.5f);
-            System.out.println("jump");
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
