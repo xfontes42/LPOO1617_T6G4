@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
+import com.dxenterprise.cumulus.utils.fonts;
 
 /**
  * Created by Xavier Fontes on 28/04/2017.
@@ -41,6 +42,7 @@ public class MainMenuView extends ScreenAdapter {
 
     public MainMenuView(MyCumulusGame game){
         this.game = game;
+        skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
         loadAssets();
         camera = new OrthographicCamera();
         viewport = new FitViewport(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT, camera);
@@ -48,7 +50,7 @@ public class MainMenuView extends ScreenAdapter {
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
         stage = new Stage(viewport, game.getBatch());
-        skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
+
         music = game.getAssetManager().get(musicName);
         music.setLooping(true);
         music.setVolume(0.8f);
@@ -202,6 +204,9 @@ public class MainMenuView extends ScreenAdapter {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            for(int i = 1; i <= game.getNum_scores();i++){
+                game.getPreferences().setHighscore(game.getScores().get(i-1),i);
+            }
             dispose();
             Gdx.app.exit();
         }

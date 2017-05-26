@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
+import com.dxenterprise.cumulus.utils.fonts;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,8 +55,6 @@ public class GameOverView extends ScreenAdapter {
         skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
-
-        loadFonts();
         createTable();
         fillTable(score);
         stage.addActor(table);
@@ -75,27 +74,9 @@ public class GameOverView extends ScreenAdapter {
     private OrthographicCamera camera;
     private Skin skinButtons;
     private Table table;
-    private BitmapFont Rancho100;
-    private BitmapFont Clouds100;
     private Label scoreString, scoreValue;
     //private ImageButton GameOverLabel;
 
-    /**
-     * Loads the Rancho font used in this screen.
-     */
-    private void loadFonts(){
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Rancho-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 100;
-        parameter.borderWidth = 0.5F;
-        parameter.borderColor = Color.WHITE;
-        Rancho100 = generator.generateFont(parameter); // font size 12 pixels
-
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/AlphaClouds.ttf"));
-        Clouds100 = generator.generateFont(parameter); // font size 12 pixels
-
-        generator.dispose();
-    }
 
     /**
      * Creates the table that will align the text in this screen.
@@ -107,8 +88,8 @@ public class GameOverView extends ScreenAdapter {
     }
 
     private void fillTable(int score){
-        scoreString = new Label("Score: ", new Label.LabelStyle(Clouds100, Color.WHITE));
-        scoreValue = new Label(String.format("%06d", score), new Label.LabelStyle(Rancho100, Color.WHITE));
+        scoreString = new Label("Score: ", new Label.LabelStyle(fonts.getInstance().getClouds(), Color.WHITE));
+        scoreValue = new Label(String.format("%06d", score), new Label.LabelStyle(fonts.getInstance().getRancho(), Color.WHITE));
         table.row();
 
         table.add(scoreString).expandX().right();//.padTop(PADDING);
@@ -170,9 +151,7 @@ public class GameOverView extends ScreenAdapter {
         Collections.reverse(scores);
         scores.remove(scores.size()-1);
         game.setScores(scores);
-        for(int i = 1; i < game.getNum_scores(); i++){
-            game.getPreferences().setHighscore(scores.get(i),i);
-        }
+
     }
 
     @Override

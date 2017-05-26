@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
+import com.dxenterprise.cumulus.utils.fonts;
 
 /**
  * Created by Daniel Pinho on 26/05/2017.
@@ -49,8 +50,6 @@ public class HighScoreView extends ScreenAdapter {
         skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
-
-        loadFonts();
         createTable();
         fillTable();
         stage.addActor(table);
@@ -70,27 +69,10 @@ public class HighScoreView extends ScreenAdapter {
     private OrthographicCamera camera;
     private Skin skinButtons;
     private Table table;
-    private BitmapFont Rancho90;
-    private BitmapFont Clouds90;
     private Label scoreRank, scoreValue;
     //private ImageButton GameOverLabel;
 
-    /**
-     * Loads the Rancho font used in this screen.
-     */
-    private void loadFonts() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Rancho-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 80;
-        parameter.borderWidth = 0.5F;
-        parameter.borderColor = Color.WHITE;
-        Rancho90 = generator.generateFont(parameter); // font size 12 pixels
 
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/AlphaClouds.ttf"));
-        Clouds90 = generator.generateFont(parameter); // font size 12 pixels
-
-        generator.dispose();
-    }
 
     /**
      * Creates the table that will align the text in this screen.
@@ -107,8 +89,8 @@ public class HighScoreView extends ScreenAdapter {
         table.add();//.pad()
         table.row();
         for (int i = 1; i <= game.getNum_scores(); i++) {
-            scoreRank = new Label(String.format("%01d: ", i), new Label.LabelStyle(Clouds90, Color.WHITE));
-            scoreValue = new Label(String.format("%06d", game.getScores().get(i-1)), new Label.LabelStyle(Rancho90, Color.WHITE));
+            scoreRank = new Label(String.format("%01d: ", i), new Label.LabelStyle(fonts.getInstance().getClouds(), Color.WHITE));
+            scoreValue = new Label(String.format("%06d", game.getScores().get(i-1)), new Label.LabelStyle(fonts.getInstance().getRancho(), Color.WHITE));
             table.add(scoreRank).expandX().right();//.padTop(PADDING);
             table.add(scoreValue).expandX().left();//padTop(PADDING);
             table.row();
