@@ -74,12 +74,12 @@ public class HudView implements Disposable{
 
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
-        table.add(timerNameLabel).expandX().padTop(PADDING);
-        table.add(timerLabel).expandX().padTop(PADDING);
+        table.add(timerNameLabel).expandX().right().padTop(PADDING);
+        table.add(timerLabel).expandX().left().padTop(PADDING);
         table.add().expandX().padTop(PADDING);
         table.add().expandX().padTop(PADDING);
-       table.add(scoreNameLabel).expandX().padTop(PADDING);
-        table.add(scoreLabel).expandX().padTop(PADDING);
+       table.add(scoreNameLabel).expandX().right().padTop(PADDING);
+        table.add(scoreLabel).expandX().left().padTop(PADDING);
         table.row();
         //table.row();
 
