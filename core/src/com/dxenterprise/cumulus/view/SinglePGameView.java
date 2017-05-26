@@ -157,6 +157,7 @@ public class SinglePGameView extends ScreenAdapter {
         handleInputs(delta);
 
         SinglePGameController.getInstance().update(delta);
+        hud.update(delta);
        //camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
        // camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, (SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER, 0);
 

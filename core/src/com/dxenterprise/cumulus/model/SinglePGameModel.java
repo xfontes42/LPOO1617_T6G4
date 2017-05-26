@@ -91,7 +91,7 @@ public class SinglePGameModel {
             CloudModel atual = new CloudModel(
                     deltaClouds*i,
                     //random.nextFloat() * SinglePGameController.WORLD_HEIGHT/5,
-                    (float)-2.2-2*random.nextFloat(),
+                    (float)-1.8f-2.5f*random.nextFloat(),
                     (float) 0,
                     c);
             atual.setFlaggedForRemoval(false);
