@@ -330,6 +330,13 @@ public class SinglePGameController implements ContactListener {
         instance = null;
     }
 
+
+    public static void step_on_world(float delta, int velocityIters, int positionIters){
+        if(instance == null)
+            return ;
+        else instance.getWorld().step(delta,velocityIters,positionIters);
+    }
+
 //
 //
 //

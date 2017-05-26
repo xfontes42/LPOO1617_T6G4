@@ -122,7 +122,7 @@ public class SinglePGameModel {
 
     public  void update(float delta){
         //this 2 instructions probably can be done in some other better way
-        SinglePGameController.getInstance().getWorld().step(delta,6,2);
+        SinglePGameController.step_on_world(delta,6,2);   //getInstance().getWorld().step(delta,6,2); took this away because of unit tests
         playerModel.setPosition(playerModel.getX()+delta*playerModel.getVx(),playerModel.getY());
         if(playerModel.getY() <= -SinglePGameController.WORLD_HEIGHT/1.5f)
             game_lost = true;
