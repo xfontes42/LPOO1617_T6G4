@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.dxenterprise.cumulus.view.MainMenuView;
 
+import java.util.ArrayList;
+
 
 public class MyCumulusGame extends Game {
 	private SpriteBatch batch;
@@ -13,6 +15,21 @@ public class MyCumulusGame extends Game {
 	private boolean soundOn = false;
 	private boolean musicOn = false; //enquanto nao le das preferences
 	private MyCumulusPrefsInterface preferences;
+	private final int num_scores = 5;
+
+	public int getNum_scores() {
+		return num_scores;
+	}
+
+	public ArrayList<Integer> getScores() {
+		return scores;
+	}
+
+	public void setScores(ArrayList<Integer> scores) {
+		this.scores = scores;
+	}
+
+	private ArrayList<Integer> scores = new ArrayList<Integer>(num_scores);
 
 	public MyCumulusGame(MyCumulusPrefsInterface prefs){
 		this.preferences = prefs;
@@ -27,13 +44,14 @@ public class MyCumulusGame extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
-		loadAssets();
+		loadScores();
 		startMainMenu();
 	}
 
-	public void loadAssets(){
-//		assetManager.load("Gorillaz_Andromeda.mp3", Music.class);
-//		assetManager.finishLoading();
+	public void loadScores(){
+		for(int i = 1; i <= num_scores; i++){
+			scores.add(preferences.getHighscore(i));
+		}
 
 	}
 

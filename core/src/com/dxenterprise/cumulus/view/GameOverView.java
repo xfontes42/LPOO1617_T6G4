@@ -21,6 +21,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by Xavier Fontes on 23/05/2017.
  */
@@ -154,8 +157,21 @@ public class GameOverView extends ScreenAdapter {
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) ||
                 BackButton.isPressed()){
             Gdx.input.vibrate(50);
+            storeHighscore(highscore);
             dispose();
             game.setScreen(new MainMenuView(game)); //todo acomodar para quando se vai para as settings durante o jogo
+        }
+    }
+
+    private void storeHighscore(int highscore) {
+        ArrayList<Integer> scores = game.getScores();
+        scores.add(highscore);
+        Collections.sort(scores);
+        Collections.reverse(scores);
+        scores.remove(scores.size()-1);
+        game.setScores(scores);
+        for(int i = 1; i < game.getNum_scores(); i++){
+            game.getPreferences().setHighscore(scores.get(i),i);
         }
     }
 
