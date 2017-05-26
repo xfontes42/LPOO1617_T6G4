@@ -5,10 +5,18 @@ package com.dxenterprise.cumulus;
  */
 
 public interface MyCumulusPrefsInterface  {
+    String soundE = "sound";
+    String musicE = "music";
+    String sensitivityE = "sensitivity";
+    String highscore = "highscore";
+
+
     float getSensitivity();
     void setSensitivity(float sensitivity);
     boolean getSound();
     void setSound(boolean sound);
     boolean getMusic();
     void setMusic(boolean music);
+    int getHighscore(int position);
+    void setHighscore(int value, int position);
 }

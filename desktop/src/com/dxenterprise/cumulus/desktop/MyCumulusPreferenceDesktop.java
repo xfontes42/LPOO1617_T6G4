@@ -16,31 +16,43 @@ public class MyCumulusPreferenceDesktop implements MyCumulusPrefsInterface {
 
     @Override
     public float getSensitivity() {
-       return getPrefs().getFloat("sensitivity",2.5f);
+       return getPrefs().getFloat(sensitivityE,2.5f);
     }
 
     @Override
     public void setSensitivity(float sensitivity) {
-        getPrefs().putFloat("sensivity",sensitivity);
+        getPrefs().putFloat(sensitivityE,sensitivity);
     }
 
     @Override
     public boolean getSound() {
-        return getPrefs().getBoolean("sound",true);
+        return getPrefs().getBoolean(soundE,true);
     }
 
     @Override
     public void setSound(boolean sound) {
-        getPrefs().putBoolean("sound",sound);
+        getPrefs().putBoolean(soundE,sound);
     }
 
     @Override
     public boolean getMusic() {
-        return getPrefs().getBoolean("music",true);
+        return getPrefs().getBoolean(musicE,true);
     }
 
     @Override
     public void setMusic(boolean music) {
-        getPrefs().putBoolean("music",music);
+        getPrefs().putBoolean(musicE,music);
+    }
+
+    @Override
+    public int getHighscore(int position) {
+        String temp = highscore + position;
+        return getPrefs().getInteger(temp,0);
+    }
+
+    @Override
+    public void setHighscore(int value, int position) {
+        String temp = highscore + position;
+        getPrefs().putInteger(temp, value);
     }
 }
