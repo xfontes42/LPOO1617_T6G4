@@ -5,7 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.dxenterprise.cumulus.view.MainMenuView;
-import com.dxenterprise.cumulus.view.SinglePGameView;
+
 
 public class MyCumulusGame extends Game {
 	private SpriteBatch batch;

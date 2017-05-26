@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
 import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.SinglePGameModel;
@@ -25,6 +26,9 @@ import java.util.List;
  */
 
 public class SinglePGameView extends ScreenAdapter {
+
+    private HudView hud;
+
     /**
      * Used to debug the position of the physics fixtures
      */
@@ -39,7 +43,7 @@ public class SinglePGameView extends ScreenAdapter {
      * The width of the viewport in meters. The height is
      * automatically calculated using the screen ratio.
      */
-    private static final float VIEWPORT_WIDTH = 18;
+    public static final float VIEWPORT_WIDTH = 18;
 
     /**
      * The game this screen belongs to.
@@ -90,6 +94,7 @@ public class SinglePGameView extends ScreenAdapter {
      */
     public SinglePGameView(MyCumulusGame game) {
         this.game = game;
+        hud = new HudView(this.game.getBatch());
         loadAssets();
         camera = createCamera();
 
@@ -111,6 +116,7 @@ public class SinglePGameView extends ScreenAdapter {
     private OrthographicCamera createCamera() {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()));
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+
         SinglePGameController.getInstance().setCamX(camera.viewportWidth / 2f);
         SinglePGameController.getInstance().setCamY(camera.viewportWidth / 2f);
         camera.update();
@@ -172,6 +178,9 @@ public class SinglePGameView extends ScreenAdapter {
         drawEntities();
         game.getBatch().end();
 
+        hud.stage.act();
+        hud.stage.draw();
+
 
 
         if (DEBUG_PHYSICS) {
@@ -185,6 +194,8 @@ public class SinglePGameView extends ScreenAdapter {
             SinglePGameModel.getInstance().clear();
             game.setScreen(new GameOverView(game)); //todo clean the model and controller and store highscore
         }
+
+
     }
 
     /**
