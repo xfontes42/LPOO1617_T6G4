@@ -119,6 +119,9 @@ public class SinglePGameController implements ContactListener {
      */
     private final BirdBody playerBody;
 
+    public BirdBody getPlayerBody(){
+        return playerBody;
+    }
 
     /**
      * Clouds that are visible to the player
