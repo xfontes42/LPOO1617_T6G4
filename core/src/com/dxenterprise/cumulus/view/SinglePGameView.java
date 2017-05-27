@@ -15,6 +15,7 @@ import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.SinglePGameModel;
 import com.dxenterprise.cumulus.model.entities.BirdModel;
 import com.dxenterprise.cumulus.model.entities.CloudModel;
+import com.dxenterprise.cumulus.model.entities.EntityModel;
 import com.dxenterprise.cumulus.view.entities.EntityView;
 import com.dxenterprise.cumulus.view.entities.ViewFactory;
 
@@ -161,8 +162,12 @@ public class SinglePGameView extends ScreenAdapter {
         hud.setScore(SinglePGameController.getInstance().getScore());
        //camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
        // camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, (SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER, 0);
+       // SinglePGameController.getInstance().setCamX(SinglePGameController.getInstance().getCamX()+ (delta*SinglePGameController.getInstance().getCamVX() / PIXEL_TO_METER));
+        SinglePGameController.getInstance().setCamX(
+                Math.max(SinglePGameModel.getInstance().getPlayer().getX()/PIXEL_TO_METER/*-(SinglePGameController.WORLD_WIDTH/4f)/PIXEL_TO_METER-1/PIXEL_TO_METER*/,SinglePGameController.getInstance().getCamX()+ (delta*SinglePGameController.getInstance().getCamVX() / PIXEL_TO_METER))
+                                                                                            //todo ^ this right here serves to adjust the bird when he's to fast
+        );
 
-        SinglePGameController.getInstance().setCamX(SinglePGameController.getInstance().getCamX()+ (delta*SinglePGameController.getInstance().getCamVX() / PIXEL_TO_METER));
         SinglePGameController.getInstance().setCamY((SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER);
         camera.position.set( SinglePGameController.getInstance().getCamX(),
                 SinglePGameController.getInstance().getCamY(),
