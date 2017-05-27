@@ -31,7 +31,7 @@ import static java.lang.Math.sin;
  */
 
 public class SinglePGameController implements ContactListener {
-
+    //todo put this down here in the model for better use of MVC
     //camera x position in-game
     private float camX;
     //camera y position in-game
