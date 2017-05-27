@@ -253,6 +253,8 @@ public class SinglePGameController implements ContactListener {
         }
 
         SinglePGameModel.getInstance().updateLostCondition((((EntityModel)playerBody.getUserData()).getX()/(SinglePGameView.PIXEL_TO_METER)) ,(float) (camX - WORLD_WIDTH/(3.35*SinglePGameView.PIXEL_TO_METER)));
+        if( SinglePGameModel.getInstance().isGame_lost())
+            game_lost = true;
 
     }
 

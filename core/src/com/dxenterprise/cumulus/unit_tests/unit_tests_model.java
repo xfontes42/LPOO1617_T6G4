@@ -3,8 +3,11 @@ package com.dxenterprise.cumulus.unit_tests;
 
 import com.dxenterprise.cumulus.controller.SinglePGameController;
 import com.dxenterprise.cumulus.model.SinglePGameModel;
+import com.dxenterprise.cumulus.model.entities.CloudModel;
 
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Created by Xavier Fontes on 24/05/2017.
@@ -44,6 +47,28 @@ public class unit_tests_model {
     public void model_player_lost(){
         SinglePGameModel.getInstance().update(5f);
         assert(SinglePGameModel.getInstance().isGame_lost());
+
+    }
+
+    @Test
+    public void model_random_clouds(){
+        for(int i = 0; i < 100 ; i++)
+            SinglePGameModel.getInstance().addCloud(i*100,i*2,0);
+
+        List<CloudModel> clouds = SinglePGameModel.getInstance().getClouds();
+
+        boolean small = false, medium = false, big = false;
+        for(int i = 0; i < clouds.size(); i++){
+            if(clouds.get(i).getSize() == CloudModel.CloudSize.SMALL){
+                small = true;
+            } else if(clouds.get(i).getSize() == CloudModel.CloudSize.MEDIUM){
+                medium = true;
+            } else if(clouds.get(i).getSize() == CloudModel.CloudSize.BIG){
+                big =true;
+            }
+        }
+
+        assert(small && medium && big);
 
     }
 
