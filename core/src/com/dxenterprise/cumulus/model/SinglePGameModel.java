@@ -150,6 +150,12 @@ public class SinglePGameModel {
         instance = null;
     }
 
+
+    public void updateLostCondition(float position_player, float position_cam){
+        if(position_player < position_cam)
+            game_lost = true;
+    }
+
 //
 //
 //    /**
