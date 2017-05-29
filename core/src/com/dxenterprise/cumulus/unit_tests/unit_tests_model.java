@@ -209,4 +209,16 @@ public class unit_tests_model {
         SinglePGameModel.getInstance().update(0.5f);
         assert(SinglePGameModel.getInstance().getHighscore() == 0);
     }
+
+    @Test
+    public void model_test_double_jump(){
+        boolean jump = SinglePGameModel.getInstance().canJump();
+        assert(jump);
+        SinglePGameModel.getInstance().birdJump();
+        assert(jump);
+        SinglePGameModel.getInstance().birdJump();
+        assert(!jump);
+        SinglePGameModel.getInstance().resetJumps();
+        assert(jump);
+    }
 }

@@ -172,10 +172,16 @@ public class SinglePGameController implements ContactListener {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
-        if (bodyA.getUserData() instanceof CloudModel && bodyB.getUserData() instanceof BirdModel)
+        if (bodyA.getUserData() instanceof CloudModel && bodyB.getUserData() instanceof BirdModel){
             ((BirdModel) bodyB.getUserData()).setWalking(true);
-        if (bodyB.getUserData() instanceof CloudModel && bodyA.getUserData() instanceof BirdModel)
+            SinglePGameModel.getInstance().resetJumps();
+        }
+
+        if (bodyB.getUserData() instanceof CloudModel && bodyA.getUserData() instanceof BirdModel){
             ((BirdModel) bodyA.getUserData()).setWalking(true);
+            SinglePGameModel.getInstance().resetJumps();
+        }
+
 
     }
 
@@ -320,8 +326,13 @@ public class SinglePGameController implements ContactListener {
 //        System.out.println("world:"+ WORLD_WIDTH/(3.2*SinglePGameView.PIXEL_TO_METER));
 //        System.out.println("x " + ((EntityModel)playerBody.getUserData()).getX()/(SinglePGameView.PIXEL_TO_METER));
 //        System.out.println("cam: " +camX);
-        SinglePGameModel.getInstance().getPlayer().setWalking(false);
-        playerBody.applyForceToCenter(JUMP_X,JUMP_Y, true);
+
+        if(SinglePGameModel.getInstance().canJump()){
+            SinglePGameModel.getInstance().birdJump();
+            SinglePGameModel.getInstance().getPlayer().setWalking(false);
+            playerBody.applyForceToCenter(JUMP_X,JUMP_Y, true);
+        }
+
        //set jumping pa dar double jump ((ShipModel)shipBody.getUserData()).setAccelerating(true);
     }
 

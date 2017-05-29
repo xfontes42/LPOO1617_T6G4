@@ -20,7 +20,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 
 public class SinglePGameModel {
 
-
+    private int jumps = 0;
 
     private int highscore = 0;
 
@@ -154,6 +154,18 @@ public class SinglePGameModel {
     public void updateLostCondition(float position_player, float position_cam){
         if(position_player < position_cam)
             game_lost = true;
+    }
+
+    public boolean canJump() {
+        return (jumps <2);
+    }
+
+    public void birdJump(){
+        jumps++;
+    }
+
+    public void resetJumps(){
+        jumps = 0;
     }
 
 //
