@@ -63,17 +63,49 @@ public class GameOverView extends ScreenAdapter {
     }
 
     /**
-     * Menu dimensions.
+     * Menu width (in pixels).
      */
     private final int MENU_WIDTH = 1080;
+
+    /**
+     * Menu height (in pixels).
+     */
     private final int MENU_HEIGHT = 720;
     private final int DELTA_Y_MENU = 100;
+
+    /**
+     * The staged used to display the menu.
+     */
     private Stage stage;
+
+    /**
+     * The back button present in the lower right corner.
+     */
     private ImageButton BackButton;
+
+    /**
+     * The viewport used to display the menu.
+     */
     private Viewport viewport;
+
+    /**
+     * The camera used to display the menu.
+     */
     private OrthographicCamera camera;
+
+    /**
+     * The skin buttons used in the menu.
+     */
     private Skin skinButtons;
+
+    /**
+     * The table used to show the score.
+     */
     private Table table;
+
+    /**
+     * The labels used to show the player's score.
+     */
     private Label scoreString, scoreValue;
     //private ImageButton GameOverLabel;
 
@@ -87,19 +119,22 @@ public class GameOverView extends ScreenAdapter {
         table.setFillParent(true);
     }
 
+    /**
+     * Fills the table with the user's score.
+     * @param score the score achieved by the player this run.
+     */
     private void fillTable(int score){
         scoreString = new Label("Score: ", new Label.LabelStyle(fonts.getInstance().getClouds(), Color.WHITE));
         scoreValue = new Label(String.format("%06d", score), new Label.LabelStyle(fonts.getInstance().getRancho(), Color.WHITE));
         table.row();
 
-        table.add(scoreString).expandX().right();//.padTop(PADDING);
-        table.add(scoreValue).expandX().left();//padTop(PADDING);
-//        table.add().expandX().padTop(PADDING);
-//        table.add().expandX().padTop(PADDING);
-//        table.add(scoreNameLabel).expandX().padTop(PADDING);
-//        table.add(scoreLabel).expandX().padTop(PADDING);
+        table.add(scoreString).expandX().right();
+        table.add(scoreValue).expandX().left();
     }
 
+    /**
+     * Displays the back label.
+     */
     private void showBack(){
         Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_back.png")));
         BackButton = new ImageButton(buttonDrawableBack);
@@ -108,11 +143,11 @@ public class GameOverView extends ScreenAdapter {
         stage.addActor(BackButton);
     }
 
+    /**
+     * Shows the screen and the menu title.
+     */
     @Override
     public void show() {
-        //Create buttons
-
-        //title
         Drawable buttonDrawableGameOver = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textGameOver.png")));
         ImageButton GameOverLabel = new ImageButton(buttonDrawableGameOver);
         GameOverLabel.setSize(MENU_WIDTH/1.5f,MENU_HEIGHT/3);
@@ -120,8 +155,10 @@ public class GameOverView extends ScreenAdapter {
         stage.addActor(GameOverLabel);
     }
 
-
-
+    /**
+     * Renders the screen and waits for any input to return to the previous screen.
+     * @param delta
+     */
     @Override
     public void render (float delta) {
         Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
@@ -134,16 +171,23 @@ public class GameOverView extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Waits for any input that is used to return back (ESC [PC]/Back [Android] and Back label)
+     */
     private void checkForBack(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) ||
                 BackButton.isPressed()){
             Gdx.input.vibrate(50);
             storeHighscore(highscore);
             dispose();
-            game.setScreen(new MainMenuView(game)); //todo acomodar para quando se vai para as settings durante o jogo
+            game.setScreen(new MainMenuView(game));
         }
     }
 
+    /**
+     * Stores the score in the high scores table.
+     * @param highscore the new high score achieved
+     */
     private void storeHighscore(int highscore) {
         ArrayList<Integer> scores = game.getScores();
         scores.add(highscore);
@@ -154,6 +198,11 @@ public class GameOverView extends ScreenAdapter {
 
     }
 
+    /**
+     * Resizes the screen.
+     * @param width the new screen width
+     * @param height the new screen height
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
@@ -161,27 +210,36 @@ public class GameOverView extends ScreenAdapter {
         camera.update();
     }
 
+    /**
+     * Pauses the app.
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * Resumes the app.
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Hides the app.
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * Disposes this screen.
+     */
     @Override
     public void dispose() {
         stage.dispose();
         skinButtons.dispose();
     }
-
-
-
 }

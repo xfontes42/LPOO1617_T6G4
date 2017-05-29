@@ -58,17 +58,49 @@ public class HighScoreView extends ScreenAdapter {
 
 
     /**
-     * Menu dimensions.
+     * Menu width (in pixels).
      */
     private final int MENU_WIDTH = 1080;
+
+    /**
+     * Menu height (in pixels).
+     */
     private final int MENU_HEIGHT = 720;
     private final int DELTA_Y_MENU = 100;
+
+    /**
+     * The staged used to display the menu.
+     */
     private Stage stage;
+
+    /**
+     * The back button present in the lower right corner.
+     */
     private ImageButton BackButton;
+
+    /**
+     * The viewport used to display the menu.
+     */
     private Viewport viewport;
+
+    /**
+     * The camera used to display the menu.
+     */
     private OrthographicCamera camera;
+
+    /**
+     * The skin buttons used in the menu.
+     */
     private Skin skinButtons;
+
+    /**
+     * The table used to display the highscores evenly on the screen.
+     */
     private Table table;
+
+    /**
+     * Table elements.
+     */
     private Label scoreRank, scoreValue;
     //private ImageButton GameOverLabel;
 
@@ -83,6 +115,9 @@ public class HighScoreView extends ScreenAdapter {
         table.setFillParent(true);
     }
 
+    /**
+     * Fills the table with the top five high scores.
+     */
     private void fillTable() {
 
         table.row();
@@ -91,17 +126,16 @@ public class HighScoreView extends ScreenAdapter {
         for (int i = 1; i <= game.getNum_scores(); i++) {
             scoreRank = new Label(String.format("%01d: ", i), new Label.LabelStyle(fonts.getInstance().getClouds(), Color.WHITE));
             scoreValue = new Label(String.format("%06d", game.getScores().get(i-1)), new Label.LabelStyle(fonts.getInstance().getRancho(), Color.WHITE));
-            table.add(scoreRank).expandX().right();//.padTop(PADDING);
-            table.add(scoreValue).expandX().left();//padTop(PADDING);
+            table.add(scoreRank).expandX().right();
+            table.add(scoreValue).expandX().left();
             table.row();
         }
 
-//        table.add().expandX().padTop(PADDING);
-//        table.add().expandX().padTop(PADDING);
-//        table.add(scoreNameLabel).expandX().padTop(PADDING);
-//        table.add(scoreLabel).expandX().padTop(PADDING);
     }
 
+    /**
+     * Displays the back button.
+     */
     private void showBack() {
         Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture) game.getAssetManager().get("text_back.png")));
         BackButton = new ImageButton(buttonDrawableBack);
@@ -110,6 +144,9 @@ public class HighScoreView extends ScreenAdapter {
         stage.addActor(BackButton);
     }
 
+    /**
+     * Shows the screen and the menu title.
+     */
     @Override
     public void show() {
         Drawable buttonDrawableHoF = new TextureRegionDrawable(new TextureRegion((Texture) game.getAssetManager().get("textHallOfFame.png")));
@@ -119,7 +156,10 @@ public class HighScoreView extends ScreenAdapter {
         stage.addActor(HallOfFameLabel);
     }
 
-
+    /**
+     * Renders the screen and waits for any input to return to the previous screen.
+     * @param delta
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
@@ -132,15 +172,23 @@ public class HighScoreView extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Waits for any input that is used to return back (ESC [PC]/Back [Android] and Back label)
+     */
     private void checkForBack() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) ||
                 BackButton.isPressed()) {
             Gdx.input.vibrate(50);
             dispose();
-            game.setScreen(new MainMenuView(game)); //todo acomodar para quando se vai para as settings durante o jogo
+            game.setScreen(new MainMenuView(game));
         }
     }
 
+    /**
+     * Resizes the screen.
+     * @param width the new screen width
+     * @param height the new screen height
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
@@ -148,21 +196,33 @@ public class HighScoreView extends ScreenAdapter {
         camera.update();
     }
 
+    /**
+     * Pauses the app.
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * Resumes the app.
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Hides the app.
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * Disposes this screen.
+     */
     @Override
     public void dispose() {
         stage.dispose();

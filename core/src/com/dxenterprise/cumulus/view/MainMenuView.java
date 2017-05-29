@@ -2,44 +2,88 @@ package com.dxenterprise.cumulus.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dxenterprise.cumulus.MyCumulusGame;
-import com.dxenterprise.cumulus.utils.fonts;
 
 /**
  * Created by Xavier Fontes on 28/04/2017.
  */
 
 public class MainMenuView extends ScreenAdapter {
+
+    /**
+     * Menu width (in pixels).
+     */
     private final int MAIN_MENU_WIDTH = 1080;
+
+    /**
+     * Menu height (in pixels).
+     */
     private final int MAIN_MENU_HEIGHT = 720;
     private final int DELTA_Y_MENU = 100;
+
+    /**
+     * The game this menu belongs to.
+     */
     private MyCumulusGame game;
+
+    /**
+     * The stage used to display the menu.
+     */
     private Stage stage;
-    private  TextButton singlePlayer, multiplayer;
+
+    /**
+     * The buttons used for the game modes.
+     */
+    private TextButton singlePlayer, multiplayer;
+
+    /**
+     * The buttons used for the auxiliary menus.
+     */
     private ImageButton settings, share, highscores, settingsOver, shareOver, highscoresOver;
+
+    /**
+     * The viewport used to display the menu.
+     */
     private Viewport viewport;
+
+    /**
+     * The camera used to display the menu.
+     */
     private OrthographicCamera camera;
+
+    /**
+     * The buttons used in the menu.
+     */
     private Skin skinButtons;
+
+    /**
+     * The name of the music that plays in the menu.
+     */
     private final String musicName = "Gorillaz_Andromeda.mp3";
+
+    /**
+     * The music that plays in the menu.
+     */
     private Music music;
 
+    /**
+     * Creates the main menu.
+     * @param game the game instance this menu belongs to.
+     */
     public MainMenuView(MyCumulusGame game){
         this.game = game;
         skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
@@ -50,7 +94,13 @@ public class MainMenuView extends ScreenAdapter {
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
         stage = new Stage(viewport, game.getBatch());
+        loadMusic();
+    }
 
+    /**
+     * Loads the menu music.
+     */
+    private void loadMusic(){
         music = game.getAssetManager().get(musicName);
         music.setLooping(true);
         music.setVolume(0.8f);
@@ -59,16 +109,22 @@ public class MainMenuView extends ScreenAdapter {
         Gdx.input.setCatchBackKey(true);
     }
 
+    /**
+     * Loads the menu assets.
+     */
     private void loadAssets() {
         ///game.getAssetManager().load("iconCheck.png",Texture.class); //todo ver a necessidade isto
         loadMainMenuAssets();
         loadPauseMenuAssets();
-        loadHUDAssets();
+        loadOtherAssets();
         loadSettingsMenuAssets();
 
         game.getAssetManager().finishLoading();
     }
 
+    /**
+     * Loads the main menu assets.
+     */
     private void loadMainMenuAssets(){
         game.getAssetManager().load(musicName, Music.class);
         game.getAssetManager().load("Cumulus.png",Texture.class);
@@ -79,6 +135,9 @@ public class MainMenuView extends ScreenAdapter {
         game.getAssetManager().load("text_MP.png",Texture.class);
     }
 
+    /**
+     * Loads the settings menu assets.
+     */
     private void loadSettingsMenuAssets(){
         game.getAssetManager().load("textMusicOn.png",Texture.class);
         game.getAssetManager().load("textSoundOn.png",Texture.class);
@@ -89,13 +148,19 @@ public class MainMenuView extends ScreenAdapter {
         game.getAssetManager().load("text_back.png",Texture.class);
     }
 
+    /**
+     * Loads the pause menu assets.
+     */
     private void loadPauseMenuAssets(){
         game.getAssetManager().load("iconBack.png",Texture.class);
         game.getAssetManager().load("iconPlay.png",Texture.class);
 
     }
 
-    private void loadHUDAssets(){
+    /**
+     * Loads other assets.
+     */
+    private void loadOtherAssets(){
         game.getAssetManager().load("iconPause.png",Texture.class);
         game.getAssetManager().load("textGameOver.png",Texture.class);
         game.getAssetManager().load("textScore.png", Texture.class);
@@ -103,6 +168,9 @@ public class MainMenuView extends ScreenAdapter {
 
     }
 
+    /**
+     * Shows the menu and the buttons.
+     */
     @Override
     public void show() {
         showSettings();
@@ -112,6 +180,9 @@ public class MainMenuView extends ScreenAdapter {
         showTitle();
     }
 
+    /**
+     * Shows the single and multiplayer buttons.
+     */
     private void showSPMPbuttons(){
         singlePlayer = new TextButton("Singleplayer", skinButtons);
         singlePlayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6+10);
@@ -124,6 +195,9 @@ public class MainMenuView extends ScreenAdapter {
         stage.addActor(multiplayer);
     }
 
+    /**
+     * Shows the settings button.
+     */
     private void showSettings(){
         settings = new ImageButton(skinButtons);
         settings.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
@@ -137,6 +211,9 @@ public class MainMenuView extends ScreenAdapter {
         stage.addActor(settingsOver);
     }
 
+    /**
+     * Shows the share button.
+     */
     private void showShare(){
         share = new ImageButton(skinButtons);
         share.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
@@ -150,6 +227,9 @@ public class MainMenuView extends ScreenAdapter {
         stage.addActor(shareOver);
     }
 
+    /**
+     * Shows the title.
+     */
     private void showTitle(){
         Drawable buttonDrawableCumulus = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Cumulus.png")));
         ImageButton cumulusButtonOver = new ImageButton(buttonDrawableCumulus);
@@ -158,6 +238,9 @@ public class MainMenuView extends ScreenAdapter {
         stage.addActor(cumulusButtonOver);
     }
 
+    /**
+     * Shows the highscores button.
+     */
     private void showHiScores(){
         highscores = new ImageButton(skinButtons);
         highscores.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
@@ -171,6 +254,10 @@ public class MainMenuView extends ScreenAdapter {
         stage.addActor(highscoresOver);
     }
 
+    /**
+     * Renders the screen, waiting for input.
+     * @param delta
+     */
     @Override
 	public void render (float delta) {
         if(game.isMusicOn())
@@ -180,6 +267,19 @@ public class MainMenuView extends ScreenAdapter {
         }
 		Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        checkForSPMP();
+        checkForSettingsHiScores();
+        checkForShareBack();
+
+        stage.act();
+        stage.draw();
+	}
+
+    /**
+     * Checks for input in the single/multiplayer buttons.
+     */
+	private void checkForSPMP(){
         if(singlePlayer.isPressed()){
             dispose();
             game.setScreen(new SinglePGameView(game));
@@ -188,6 +288,12 @@ public class MainMenuView extends ScreenAdapter {
             dispose();
             game.setScreen(new GameOverView(game,0));
         }
+    }
+
+    /**
+     * Checks for input in the settings or highscores buttons.
+     */
+    private void checkForSettingsHiScores(){
         if(settingsOver.isPressed()) {
             dispose();
             game.setScreen(new SettingsView(game));
@@ -196,6 +302,12 @@ public class MainMenuView extends ScreenAdapter {
             dispose();
             game.setScreen(new HighScoreView(game));
         }
+    }
+
+    /**
+     * Checks for the share or back buttons.
+     */
+    private void checkForShareBack(){
         if(shareOver.isPressed()){
             System.out.println("Share");
             if (!Gdx.net.openURI("fb://page/<page_id>")) { // opens app
@@ -210,11 +322,13 @@ public class MainMenuView extends ScreenAdapter {
             dispose();
             Gdx.app.exit();
         }
-        stage.act();
-        stage.draw();
-	}
+    }
 
-
+    /**
+     * Resizes the window.
+     * @param width the new width
+     * @param height the new height
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
@@ -222,21 +336,33 @@ public class MainMenuView extends ScreenAdapter {
         camera.update();
     }
 
+    /**
+     * Pauses the app.
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * Resumes the app.
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Hides the app.
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * Disposes this screen.
+     */
     @Override
     public void dispose() {
         stage.dispose();
