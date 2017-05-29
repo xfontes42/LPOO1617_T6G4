@@ -74,7 +74,7 @@ public class SinglePGameModel {
 
     private SinglePGameModel(){
         clouds = new ArrayList<CloudModel>();
-        playerModel = new BirdModel(SinglePGameController.WORLD_WIDTH / 2f, SinglePGameController.WORLD_HEIGHT / 2, 0);
+        playerModel = new BirdModel(SinglePGameController.WORLD_WIDTH / 2f, SinglePGameController.WORLD_HEIGHT / 2f, 0);
         //generate clouds in own function...
 
         //these are the clouds that are showing

@@ -107,7 +107,7 @@ public class SinglePGameController implements ContactListener {
      * The force in x applied by jumping
      *
      */
-    public static final float JUMP_X = 30f;
+    public static final float JUMP_X = 15f;
 
     /**
      * The physics world controlled by this controller.
@@ -145,7 +145,7 @@ public class SinglePGameController implements ContactListener {
      *
      */
     private SinglePGameController(){
-        world = new World(new Vector2(0.70f,-10), true);
+        world = new World(new Vector2(0.8f,-10f), true);
         playerBody = new BirdBody(world, SinglePGameModel.getInstance().getPlayer());
         //instanciate clouds
         clouds = SinglePGameModel.getInstance().getClouds();
@@ -271,7 +271,6 @@ public class SinglePGameController implements ContactListener {
             }
 
         }
-         body.setTransform(body.getPosition().x, 0, body.getAngle());
     }
 
 
@@ -296,9 +295,10 @@ public class SinglePGameController implements ContactListener {
 //        System.out.println("cam: " +camX);
 
         if(SinglePGameModel.getInstance().canJump()){
+            playerBody.applyForceToCenter(JUMP_X,JUMP_Y, true);
             SinglePGameModel.getInstance().birdJump();
             SinglePGameModel.getInstance().getPlayer().setWalking(false);
-            playerBody.applyForceToCenter(JUMP_X,JUMP_Y, true);
+
         }
 
        //set jumping pa dar double jump ((ShipModel)shipBody.getUserData()).setAccelerating(true);

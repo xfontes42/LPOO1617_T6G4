@@ -39,7 +39,7 @@ public class BirdModel extends EntityModel {
      */
     public BirdModel(float x, float y, int rotation) {
        super(x, y,rotation);
-        setVx(2.5f);
+        setVx(2f);
     }
 
     @Override
