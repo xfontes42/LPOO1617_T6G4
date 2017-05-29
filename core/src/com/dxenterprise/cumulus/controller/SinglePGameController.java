@@ -199,29 +199,6 @@ public class SinglePGameController implements ContactListener {
 
     }
 
-//    public void removeFlagged() {
-//        int i = 0;
-//       // float deltaClouds = WORLD_WIDTH / SinglePGameModel.NUMBER_CLOUDS;
-//
-//        Array<Body> bodies = new Array<Body>();
-//        world.getBodies(bodies);
-//
-//        for (Body body : bodies) {
-//            if(((EntityModel) body.getUserData()).isFlaggedToBeRemoved())
-//                ((EntityModel) body.getUserData()).setFlaggedForRemoval(false);
-//                body.setTransform(
-//                        body.getPosition().x + SinglePGameController.WORLD_WIDTH ,
-//                        body.getPosition().y,
-//                        0
-//                );
-//
-//
-//
-//        }
-//    }
-
-    public void createNewClouds() {
-    }
 
     public void update(float delta) {
         SinglePGameModel.getInstance().update(delta);
@@ -294,16 +271,7 @@ public class SinglePGameController implements ContactListener {
             }
 
         }
-//
-//
-//        if (body.getPosition().y < 0)
-//            body.setTransform(body.getPosition().x, WORLD_HEIGHT, body.getAngle());
-//
-//        if (body.getPosition().x > WORLD_WIDTH)
-//            body.setTransform(0, body.getPosition().y, body.getAngle());
-//
-//        if (body.getPosition().y > WORLD_HEIGHT)
-//            body.setTransform(body.getPosition().x, 0, body.getAngle());
+         body.setTransform(body.getPosition().x, 0, body.getAngle());
     }
 
 
