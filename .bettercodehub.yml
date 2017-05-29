@@ -1,0 +1,9 @@
+exclude:
+- /android/src/com/dxenterprise/cumulus/.*
+- /branches/.*
+- /desktop/src/com/dxenterprise/cumulus/desktop/.*
+- /html/.*
+component_depth: 1
+languages:
+- java
+- javascript
