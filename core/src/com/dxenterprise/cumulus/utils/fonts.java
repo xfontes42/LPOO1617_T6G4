@@ -27,6 +27,11 @@ public class fonts {
     private BitmapFont Clouds80;
 
     /**
+     * The Rancho Regular font, at 40p.
+     */
+    private BitmapFont Rancho40;
+
+    /**
      * Returns the fonts' instance, creating it if it doesn't exist.
      * @return The fonts' instance
      */
@@ -48,16 +53,16 @@ public class fonts {
      */
     private void loadFonts() {
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Rancho-Regular.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/AlphaClouds.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 80;
         parameter.borderWidth = 0.5F;
         parameter.borderColor = Color.WHITE;
-        Rancho80 = generator.generateFont(parameter); // font size 12 pixels
-
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/AlphaClouds.ttf"));
-        Clouds80 = generator.generateFont(parameter); // font size 12 pixels
-
+        Clouds80 = generator.generateFont(parameter);
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Rancho-Regular.ttf"));
+        Rancho80 = generator.generateFont(parameter);
+        parameter.size = 40;
+        Rancho40 = generator.generateFont(parameter);
         generator.dispose();
 
 
@@ -69,6 +74,14 @@ public class fonts {
      */
     public BitmapFont getRancho(){
         return Rancho80;
+    }
+
+    /**
+     * Returns the Rancho40 font.
+     * @return the font
+     */
+    public BitmapFont getRancho40(){
+        return Rancho40;
     }
 
     /**

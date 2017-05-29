@@ -165,6 +165,7 @@ public class MainMenuView extends ScreenAdapter {
         game.getAssetManager().load("textGameOver.png",Texture.class);
         game.getAssetManager().load("textScore.png", Texture.class);
         game.getAssetManager().load("textHallOfFame.png", Texture.class);
+        game.getAssetManager().load("textCredits.png", Texture.class);
 
     }
 
@@ -309,10 +310,12 @@ public class MainMenuView extends ScreenAdapter {
      */
     private void checkForShareBack(){
         if(shareOver.isPressed()){
-            System.out.println("Share");
-            if (!Gdx.net.openURI("fb://page/<page_id>")) { // opens app
-                Gdx.net.openURI("https://facebook.com/<page_name>"); // opens site if app not installed
-            } //check this out later
+            dispose();
+            game.setScreen(new CreditsView(game));
+//            System.out.println("Share");
+//            if (!Gdx.net.openURI("fb://page/<page_id>")) { // opens app
+//                Gdx.net.openURI("https://facebook.com/<page_name>"); // opens site if app not installed
+//            } //check this out later
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
