@@ -37,9 +37,9 @@ public class SinglePGameController implements ContactListener {
     //camera y position in-game
     private float camY;
     //camera x velocity in-game
-    private float camVX = 4.5f;
+    private float camVX = 4f;
     //camera x acceleration in-game
-    private float camAX = 0;
+    private float camAX = 0.0001f;
 
     public float getCamX() {
         return camX;
@@ -107,7 +107,7 @@ public class SinglePGameController implements ContactListener {
      * The force in x applied by jumping
      *
      */
-    public static final float JUMP_X = 15f;
+    public static final float JUMP_X = 30f;
 
     /**
      * The physics world controlled by this controller.
@@ -145,7 +145,7 @@ public class SinglePGameController implements ContactListener {
      *
      */
     private SinglePGameController(){
-        world = new World(new Vector2(0.8f,-10), true);
+        world = new World(new Vector2(0.70f,-10), true);
         playerBody = new BirdBody(world, SinglePGameModel.getInstance().getPlayer());
         //instanciate clouds
         clouds = SinglePGameModel.getInstance().getClouds();

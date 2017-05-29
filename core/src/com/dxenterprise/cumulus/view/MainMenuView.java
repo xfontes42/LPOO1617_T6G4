@@ -186,7 +186,7 @@ public class MainMenuView extends ScreenAdapter {
         }
         if(multiplayer.isPressed()){
             dispose();
-            game.setScreen(new MultiPGameView(game));
+            game.setScreen(new GameOverView(game,0));
         }
         if(settingsOver.isPressed()) {
             dispose();
