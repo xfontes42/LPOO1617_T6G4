@@ -6,6 +6,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.dxenterprise.cumulus.MyCumulusGame;
 
 public class DesktopLauncher {
+	/**
+	 * Runs the game.
+	 * @param arg the arguments (none are used)
+	 */
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Cumulus";

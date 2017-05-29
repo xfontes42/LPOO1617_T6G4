@@ -5,9 +5,24 @@ package com.dxenterprise.cumulus;
  */
 
 public interface MyCumulusPrefsInterface  {
+    /**
+     * The string associated to the sound value in the preferences.
+     */
     String soundE = "sound";
+
+    /**
+     * The string associated to the music value in the preferences.
+     */
     String musicE = "music";
+
+    /**
+     * The string associated to the sensitivity value in the preferences.
+     */
     String sensitivityE = "sensitivity";
+
+    /**
+     * The string associated to the highscores in the preferences.
+     */
     String highscore = "highscore";
 
     /**

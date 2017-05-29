@@ -9,10 +9,25 @@ import android.os.Handler;
  */
 
 public class MyCumulusPreference implements MyCumulusPrefsInterface {
+    /**
+     * The string associated to the settings.
+     */
     public static final String PREFS_NAME = "cumulus_settings";
+
+    /**
+     * The Android handler.
+     */
     Handler handler;
+
+    /**
+     * The app's context.
+     */
     Context context;
 
+    /**
+     * Returns the game's preferences.
+     * @param context the app's context
+     */
     public MyCumulusPreference(Context context){
         handler = new Handler();
         this.context = context;

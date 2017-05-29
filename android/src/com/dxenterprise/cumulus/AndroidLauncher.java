@@ -7,6 +7,10 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 
 public class AndroidLauncher extends AndroidApplication {
+	/**
+	 * Runs the game.
+	 * @param savedInstanceState
+	 */
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -37,12 +37,23 @@ public class SinglePGameModel {
         return highscore;
     }
 
+    /**
+     * Sets the lose/not-lose state of the game.
+     * @param game_lost the new lose/not-lose state
+     */
     public void setGame_lost(boolean game_lost) {
         this.game_lost = game_lost;
     }
 
+    /**
+     * The lose/not-lose state of the game.
+     */
     private boolean game_lost = false;
 
+    /**
+     * Returns the lose/not-lose state of the game.
+     * @return true if the game has been lost, false if otherwise
+     */
     public boolean isGame_lost() {
         return game_lost;
     }
@@ -52,18 +63,15 @@ public class SinglePGameModel {
      */
     private static SinglePGameModel instance;
 
-
     /**
      * Number of cloud to generate per visual screen
      */
     public static final int NUMBER_CLOUDS = 5;
 
-
     /**
      * Model of main player
      */
     private BirdModel playerModel;
-
 
     /**
      * Model of all clouds
@@ -71,7 +79,7 @@ public class SinglePGameModel {
     private List<CloudModel> clouds;
 
     /**
-     * Returns a singleton instance of a game controller
+     * Returns a singleton instance of the game model.
      *
      * @return the singleton instance
      */
@@ -81,12 +89,13 @@ public class SinglePGameModel {
         return instance;
     }
 
+    /**
+     * Creates the game model.
+     */
     private SinglePGameModel(){
         clouds = new ArrayList<CloudModel>();
         playerModel = new BirdModel(SinglePGameController.WORLD_WIDTH / 2f, SinglePGameController.WORLD_HEIGHT / 2f, 0);
-        //generate clouds in own function...
 
-        //these are the clouds that are showing
         float deltaClouds = (float)SinglePGameController.WORLD_WIDTH / NUMBER_CLOUDS;
         for (int i = 0; i < NUMBER_CLOUDS; i++){
             CloudModel.CloudSize c;
@@ -99,7 +108,6 @@ public class SinglePGameModel {
 
             CloudModel atual = new CloudModel(
                     deltaClouds*i,
-                    //random.nextFloat() * SinglePGameController.WORLD_HEIGHT/5,
                     (float)-1.8f-2.5f*random.nextFloat(),
                     (float) 0,
                     c);
@@ -110,12 +118,19 @@ public class SinglePGameModel {
 
     }
 
+    /**
+     * Gets the current player model.
+     * @return the player model
+     */
     public BirdModel getPlayer() {
         return playerModel;
     }
 
+    /**
+     * Gets a list of generated active clouds.
+     * @return the active clouds.
+     */
     public List<CloudModel> getClouds() { return clouds;}
-
 
     /**
      * Removes a model from this game.
@@ -128,7 +143,10 @@ public class SinglePGameModel {
         }
     }
 
-
+    /**
+     * Updates the game logic.
+     * @param delta the time interval between updates.
+     */
     public  void update(float delta){
         //this 2 instructions probably can be done in some other better way
         SinglePGameController.step_on_world(delta,6,2);   //getInstance().getWorld().step(delta,6,2); took this away because of unit tests
@@ -141,6 +159,13 @@ public class SinglePGameModel {
         }
     }
 
+    /**
+     * Adds a cloud to the game.
+     * @param x the cloud's x value
+     * @param y the cloud's y value
+     * @param ang the cloud's angle
+     * @return the cloud model created
+     */
     public CloudModel addCloud(float x, float y, float ang){
         CloudModel.CloudSize c;
         int rand = random.nextInt();
@@ -154,117 +179,45 @@ public class SinglePGameModel {
         return newCloud;
     }
 
-
+    /**
+     * Clears the game.
+     */
     public void clear(){
         instance = null;
     }
 
-
+    /**
+     * Checks if the player has lost.
+     *
+     * The player loses when they fall below a certain threshold or when the camera leaves them behind.
+     * @param position_player the player's position
+     * @param position_cam the camera's position
+     */
     public void updateLostCondition(float position_player, float position_cam){
         if(position_player < position_cam)
             game_lost = true;
     }
 
+    /**
+     * Checks if the bird can still jump
+     * @return true if the bird has jumped less than 2 times, false if otherwise
+     */
     public boolean canJump() {
         return (jumps <2);
     }
 
+    /**
+     * The bird jumps.
+     */
     public void birdJump(){
         jumps++;
     }
 
+    /**
+     * Resets the bird's jump counter.
+     */
     public void resetJumps(){
         jumps = 0;
     }
-
-//
-//
-//    /**
-//     * Constructs a game with a.space ship in the middle of the
-//     * arena and a certain number of asteroids in different sizes.
-//     */
-//    private GameModel() {
-//        asteroids = new ArrayList<AsteroidModel>();
-//        bullets = new ArrayList<BulletModel>();
-//        ship = new ShipModel(GameController.ARENA_WIDTH / 2, GameController.ARENA_HEIGHT / 2, 0);
-//
-//        for (int i = 0; i < ASTEROID_COUNT; i++)
-//            asteroids.add(new AsteroidModel(
-//                    random.nextFloat() * GameController.ARENA_WIDTH,
-//                    random.nextFloat() * GameController.ARENA_HEIGHT,
-//                    (float) Math.toRadians(random.nextFloat() * 360),
-//                    random.nextBoolean()?AsteroidModel.AsteroidSize.BIG:AsteroidModel.AsteroidSize.MEDIUM));
-//    }
-//
-//    /**
-//     * Returns the player space ship.
-//     *
-//     * @return the space ship.
-//     */
-//    public ShipModel getShip() {
-//        return ship;
-//    }
-//
-//    /**
-//     * Returns the asteroids.
-//     *
-//     * @return the asteroid list
-//     */
-//    public List<AsteroidModel> getAsteroids() {
-//        return asteroids;
-//    }
-//
-//    /**
-//     * Returns the bullets.
-//     *
-//     * @return the bullet list
-//     */
-//    public List<BulletModel> getBullets() {
-//        return bullets;
-//    }
-//
-//    public BulletModel createBullet(ShipModel ship) {
-//        BulletModel bullet = bulletPool.obtain();
-//
-//        bullet.setFlaggedForRemoval(false);
-//        bullet.setPosition(ship.getX() - (float)(Math.sin(ship.getRotation()) * 1.4), ship.getY() + (float)(Math.cos(ship.getRotation()) * 1.4));
-//        bullet.setRotation(ship.getRotation());
-//        bullet.setTimeToLive(.5f);
-//
-//        bullets.add(bullet);
-//
-//        return bullet;
-//    }
-//
-//    /**
-//     * Removes a model from this game.
-//     *
-//     * @param model the model to be removed
-//     */
-//    public void remove(EntityModel model) {
-//        if (model instanceof BulletModel) {
-//            bullets.remove(model);
-//            bulletPool.free((BulletModel) model);
-//        }
-//        if (model instanceof AsteroidModel) {
-//            asteroids.remove(model);
-//        }
-//    }
-//
-//    /**
-//     * Adds a new asteroid to the model
-//     *
-//     * @param asteroidModel the asteroid model to be added
-//     */
-//    public void addAsteroid(AsteroidModel asteroidModel) {
-//        asteroids.add(asteroidModel);
-//    }
-//
-//    public void update(float delta) {
-//        for (BulletModel bullet : bullets)
-//            if (bullet.decreaseTimeToLive(delta))
-//                bullet.setFlaggedForRemoval(true);
-//    }
-
 
 }

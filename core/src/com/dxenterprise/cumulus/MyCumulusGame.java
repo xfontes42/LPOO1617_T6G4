@@ -10,35 +10,75 @@ import java.util.ArrayList;
 
 
 public class MyCumulusGame extends Game {
+	/**
+	 * The game's sprites.
+	 */
 	private SpriteBatch batch;
+
+	/**
+	 * The game's asset manager.
+	 */
 	private AssetManager assetManager;
+
+	/**
+	 * A flag indicating if sound is on.
+	 */
 	private boolean soundOn = false;
-	private boolean musicOn = false; //enquanto nao le das preferences
+
+	/**
+	 * A flag indicating if music is on.
+	 */
+	private boolean musicOn = false;
+
+	/**
+	 * The game's preferences.
+	 */
 	private MyCumulusPrefsInterface preferences;
+
+	/**
+	 * The number of highscores to be shown in the respective menu.
+	 */
 	private final int num_scores = 5;
 
+	/**
+	 * Returns the number of highscores being stored.
+	 * @return the number of highscores being stored
+	 */
 	public int getNum_scores() {
 		return num_scores;
 	}
 
+	/**
+	 * Returns an ArrayList of the top scores.
+	 * @return the top scores
+	 */
 	public ArrayList<Integer> getScores() {
 		return scores;
 	}
 
+	/**
+	 * Replaces the current scores with a new set.
+	 * @param scores the new highscore set
+	 */
 	public void setScores(ArrayList<Integer> scores) {
 		this.scores = scores;
 	}
 
+	/**
+	 * The game's highscores.
+	 */
 	private ArrayList<Integer> scores = new ArrayList<Integer>(num_scores);
 
+	/**
+	 * Creates the game object.
+	 * @param prefs the preferences
+	 */
 	public MyCumulusGame(MyCumulusPrefsInterface prefs){
 		this.preferences = prefs;
 	}
 
-
 	/**
 	 * Creates the game. Initializes the sprite batch and asset manager.
-	 * Also starts the game until we have a main menu.
 	 */
 	@Override
 	public void create () {
@@ -48,6 +88,9 @@ public class MyCumulusGame extends Game {
 		startMainMenu();
 	}
 
+	/**
+	 * Loads the highscores.
+	 */
 	public void loadScores(){
 		for(int i = 1; i <= num_scores; i++){
 			scores.add(preferences.getHighscore(i));
@@ -55,30 +98,48 @@ public class MyCumulusGame extends Game {
 
 	}
 
+	/**
+	 * Toggles the sound on/off.
+	 */
 	public void toggleSound(){
 		soundOn = !soundOn;
 		preferences.setSound(soundOn);
 	}
 
+	/**
+	 * Toggles the music on/off.
+	 */
 	public void toggleMusic(){
 		musicOn = !musicOn;
 		preferences.setMusic(musicOn);
 	}
 
+	/**
+	 * Returns the game's preferences.
+	 * @return the preferences
+	 */
 	public MyCumulusPrefsInterface getPreferences(){
 		return preferences;
 	}
 
+	/**
+	 * Checks if the sound is on.
+	 * @return true if the sound is on, false if otherwise
+	 */
 	public boolean isSoundOn(){
 		return soundOn;
 	}
 
+	/**
+	 * Checks if the music is on.
+	 * @return true if the music is on, false if otherwise
+	 */
 	public boolean isMusicOn(){
 		return musicOn;
 	}
 
 	/**
-	 *Starts the main menu.
+	 * Starts the main menu.
 	 */
 	public void startMainMenu(){
 		soundOn = preferences.getSound();

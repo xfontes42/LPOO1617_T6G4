@@ -10,6 +10,10 @@ import com.dxenterprise.cumulus.MyCumulusPrefsInterface;
 
 public class MyCumulusPreferenceDesktop implements MyCumulusPrefsInterface {
 
+    /**
+     * Gets the game preferences.
+     * @return the game's preferences
+     */
     public Preferences getPrefs(){
         return Gdx.app.getPreferences("settings");
     }
