@@ -42,7 +42,6 @@ public class BirdModel extends EntityModel {
         setVx(2);
     }
 
-
     @Override
     public ModelType getType() {
         return ModelType.PLAYER;

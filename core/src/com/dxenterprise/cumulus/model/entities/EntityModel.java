@@ -8,7 +8,7 @@ package com.dxenterprise.cumulus.model.entities;
  * An abstract model representing an entity belonging to a game model.
  */
 public abstract class EntityModel {
-    public enum ModelType {BIGCLOUD, MEDIUMCLOUD, SMALLCLOUD, PLAYER, POWERUP, POWERDOWN};
+    public enum ModelType {BIGCLOUD, MEDIUMCLOUD, SMALLCLOUD, PLAYER};//, POWERUP, POWERDOWN};
 
     public float getVx() {
         return vx;
