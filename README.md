@@ -8,7 +8,31 @@ up201505302@fe.up.pt
 - Xavier Reis Fontes (201503145)
 up201503145@fe.up.pt
 
+# Setup
+## Project installation
 
+## App installation
+
+# Development documentation
+## UML Diagrams
+
+## Design patterns used
+
+## Difficulties and lessons
+
+## Team effort
+
+# User manual
+
+## The main menu
+
+## The settings menu
+
+## The Hall of Fame
+
+## In the game
+
+--------------old stuff below here---------------
 
 # Architecture Design:
 
