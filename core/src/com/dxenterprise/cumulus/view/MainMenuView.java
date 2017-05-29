@@ -73,7 +73,7 @@ public class MainMenuView extends ScreenAdapter {
     /**
      * The name of the music that plays in the menu.
      */
-    private final String musicName = "Gorillaz_Andromeda.mp3";
+    private final String musicName = "BitQuest.mp3";
 
     /**
      * The music that plays in the menu.

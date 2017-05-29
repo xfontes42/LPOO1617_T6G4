@@ -48,25 +48,65 @@ public class SettingsView extends ScreenAdapter {
     }
 
     /**
-     * Menu dimensions.
+     * Menu width (in pixels).
      */
     private final int MENU_WIDTH = 1080;
+
+    /**
+     * Menu height (in pixels).
+     */
     private final int MENU_HEIGHT = 720;
+
+
     private final int DELTA_Y_MENU = 100;
+    /**
+     * The staged used to display the menu.
+     */
     private Stage stage;
-    private ImageButton soundToggle;
+
+    /**
+     * The back button present in the lower right corner.
+     */
+    private ImageButton BackButton;
+
+    /**
+     * The viewport used to display the menu.
+     */
     private Viewport viewport;
+
+    /**
+     * The camera used to display the menu.
+     */
     private OrthographicCamera camera;
+
+    /**
+     * The skin buttons used in the menu.
+     */
     private Skin skinButtons;
-    private ImageButton SoundTextOn, SoundTextOff,  MusicTextOn, MusicTextOff, BackButton;
+
+    /**
+     * The buttons used in the menu.
+     */
+    private ImageButton SoundTextOn, SoundTextOff,  MusicTextOn, MusicTextOff;
+
+    /**
+     * The sensitivity slider for the mobile background.
+     */
     public static Slider SensitivitySlider;
 
+    /**
+     * Gets the sensitivity value for the slider.
+     * @return the slider's value
+     */
     static public float getSensitivity() {
         if(SensitivitySlider == null)
             return SinglePGameView.sensitivity;
         else return SensitivitySlider.getValue();
     }
 
+    /**
+     * Shows the screen.
+     */
     @Override
     public void show() {
         showTitleAndBack();
@@ -75,6 +115,9 @@ public class SettingsView extends ScreenAdapter {
         showSensitivity();
     }
 
+    /**
+     * Shows the menu title and the back button.
+     */
     private void showTitleAndBack(){
         //title
         Drawable buttonDrawableSettings = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Settings.png")));
@@ -91,6 +134,9 @@ public class SettingsView extends ScreenAdapter {
         stage.addActor(BackButton);
     }
 
+    /**
+     * Shows the music buttons.
+     */
     private void showMusic(){
         Drawable buttonDrawableMusic;
         buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textMusicOn.png")));
@@ -111,6 +157,9 @@ public class SettingsView extends ScreenAdapter {
 
     }
 
+    /**
+     * Shows the sound buttons.
+     */
     private void showSound(){
         Drawable buttonDrawableSound;
         buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOn.png")));
@@ -129,6 +178,9 @@ public class SettingsView extends ScreenAdapter {
         else SoundTextOn.setVisible(false);
     }
 
+    /**
+     * Shows the sensitivity slider and its label.
+     */
     private void showSensitivity(){
         Drawable buttonDrawableSens = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_sensitivity.png")));
         ImageButton SensitivityText = new ImageButton(buttonDrawableSens);
@@ -140,10 +192,13 @@ public class SettingsView extends ScreenAdapter {
         SensitivitySlider.setSize(MusicTextOn.getWidth(), MusicTextOn.getHeight());
         SensitivitySlider.setPosition(MENU_WIDTH/2-SensitivitySlider.getWidth()/2,MENU_HEIGHT/4.8f-DELTA_Y_MENU);
         SensitivitySlider.setValue(SinglePGameView.sensitivity);
-        //SensitivitySlider.setDebug(true);
         stage.addActor(SensitivitySlider);
     }
 
+    /**
+     * Renders the screen, waiting for input.
+     * @param delta
+     */
     @Override
     public void render (float delta) {
         Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
@@ -162,6 +217,9 @@ public class SettingsView extends ScreenAdapter {
         stage.draw();
     }
 
+    /**
+     * Checks if the back button was pressed.
+     */
     private void checkForBack(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) ||
                 BackButton.isPressed()){
@@ -171,6 +229,9 @@ public class SettingsView extends ScreenAdapter {
         }
     }
 
+    /**
+     * Checks for input in the music button.
+     */
     private void checkForMusic(){
         if(MusicTextOn.isPressed() && game.isMusicOn()){
             Gdx.input.vibrate(50);
@@ -185,6 +246,9 @@ public class SettingsView extends ScreenAdapter {
         }
     }
 
+    /**
+     * Checks for input in the sound button.
+     */
     private void checkForSound(){
         if(SoundTextOn.isPressed() && game.isSoundOn()){
             Gdx.input.vibrate(50);
@@ -198,6 +262,9 @@ public class SettingsView extends ScreenAdapter {
         }
     }
 
+    /**
+     * Toggles the sound buttons.
+     */
     private void toggleSoundButtons(){
         if(game.isSoundOn()){
             SoundTextOff.setVisible(false);
@@ -209,6 +276,9 @@ public class SettingsView extends ScreenAdapter {
         }
     }
 
+    /**
+     * Toggles the sound buttons.
+     */
     private void toggleMusicButtons(){
         if(game.isMusicOn()){
             MusicTextOff.setVisible(false);
@@ -220,6 +290,11 @@ public class SettingsView extends ScreenAdapter {
         }
     }
 
+    /**
+     * Resizes the screen.
+     * @param width the new width
+     * @param height the new height
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
@@ -227,28 +302,36 @@ public class SettingsView extends ScreenAdapter {
         camera.update();
     }
 
+    /**
+     * Pauses the app.
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * Resumes the app.
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Hides the app.
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * Disposes this screen.
+     */
     @Override
     public void dispose() {
         stage.dispose();
         skinButtons.dispose();
     }
-
-
-
-
 }
