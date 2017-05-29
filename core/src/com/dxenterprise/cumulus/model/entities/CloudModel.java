@@ -37,7 +37,10 @@ public class CloudModel extends EntityModel {
         return size;
     }
 
-
+    /**
+     * Returns the type of the entity.
+     * @return the cloud's ModelType (big, medium or small)
+     */
     @Override
     public ModelType getType() {
         if(size == CloudSize.BIG)

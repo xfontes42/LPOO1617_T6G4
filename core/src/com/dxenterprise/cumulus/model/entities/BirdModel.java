@@ -8,7 +8,9 @@ import com.dxenterprise.cumulus.controller.entities.EntityBody;
  */
 
 public class BirdModel extends EntityModel {
-
+    /**
+     * This flag changes value whether the bird is walking or jumping.
+     */
     private boolean walking = false;
 
     /**
@@ -42,6 +44,10 @@ public class BirdModel extends EntityModel {
         setVx(2f);
     }
 
+    /**
+     * Returns the type of the entity.
+     * @return the bird's ModelType (player)
+     */
     @Override
     public ModelType getType() {
         return ModelType.PLAYER;

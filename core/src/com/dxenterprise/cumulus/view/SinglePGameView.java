@@ -28,6 +28,9 @@ import java.util.List;
 
 public class SinglePGameView extends ScreenAdapter {
 
+    /**
+     * The game HUD.
+     */
     private HudView hud;
 
     /**
@@ -67,25 +70,58 @@ public class SinglePGameView extends ScreenAdapter {
      */
     private Matrix4 debugCamera;
 
-
-    //for the low pass filter
-    //size of readings
+    /**
+     * Size of readings for the accelerometer low pass filter.
+     */
     private final int size_readings = 5;
-    //data of accelerometer in x
+
+     /**
+     * The accelerometer's data for the X-axis.
+     */
     private ArrayList<Float> X_values = new ArrayList<Float>(size_readings);
-    //data of accelerometer in y
+
+    /**
+     * The accelerometer's data for the Y-axis.
+     */
     private ArrayList<Float> Y_values = new ArrayList<Float>(size_readings);
-    //readings
+
+    /**
+     * The accelerometer's readings for the X-axis.
+     */
     private Float readingY = new Float(0);
+
+    /**
+     * The accelerometer's readings for the Y-axis.
+     */
     private Float readingX = new Float(0);
 
-    //textels coordinates
+    /**
+     * The texel coordinates for the X axis.
+     */
     private float texCoordX = 0;
+
+    /**
+     * The texel coordinates for the Y axis.
+     */
     private float texCoordY = 0;
+
+    /**
+     * The percentage of the texture appearing (x axis)
+     */
     private float textDeltaX = 0.5f;
+    /**
+     * The percentage of the texture appearing (y axis)
+     */
     private float texDeltaY = 0.5f;
+
+    /**
+     * The accelerometer sensitivity.
+     */
     public static float sensitivity = 2.5f;
 
+    /**
+     * A sound for the bird flapping its wings.
+     */
     public static Sound flap =  Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
 
     /**
@@ -106,8 +142,6 @@ public class SinglePGameView extends ScreenAdapter {
         }
 
     }
-
-
 
     /**
      * Creates the camera used to show the viewport.
@@ -150,19 +184,14 @@ public class SinglePGameView extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-
-        //SinglePGameController.getInstance().removeFlagged();
-        //SinglePGameController.getInstance().createNewClouds();
-        //maybe create new powerups and downs
+        //TODO: separar esta função em funções mais pequenas se possível
 
         handleInputs(delta);
 
         SinglePGameController.getInstance().update(delta);
         hud.update(delta);
         hud.setScore(SinglePGameController.getInstance().getScore());
-       //camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, SinglePGameModel.getInstance().getPlayer().getY() / PIXEL_TO_METER, 0);
-       // camera.position.set(SinglePGameModel.getInstance().getPlayer().getX() / PIXEL_TO_METER, (SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER, 0);
-       // SinglePGameController.getInstance().setCamX(SinglePGameController.getInstance().getCamX()+ (delta*SinglePGameController.getInstance().getCamVX() / PIXEL_TO_METER));
+
         SinglePGameController.getInstance().setCamX(
                 Math.max(SinglePGameModel.getInstance().getPlayer().getX()/PIXEL_TO_METER/*-(SinglePGameController.WORLD_WIDTH/4f)/PIXEL_TO_METER-1/PIXEL_TO_METER*/,SinglePGameController.getInstance().getCamX()+ (delta*SinglePGameController.getInstance().getCamVX() / PIXEL_TO_METER))
                                                                                             //todo ^ this right here serves to adjust the bird when he's to fast
@@ -179,7 +208,6 @@ public class SinglePGameView extends ScreenAdapter {
         Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
-
         game.getBatch().begin();
         drawBackground();
         drawEntities();
@@ -187,8 +215,6 @@ public class SinglePGameView extends ScreenAdapter {
 
         hud.stage.act();
         hud.stage.draw();
-
-
 
         if (DEBUG_PHYSICS) {
             debugCamera = camera.combined.cpy();
@@ -203,7 +229,6 @@ public class SinglePGameView extends ScreenAdapter {
             game.setScreen(new GameOverView(game, score)); //todo clean the model and controller and store highscore
         }
 
-
     }
 
     /**
@@ -212,6 +237,7 @@ public class SinglePGameView extends ScreenAdapter {
      * @param delta time since last time inputs where handled in seconds
      */
     private void handleInputs(float delta) {
+        //TODO: separar em funçoes mais pequenas
         sensitivity = SettingsView.getSensitivity();
 
         if(Gdx.input.justTouched()){
@@ -235,19 +261,6 @@ public class SinglePGameView extends ScreenAdapter {
 
         readingX = sensitivity*average(X_values);
         readingY = sensitivity*average(Y_values);
-
-/*        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            GameController.getInstance().rotateLeft(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            GameController.getInstance().rotateRight(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            GameController.getInstance().accelerate(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            GameController.getInstance().shoot();
-        }*/
     }
 
     /**
@@ -260,14 +273,7 @@ public class SinglePGameView extends ScreenAdapter {
             view.update(cloud);
             view.draw(game.getBatch());
         }
-//
-//        List<BulletModel> bullets = GameModel.getInstance().getBullets();
-//        for (BulletModel bullet : bullets) {
-//            EntityView view = ViewFactory.makeView(game, bullet);
-//            view.update(bullet);
-//            view.draw(game.getBatch());
-//        }
-//
+
         BirdModel bird = SinglePGameModel.getInstance().getPlayer();
         EntityView view = ViewFactory.makeView(game, bird);
         view.update(bird);
@@ -275,13 +281,11 @@ public class SinglePGameView extends ScreenAdapter {
     }
 
     /**
-     * Draws the background
+     * Draws the background.
      */
     private void drawBackground() {
         Texture background = game.getAssetManager().get("sky_background.jpg", Texture.class);
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-//        System.out.println("dX: " + readingX);
-//        System.out.println("dY: " + readingY);
         game.getBatch().draw(background,
                 SinglePGameController.getInstance().getCamX()-(SinglePGameController.WORLD_WIDTH/4f)/PIXEL_TO_METER-1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_WIDTH / 2f)) ,  //x
                 SinglePGameController.getInstance().getCamY()-(SinglePGameController.WORLD_HEIGHT/2f) /PIXEL_TO_METER-1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_HEIGHT / 2f)),  //y
@@ -294,12 +298,13 @@ public class SinglePGameView extends ScreenAdapter {
 
                 texCoordX += readingX*Gdx.graphics.getDeltaTime();
                 texCoordY += readingY*Gdx.graphics.getDeltaTime();
-
-//        Texture background = game.getAssetManager().get("background.png", Texture.class);
-//        background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-//        game.getBatch().draw(background, 0, 0, 0, 0, (int)(ARENA_WIDTH / PIXEL_TO_METER), (int) (ARENA_HEIGHT / PIXEL_TO_METER));
     }
 
+    /**
+     * Calculates the average value of a provided arraylist.
+     * @param arr the ArrayList whose average is being calculated
+     * @return the average value of the argument
+     */
     public Float average(ArrayList<Float> arr){
         Float sum = new Float(0);
         for(Float f : arr)

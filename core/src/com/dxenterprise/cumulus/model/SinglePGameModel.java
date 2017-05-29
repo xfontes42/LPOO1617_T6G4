@@ -20,10 +20,19 @@ import static com.badlogic.gdx.math.MathUtils.random;
 
 public class SinglePGameModel {
 
+    /**
+     * The amount of times the bird jumped since it last touched a cloud. This value goes from 0 to 2.
+     */
     private int jumps = 0;
 
+    /**
+     * The current highscore.
+     */
     private int highscore = 0;
 
+    /**
+     * The current highscore.
+     */
     public int getHighscore() {
         return highscore;
     }

@@ -8,27 +8,52 @@ package com.dxenterprise.cumulus.model.entities;
  * An abstract model representing an entity belonging to a game model.
  */
 public abstract class EntityModel {
+    /**
+     * The types of entities (clouds of different sizes, and player)
+     */
     public enum ModelType {BIGCLOUD, MEDIUMCLOUD, SMALLCLOUD, PLAYER};//, POWERUP, POWERDOWN};
 
+    /**
+     * Gets the entity's velocity in X.
+     * @return the entity's velocity in X.
+     */
     public float getVx() {
         return vx;
     }
 
+    /**
+     * Sets the entity's velocity in X.
+     * @param vx the entity's new velocity in X.
+     */
     public void setVx(float vx) {
         this.vx = vx;
     }
 
+    /**
+     * Gets the entity's velocity in Y.
+     * @return the entity's velocity in Y.
+     */
     public float getVy() {
         return vy;
     }
 
+    /**
+     * Sets the entity's velocity in Y.
+     * @param vy the entity's new velocity in Y.
+     */
     public void setVy(float vy) {
         this.vy = vy;
     }
 
+    /**
+     * The entity's velocity in X.
+     */
     private float vx;
-    private float vy;
 
+    /**
+     * The entity's velocity in Y.
+     */
+    private float vy;
 
     /**
      * The x-coordinate of this model in meters.
@@ -110,16 +135,24 @@ public abstract class EntityModel {
         this.rotation = rotation;
     }
 
+    /**
+     * Checks if the entity is flagged to be removed.
+     * @return true if the entity is to be removed, false if otherwise
+     */
     public boolean isFlaggedToBeRemoved() {
         return flaggedForRemoval;
     }
 
     /**
-     * Makes this model flagged for removal on next step
+     * Makes this model flagged for removal on next step.
      */
     public void setFlaggedForRemoval(boolean flaggedForRemoval) {
         this.flaggedForRemoval = flaggedForRemoval;
     }
 
+    /**
+     * Gets the type of the entity.
+     * @return a value related to the class and type of the entity
+     */
     public abstract ModelType getType();
 }
