@@ -1,0 +1,11 @@
+com.dxenterprise.cumulus
+com.dxenterprise.cumulus.client
+com.dxenterprise.cumulus.controller
+com.dxenterprise.cumulus.controller.entities
+com.dxenterprise.cumulus.desktop
+com.dxenterprise.cumulus.model
+com.dxenterprise.cumulus.model.entities
+com.dxenterprise.cumulus.unit_tests
+com.dxenterprise.cumulus.utils
+com.dxenterprise.cumulus.view
+com.dxenterprise.cumulus.view.entities
