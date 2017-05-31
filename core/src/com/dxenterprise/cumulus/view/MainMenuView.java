@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -34,9 +34,10 @@ public class MainMenuView extends ScreenAdapter {
      */
     private final int MAIN_MENU_HEIGHT = 720;
     private final int DELTA_Y_MENU = 100;
+    private final int DELTA_X_MENU = 150;
 
-    private final int TOP_ROW_Y = 3*MAIN_MENU_HEIGHT/6-DELTA_Y_MENU;
-    private final int BOTTOM_ROW_Y = 2*MAIN_MENU_HEIGHT/6-(int)(1.2f*DELTA_Y_MENU);
+    private final int BUTTON_SIZE_X = MAIN_MENU_WIDTH/5;
+    private final int BUTTON_SIZE_Y = MAIN_MENU_HEIGHT/4;
 
     /**
      * The game this menu belongs to.
@@ -56,7 +57,13 @@ public class MainMenuView extends ScreenAdapter {
     /**
      * The buttons used for the auxiliary menus.
      */
-    private ImageButton settings, credits, highscores, settingsOver, creditsOver, highscoresOver, singlePlayer, spOver;
+    private ImageButton credits, highscores, singlePlayer, settings, title;
+
+
+    /**
+     * The table used to display the buttons evenly on the screen.
+     */
+    private Table table;
 
     /**
      * The viewport used to display the menu.
@@ -131,11 +138,10 @@ public class MainMenuView extends ScreenAdapter {
     private void loadMainMenuAssets(){
         game.getAssetManager().load(musicName, Music.class);
         game.getAssetManager().load("Cumulus.png",Texture.class);
-        game.getAssetManager().load("iconSettings.png",Texture.class);
-        game.getAssetManager().load("iconCredits.png",Texture.class);
-        game.getAssetManager().load("iconController.png",Texture.class);
-        game.getAssetManager().load("text_SP.png",Texture.class);
-        game.getAssetManager().load("text_MP.png",Texture.class);
+        game.getAssetManager().load("buttonSettings.png",Texture.class);
+        game.getAssetManager().load("buttonCredits.png",Texture.class);
+        game.getAssetManager().load("buttonHOF.png",Texture.class);
+        game.getAssetManager().load("buttonPlay.png",Texture.class);
     }
 
     /**
@@ -177,59 +183,36 @@ public class MainMenuView extends ScreenAdapter {
      */
     @Override
     public void show() {
-        showSettings();
-        showSinglePlayer();
-        showCredits();
-        showHiScores();
+        createTable();
+        createButtons();
         showTitle();
+        fillTable();
     }
 
-    /**
-     * Shows the single and multiplayer buttons.
-     */
-    private void showSinglePlayer(){
-        singlePlayer = new ImageButton(skinButtons);
-        singlePlayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6+10);
-        singlePlayer.setPosition(MAIN_MENU_WIDTH/2-singlePlayer.getWidth()/2,TOP_ROW_Y);
-        stage.addActor(singlePlayer);
-
-        Drawable  buttonDrawableHigh= new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_SP.png")));
-        spOver = new ImageButton(buttonDrawableHigh);
-        spOver.setSize(MAIN_MENU_WIDTH/3,MAIN_MENU_HEIGHT/3);//MAIN_MENU_WIDTH/12,MAIN_MENU_HEIGHT/9);
-        spOver.setPosition(MAIN_MENU_WIDTH/2-spOver.getWidth()/2,3*MAIN_MENU_HEIGHT/6-DELTA_Y_MENU-spOver.getHeight()/4);
-        stage.addActor(spOver);
+    private void createTable() {
+        table = new Table();
+        table.center();
+        table.padLeft(20);
+        table.padRight(20);
+        table.setFillParent(true);
     }
 
-    /**
-     * Shows the settings button.
-     */
-    private void showSettings(){
-        settings = new ImageButton(skinButtons);
-        settings.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        settings.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,BOTTOM_ROW_Y);
-        stage.addActor(settings);
+    private void createButtons(){
+        Drawable buttonSP = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonPlay.png")));
+        singlePlayer = new ImageButton(buttonSP);
+        singlePlayer.setSize(BUTTON_SIZE_X,BUTTON_SIZE_Y);
 
-        Drawable buttonDrawableSet = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconSettings.png")));
-        settingsOver = new ImageButton(buttonDrawableSet);
-        settingsOver.setSize(MAIN_MENU_WIDTH/12,MAIN_MENU_HEIGHT/9);
-        settingsOver.setPosition(MAIN_MENU_WIDTH/2-settingsOver.getWidth()/2,BOTTOM_ROW_Y+settingsOver.getHeight()/4);
-        stage.addActor(settingsOver);
-    }
+        Drawable buttonSettings = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonSettings.png")));
+        settings = new ImageButton(buttonSettings);
+        settings.setSize(BUTTON_SIZE_X,BUTTON_SIZE_Y);
 
-    /**
-     * Shows the credits button.
-     */
-    private void showCredits(){
-        credits = new ImageButton(skinButtons);
-        credits.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        credits.setPosition(MAIN_MENU_WIDTH/2- credits.getWidth()/2+MAIN_MENU_WIDTH/7.5f,BOTTOM_ROW_Y);
-        stage.addActor(credits);
+        Drawable buttonHOF = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonHOF.png")));
+        highscores = new ImageButton(buttonHOF);
+        highscores.setSize(BUTTON_SIZE_X,BUTTON_SIZE_Y);
 
-        Drawable buttonDrawableSha = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconCredits.png")));
-        creditsOver = new ImageButton(buttonDrawableSha);
-        creditsOver.setSize(MAIN_MENU_WIDTH/12,MAIN_MENU_HEIGHT/9);
-        creditsOver.setPosition(MAIN_MENU_WIDTH/2-creditsOver.getWidth()/2+MAIN_MENU_WIDTH/7.5f,BOTTOM_ROW_Y+creditsOver.getHeight()/4);
-        stage.addActor(creditsOver);
+        Drawable buttonCredits = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonCredits.png")));
+        credits = new ImageButton(buttonCredits);
+        credits.setSize(BUTTON_SIZE_X,BUTTON_SIZE_Y);
     }
 
     /**
@@ -237,26 +220,23 @@ public class MainMenuView extends ScreenAdapter {
      */
     private void showTitle(){
         Drawable buttonDrawableCumulus = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Cumulus.png")));
-        ImageButton cumulusButtonOver = new ImageButton(buttonDrawableCumulus);
-        cumulusButtonOver.setSize(MAIN_MENU_WIDTH*1.5f,MAIN_MENU_HEIGHT/2);
-        cumulusButtonOver.setPosition(MAIN_MENU_WIDTH/2-cumulusButtonOver.getWidth()/2,MAIN_MENU_HEIGHT/2f);
-        stage.addActor(cumulusButtonOver);
+        title = new ImageButton(buttonDrawableCumulus);
+        title.setSize(MAIN_MENU_WIDTH*1.5f,MAIN_MENU_HEIGHT/2);
+        title.setPosition(MAIN_MENU_WIDTH/2-title.getWidth()/2,MAIN_MENU_HEIGHT/2f);
+        stage.addActor(title);
     }
 
-    /**
-     * Shows the highscores button.
-     */
-    private void showHiScores(){
-        highscores = new ImageButton(skinButtons);
-        highscores.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        highscores.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,BOTTOM_ROW_Y);
-        stage.addActor(highscores);
-
-        Drawable  buttonDrawableHigh= new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconController.png")));
-        highscoresOver = new ImageButton(buttonDrawableHigh);
-        highscoresOver.setSize(MAIN_MENU_WIDTH/12,MAIN_MENU_HEIGHT/9);
-        highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscoresOver.getWidth()/2-MAIN_MENU_WIDTH/7.5f,BOTTOM_ROW_Y+highscoresOver.getHeight()/4);
-        stage.addActor(highscoresOver);
+    private void fillTable(){
+        table.padTop(DELTA_Y_MENU);
+        table.row();
+        table.padLeft(DELTA_X_MENU);
+        table.add(singlePlayer).expandX().pad(DELTA_Y_MENU).maxWidth(BUTTON_SIZE_X);
+        table.add(settings).expandX().pad(DELTA_Y_MENU).maxWidth(BUTTON_SIZE_X);
+        table.add(highscores).expandX().pad(DELTA_Y_MENU).maxWidth(BUTTON_SIZE_X);
+        table.add(credits).expandX().pad(DELTA_Y_MENU).maxWidth(BUTTON_SIZE_X);
+        table.padRight(DELTA_X_MENU);
+        table.row();
+        stage.addActor(table);
     }
 
     /**
@@ -275,7 +255,7 @@ public class MainMenuView extends ScreenAdapter {
 
         checkForSPMP();
         checkForSettingsHiScores();
-        checkForShareBack();
+        checkForCreditsBack();
 
         stage.act();
         stage.draw();
@@ -285,7 +265,7 @@ public class MainMenuView extends ScreenAdapter {
      * Checks for input in the single/multiplayer buttons.
      */
 	private void checkForSPMP(){
-        if(spOver.isPressed()){
+        if(singlePlayer.isPressed()){
             dispose();
             game.setScreen(new SinglePGameView(game));
         }
@@ -299,11 +279,11 @@ public class MainMenuView extends ScreenAdapter {
      * Checks for input in the settings or highscores buttons.
      */
     private void checkForSettingsHiScores(){
-        if(settingsOver.isPressed()) {
+        if(settings.isPressed()) {
             dispose();
             game.setScreen(new SettingsView(game));
         }
-        if(highscoresOver.isPressed()){
+        if(highscores.isPressed()){
             dispose();
             game.setScreen(new HighScoreView(game));
         }
@@ -312,8 +292,8 @@ public class MainMenuView extends ScreenAdapter {
     /**
      * Checks for the credits or back buttons.
      */
-    private void checkForShareBack(){
-        if(creditsOver.isPressed()){
+    private void checkForCreditsBack(){
+        if(credits.isPressed()){
             dispose();
             game.setScreen(new CreditsView(game));
 //            System.out.println("Share");
