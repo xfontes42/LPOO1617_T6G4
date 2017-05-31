@@ -33,10 +33,25 @@ public class MainMenuView extends ScreenAdapter {
      * Menu height (in pixels).
      */
     private final int MAIN_MENU_HEIGHT = 720;
+
+    /**
+     * A vertical menu padding.
+     */
     private final int DELTA_Y_MENU = 100;
+
+    /**
+     * A horizontal menu padding.
+     */
     private final int DELTA_X_MENU = 150;
 
+    /**
+     * Button maximum width.
+     */
     private final int BUTTON_SIZE_X = MAIN_MENU_WIDTH/5;
+
+    /**
+     * Button maximum height.
+     */
     private final int BUTTON_SIZE_Y = MAIN_MENU_HEIGHT/4;
 
     /**
@@ -50,15 +65,9 @@ public class MainMenuView extends ScreenAdapter {
     private Stage stage;
 
     /**
-     * The buttons used for the game modes.
-     */
-    //private TextButton singlePlayer, multiplayer;
-
-    /**
-     * The buttons used for the auxiliary menus.
+     * The buttons used to launch the game and other menus.
      */
     private ImageButton credits, highscores, singlePlayer, settings, title;
-
 
     /**
      * The table used to display the buttons evenly on the screen.
@@ -189,6 +198,9 @@ public class MainMenuView extends ScreenAdapter {
         fillTable();
     }
 
+    /**
+     * Creates the table where the buttons are appearing.
+     */
     private void createTable() {
         table = new Table();
         table.center();
@@ -197,6 +209,9 @@ public class MainMenuView extends ScreenAdapter {
         table.setFillParent(true);
     }
 
+    /**
+     * Creates the buttons.
+     */
     private void createButtons(){
         Drawable buttonSP = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonPlay.png")));
         singlePlayer = new ImageButton(buttonSP);
@@ -226,6 +241,9 @@ public class MainMenuView extends ScreenAdapter {
         stage.addActor(title);
     }
 
+    /**
+     * Fills the table with the buttons.
+     */
     private void fillTable(){
         table.padTop(DELTA_Y_MENU);
         table.row();
@@ -241,7 +259,7 @@ public class MainMenuView extends ScreenAdapter {
 
     /**
      * Renders the screen, waiting for input.
-     * @param delta
+     * @param delta time between frames
      */
     @Override
 	public void render (float delta) {
@@ -262,17 +280,13 @@ public class MainMenuView extends ScreenAdapter {
 	}
 
     /**
-     * Checks for input in the single/multiplayer buttons.
+     * Checks for input in the play button.
      */
 	private void checkForSPMP(){
         if(singlePlayer.isPressed()){
             dispose();
             game.setScreen(new SinglePGameView(game));
         }
-        /*if(multiplayer.isPressed()){
-            dispose();
-            game.setScreen(new GameOverView(game,0));
-        }*/
     }
 
     /**
@@ -296,10 +310,6 @@ public class MainMenuView extends ScreenAdapter {
         if(credits.isPressed()){
             dispose();
             game.setScreen(new CreditsView(game));
-//            System.out.println("Share");
-//            if (!Gdx.net.openURI("fb://page/<page_id>")) { // opens app
-//                Gdx.net.openURI("https://facebook.com/<page_name>"); // opens site if app not installed
-//            } //check this out later
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){

@@ -58,7 +58,11 @@ public class SettingsView extends ScreenAdapter {
     private final int MENU_HEIGHT = 720;
 
 
+    /**
+     * Vertical menu padding.
+     */
     private final int DELTA_Y_MENU = 100;
+
     /**
      * The staged used to display the menu.
      */
@@ -197,7 +201,7 @@ public class SettingsView extends ScreenAdapter {
 
     /**
      * Renders the screen, waiting for input.
-     * @param delta
+     * @param delta time interval between frames
      */
     @Override
     public void render (float delta) {

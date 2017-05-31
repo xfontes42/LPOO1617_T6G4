@@ -66,6 +66,10 @@ public class HighScoreView extends ScreenAdapter {
      * Menu height (in pixels).
      */
     private final int MENU_HEIGHT = 720;
+
+    /**
+     * Vertical menu padding.
+     */
     private final int DELTA_Y_MENU = 100;
 
     /**
@@ -102,9 +106,6 @@ public class HighScoreView extends ScreenAdapter {
      * Table elements.
      */
     private Label scoreRank, scoreValue;
-    //private ImageButton GameOverLabel;
-
-
 
     /**
      * Creates the table that will align the text in this screen.
@@ -166,7 +167,6 @@ public class HighScoreView extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         checkForBack();
-
 
         stage.act();
         stage.draw();

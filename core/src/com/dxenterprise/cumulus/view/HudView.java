@@ -95,7 +95,6 @@ public class HudView implements Disposable{
         initLabels();
         fillTable();
 
-        //add our table to the stage
         stage.addActor(table);
     }
 

@@ -68,6 +68,10 @@ public class CreditsView extends ScreenAdapter {
      * Menu height (in pixels).
      */
     private final int MENU_HEIGHT = 720;
+
+    /**
+     * Vertical menu padding.
+     */
     private final int DELTA_Y_MENU = 100;
 
     /**
@@ -104,9 +108,6 @@ public class CreditsView extends ScreenAdapter {
      * Table elements.
      */
     private Label line1, line2, line3, line4, line5, line6;
-    //private ImageButton GameOverLabel;
-
-
 
     /**
      * Creates the table that will align the text in this screen.
@@ -168,7 +169,7 @@ public class CreditsView extends ScreenAdapter {
 
     /**
      * Renders the screen and waits for any input to return to the previous screen.
-     * @param delta
+     * @param delta time interval between frames
      */
     @Override
     public void render(float delta) {
