@@ -35,6 +35,9 @@ public class MainMenuView extends ScreenAdapter {
     private final int MAIN_MENU_HEIGHT = 720;
     private final int DELTA_Y_MENU = 100;
 
+    private final int TOP_ROW_Y = 3*MAIN_MENU_HEIGHT/6-DELTA_Y_MENU;
+    private final int BOTTOM_ROW_Y = 2*MAIN_MENU_HEIGHT/6-(int)(1.2f*DELTA_Y_MENU);
+
     /**
      * The game this menu belongs to.
      */
@@ -48,12 +51,12 @@ public class MainMenuView extends ScreenAdapter {
     /**
      * The buttons used for the game modes.
      */
-    private TextButton singlePlayer, multiplayer;
+    //private TextButton singlePlayer, multiplayer;
 
     /**
      * The buttons used for the auxiliary menus.
      */
-    private ImageButton settings, share, highscores, settingsOver, shareOver, highscoresOver;
+    private ImageButton settings, credits, highscores, settingsOver, creditsOver, highscoresOver, singlePlayer, spOver;
 
     /**
      * The viewport used to display the menu.
@@ -129,7 +132,7 @@ public class MainMenuView extends ScreenAdapter {
         game.getAssetManager().load(musicName, Music.class);
         game.getAssetManager().load("Cumulus.png",Texture.class);
         game.getAssetManager().load("iconSettings.png",Texture.class);
-        game.getAssetManager().load("iconShare.png",Texture.class);
+        game.getAssetManager().load("iconCredits.png",Texture.class);
         game.getAssetManager().load("iconController.png",Texture.class);
         game.getAssetManager().load("text_SP.png",Texture.class);
         game.getAssetManager().load("text_MP.png",Texture.class);
@@ -175,8 +178,8 @@ public class MainMenuView extends ScreenAdapter {
     @Override
     public void show() {
         showSettings();
-        showSPMPbuttons();
-        showShare();
+        showSinglePlayer();
+        showCredits();
         showHiScores();
         showTitle();
     }
@@ -184,16 +187,17 @@ public class MainMenuView extends ScreenAdapter {
     /**
      * Shows the single and multiplayer buttons.
      */
-    private void showSPMPbuttons(){
-        singlePlayer = new TextButton("Singleplayer", skinButtons);
+    private void showSinglePlayer(){
+        singlePlayer = new ImageButton(skinButtons);
         singlePlayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6+10);
-        singlePlayer.setPosition(MAIN_MENU_WIDTH/2-singlePlayer.getWidth()/2,3*MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
+        singlePlayer.setPosition(MAIN_MENU_WIDTH/2-singlePlayer.getWidth()/2,TOP_ROW_Y);
         stage.addActor(singlePlayer);
 
-        multiplayer = new TextButton("Multiplayer", skinButtons);
-        multiplayer.setSize(MAIN_MENU_WIDTH/2.5f,MAIN_MENU_HEIGHT/6);
-        multiplayer.setPosition(MAIN_MENU_WIDTH/2-multiplayer.getWidth()/2,2*MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
-        stage.addActor(multiplayer);
+        Drawable  buttonDrawableHigh= new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_SP.png")));
+        spOver = new ImageButton(buttonDrawableHigh);
+        spOver.setSize(MAIN_MENU_WIDTH/3,MAIN_MENU_HEIGHT/3);//MAIN_MENU_WIDTH/12,MAIN_MENU_HEIGHT/9);
+        spOver.setPosition(MAIN_MENU_WIDTH/2-spOver.getWidth()/2,3*MAIN_MENU_HEIGHT/6-DELTA_Y_MENU-spOver.getHeight()/4);
+        stage.addActor(spOver);
     }
 
     /**
@@ -202,30 +206,30 @@ public class MainMenuView extends ScreenAdapter {
     private void showSettings(){
         settings = new ImageButton(skinButtons);
         settings.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        settings.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
+        settings.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,BOTTOM_ROW_Y);
         stage.addActor(settings);
 
         Drawable buttonDrawableSet = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconSettings.png")));
         settingsOver = new ImageButton(buttonDrawableSet);
-        settingsOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        settingsOver.setPosition(MAIN_MENU_WIDTH/2-settings.getWidth()/2,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
+        settingsOver.setSize(MAIN_MENU_WIDTH/12,MAIN_MENU_HEIGHT/9);
+        settingsOver.setPosition(MAIN_MENU_WIDTH/2-settingsOver.getWidth()/2,BOTTOM_ROW_Y+settingsOver.getHeight()/4);
         stage.addActor(settingsOver);
     }
 
     /**
-     * Shows the share button.
+     * Shows the credits button.
      */
-    private void showShare(){
-        share = new ImageButton(skinButtons);
-        share.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        share.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
-        stage.addActor(share);
+    private void showCredits(){
+        credits = new ImageButton(skinButtons);
+        credits.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
+        credits.setPosition(MAIN_MENU_WIDTH/2- credits.getWidth()/2+MAIN_MENU_WIDTH/7.5f,BOTTOM_ROW_Y);
+        stage.addActor(credits);
 
-        Drawable buttonDrawableSha = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconShare.png")));
-        shareOver = new ImageButton(buttonDrawableSha);
-        shareOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        shareOver.setPosition(MAIN_MENU_WIDTH/2-share.getWidth()/2+MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
-        stage.addActor(shareOver);
+        Drawable buttonDrawableSha = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconCredits.png")));
+        creditsOver = new ImageButton(buttonDrawableSha);
+        creditsOver.setSize(MAIN_MENU_WIDTH/12,MAIN_MENU_HEIGHT/9);
+        creditsOver.setPosition(MAIN_MENU_WIDTH/2-creditsOver.getWidth()/2+MAIN_MENU_WIDTH/7.5f,BOTTOM_ROW_Y+creditsOver.getHeight()/4);
+        stage.addActor(creditsOver);
     }
 
     /**
@@ -235,7 +239,7 @@ public class MainMenuView extends ScreenAdapter {
         Drawable buttonDrawableCumulus = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("Cumulus.png")));
         ImageButton cumulusButtonOver = new ImageButton(buttonDrawableCumulus);
         cumulusButtonOver.setSize(MAIN_MENU_WIDTH*1.5f,MAIN_MENU_HEIGHT/2);
-        cumulusButtonOver.setPosition(MAIN_MENU_WIDTH/2-cumulusButtonOver.getWidth()/2,MAIN_MENU_HEIGHT/1.75f);
+        cumulusButtonOver.setPosition(MAIN_MENU_WIDTH/2-cumulusButtonOver.getWidth()/2,MAIN_MENU_HEIGHT/2f);
         stage.addActor(cumulusButtonOver);
     }
 
@@ -245,13 +249,13 @@ public class MainMenuView extends ScreenAdapter {
     private void showHiScores(){
         highscores = new ImageButton(skinButtons);
         highscores.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        highscores.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
+        highscores.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,BOTTOM_ROW_Y);
         stage.addActor(highscores);
 
         Drawable  buttonDrawableHigh= new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("iconController.png")));
         highscoresOver = new ImageButton(buttonDrawableHigh);
-        highscoresOver.setSize(MAIN_MENU_WIDTH/9,MAIN_MENU_HEIGHT/6);
-        highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscores.getWidth()/2-MAIN_MENU_WIDTH/7.5f,MAIN_MENU_HEIGHT/5-DELTA_Y_MENU);
+        highscoresOver.setSize(MAIN_MENU_WIDTH/12,MAIN_MENU_HEIGHT/9);
+        highscoresOver.setPosition(MAIN_MENU_WIDTH/2-highscoresOver.getWidth()/2-MAIN_MENU_WIDTH/7.5f,BOTTOM_ROW_Y+highscoresOver.getHeight()/4);
         stage.addActor(highscoresOver);
     }
 
@@ -281,14 +285,14 @@ public class MainMenuView extends ScreenAdapter {
      * Checks for input in the single/multiplayer buttons.
      */
 	private void checkForSPMP(){
-        if(singlePlayer.isPressed()){
+        if(spOver.isPressed()){
             dispose();
             game.setScreen(new SinglePGameView(game));
         }
-        if(multiplayer.isPressed()){
+        /*if(multiplayer.isPressed()){
             dispose();
             game.setScreen(new GameOverView(game,0));
-        }
+        }*/
     }
 
     /**
@@ -306,10 +310,10 @@ public class MainMenuView extends ScreenAdapter {
     }
 
     /**
-     * Checks for the share or back buttons.
+     * Checks for the credits or back buttons.
      */
     private void checkForShareBack(){
-        if(shareOver.isPressed()){
+        if(creditsOver.isPressed()){
             dispose();
             game.setScreen(new CreditsView(game));
 //            System.out.println("Share");
