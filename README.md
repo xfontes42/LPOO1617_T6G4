@@ -17,6 +17,11 @@ up201503145@fe.up.pt
 ## UML Diagrams
 
 ## Design patterns used
+This project includes in its codebase several design patterns:
+* Singleton
+* Factory
+* State (?)
+* MVC (?)
 
 ## Difficulties and lessons
 
@@ -25,12 +30,32 @@ up201503145@fe.up.pt
 # User manual
 
 ## The main menu
+Upon launching the game the player is greeted with the game title and four buttons:
+ [imagem vai aqui]
+ From left to right: Play game, Settings, Hall of Fame (highscores), and Credits
 
 ## The settings menu
+[imagem]
+In this menu the player can find sound and music toggles, along with a slider for the accelerometer sensibility for the game background, since it moves according to the device's orientation.
 
 ## The Hall of Fame
+[imagem]
+
+In this menu the player can see the top five scores stored in the device, along with a button to go back to the main menu.
+
+## The credits
+[imagem]
+
+The credits just show the developers' names, along with the music credits.
 
 ## In the game
+Cumulus is a simple endless runner; The player plays as Birb, a bird who somehow got on top of the clouds while being unable to fly. The player must keep Birb on top of the clouds as long as they can, with the bird's tiny wings only letting it double jump.
+
+[imagem]
+
+The score is calculated taking into account the time the player has managed to spend above the clouds, as well as Birb's velocity. The faster the player goes, the more the score increases. The player character can walk on the clouds, and can only jump twice before having to land on another platform again.
+
+If the player falls below the clouds or falls behind (disappears to the left of the screen), they lose.
 
 --------------old stuff below here---------------
 
