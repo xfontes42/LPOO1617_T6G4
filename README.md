@@ -12,6 +12,7 @@ up201503145@fe.up.pt
 ## Project installation
 
 ## App installation
+Given that this is an Android app, the user has to download the .apk file to the device and open it in the device using a file explorer. Additionally, the user needs to allow installation from "Unknown Sources", a setting that can be found in Settings > Security.
 
 # Development documentation
 ## UML Diagrams
@@ -20,8 +21,8 @@ up201503145@fe.up.pt
 This project includes in its codebase several design patterns:
 * Singleton
 * Factory
-* State (?)
-* MVC (?)
+* State
+* MVC
 
 ## Difficulties and lessons
 
@@ -30,32 +31,39 @@ This project includes in its codebase several design patterns:
 # User manual
 
 ## The main menu
-Upon launching the game the player is greeted with the game title and four buttons:
- [imagem vai aqui]
- From left to right: Play game, Settings, Hall of Fame (highscores), and Credits
+Upon launching the game the player is greeted with the following screen, showing the game title and four buttons:
+
+![alt text](Manual_MainMenu.png "Main Menu")
+
+From left to right: Play game, Settings, Hall of Fame (highscores), and Credits
 
 ## The settings menu
-[imagem]
-In this menu the player can find sound and music toggles, along with a slider for the accelerometer sensibility for the game background, since it moves according to the device's orientation.
+![alt text](Manual_Settings.png "Settings Menu")
+
+In this menu, the player can find sound and music toggles, along with a slider for the accelerometer sensibility for the game background, since it moves according to the device's orientation.
 
 ## The Hall of Fame
-[imagem]
+![alt text](Manual_Highscores.png "Highscores")
 
-In this menu the player can see the top five scores stored in the device, along with a button to go back to the main menu.
+In this menu, the player can see the top five scores stored in the device, along with a button to go back to the main menu.
 
 ## The credits
-[imagem]
+![alt text](Manual_Credits.png "Credits")
 
-The credits just show the developers' names, along with the music credits.
+The credits just show the developers' names along with the professors'. The music credits are also shown.
 
 ## In the game
 Cumulus is a simple endless runner; The player plays as Birb, a bird who somehow got on top of the clouds while being unable to fly. The player must keep Birb on top of the clouds as long as they can, with the bird's tiny wings only letting it double jump.
 
-[imagem]
+![alt text](Manual_Ingame.png "Ingame")
 
 The score is calculated taking into account the time the player has managed to spend above the clouds, as well as Birb's velocity. The faster the player goes, the more the score increases. The player character can walk on the clouds, and can only jump twice before having to land on another platform again.
 
 If the player falls below the clouds or falls behind (disappears to the left of the screen), they lose.
+
+![alt text](Manual_GameOver.png "The game over screen")
+
+The user can from this screen return to the main menu and try the game again.
 
 --------------old stuff below here---------------
 
