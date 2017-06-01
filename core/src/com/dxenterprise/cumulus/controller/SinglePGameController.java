@@ -49,7 +49,7 @@ public class SinglePGameController implements ContactListener {
     /**
      * The camera acceleration's x value.
      */
-    private float camAX = 0.0001f;
+    private float camAX = 0f;
 
     /**
      * Gets the camera position's x value.
@@ -191,7 +191,7 @@ public class SinglePGameController implements ContactListener {
      * Creates a new SinglePGameController that controls the physics of a certain SinglePGameMode.
      */
     private SinglePGameController(){
-        world = new World(new Vector2(0.8f,-10f), true);
+        world = new World(new Vector2(0.6f,-10f), true);
         playerBody = new BirdBody(world, SinglePGameModel.getInstance().getPlayer());
         //instanciate clouds
         clouds = SinglePGameModel.getInstance().getClouds();

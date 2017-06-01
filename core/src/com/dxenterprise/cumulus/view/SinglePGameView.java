@@ -153,7 +153,7 @@ public class SinglePGameView extends ScreenAdapter {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 
         SinglePGameController.getInstance().setCamX(camera.viewportWidth / 2f);
-        SinglePGameController.getInstance().setCamY(camera.viewportWidth / 2f);
+        SinglePGameController.getInstance().setCamY(camera.viewportHeight / 2f);
         camera.update();
 
         if (DEBUG_PHYSICS) {
@@ -186,6 +186,8 @@ public class SinglePGameView extends ScreenAdapter {
     public void render(float delta) {
         //TODO: separar esta função em funções mais pequenas se possível
 
+
+
         handleInputs(delta);
 
         SinglePGameController.getInstance().update(delta);
@@ -197,7 +199,8 @@ public class SinglePGameView extends ScreenAdapter {
                                                                                             //todo ^ this right here serves to adjust the bird when he's to fast
         );
 
-        SinglePGameController.getInstance().setCamY((SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER);
+        //SinglePGameController.getInstance().setCamY((SinglePGameModel.getInstance().getPlayer().getY()+SinglePGameController.WORLD_HEIGHT/3f) / PIXEL_TO_METER);
+        SinglePGameController.getInstance().setCamY(0/ PIXEL_TO_METER);
         camera.position.set( SinglePGameController.getInstance().getCamX(),
                 SinglePGameController.getInstance().getCamY(),
                 0);
@@ -205,8 +208,9 @@ public class SinglePGameView extends ScreenAdapter {
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
-        Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
-        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+
+//        Gdx.gl.glClearColor(0.4f, 0.737f, 0.929f, 1);
+//        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
         game.getBatch().begin();
         drawBackground();
@@ -215,6 +219,7 @@ public class SinglePGameView extends ScreenAdapter {
 
         hud.stage.act();
         hud.stage.draw();
+
 
         if (DEBUG_PHYSICS) {
             debugCamera = camera.combined.cpy();
@@ -288,9 +293,9 @@ public class SinglePGameView extends ScreenAdapter {
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         game.getBatch().draw(background,
                 SinglePGameController.getInstance().getCamX()-(SinglePGameController.WORLD_WIDTH/4f)/PIXEL_TO_METER-1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_WIDTH / 2f)) ,  //x
-                SinglePGameController.getInstance().getCamY()-(SinglePGameController.WORLD_HEIGHT/2f) /PIXEL_TO_METER-1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_HEIGHT / 2f)),  //y
+                -(SinglePGameController.WORLD_HEIGHT/2f) /PIXEL_TO_METER -1/PIXEL_TO_METER,// - (SinglePGameController.WORLD_HEIGHT / 2f)),  //y
                 VIEWPORT_WIDTH / PIXEL_TO_METER,
-                VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()),
+                VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth())+200,
                 texCoordY,
                 texCoordX+textDeltaX,
                 texCoordY+texDeltaY,
