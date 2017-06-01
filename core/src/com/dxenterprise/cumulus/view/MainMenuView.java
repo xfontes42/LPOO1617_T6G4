@@ -317,7 +317,8 @@ public class MainMenuView extends ScreenAdapter {
                 game.getPreferences().setHighscore(game.getScores().get(i-1),i);
             }
             dispose();
-            Gdx.app.exit();
+            //Gdx.app.exit();
+            System.exit(0);
         }
     }
 
