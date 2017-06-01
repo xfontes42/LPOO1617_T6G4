@@ -124,7 +124,7 @@ public class CreditsView extends ScreenAdapter {
     private void fillTable() {
 
         table.row();
-        table.add();
+        table.add(new Label("Credits", new Label.LabelStyle(fonts.getInstance().getClouds(), Color.WHITE)));
         table.row();
 
         line1 = new Label("Game design and programming:", new Label.LabelStyle(fonts.getInstance().getRancho(), Color.WHITE));
@@ -137,7 +137,7 @@ public class CreditsView extends ScreenAdapter {
         table.add(line1).expandX(); table.row();
         table.add(line2).expandX(); table.row();
         table.add(line3).expandX(); table.row();
-        table.add().pad(PADDING);   table.row();
+        table.add();                table.row();
         table.add(line4).expandX(); table.row();
         table.add(line5).expandX(); table.row();
         table.add(line6).expandX(); table.row();
@@ -148,10 +148,10 @@ public class CreditsView extends ScreenAdapter {
      * Displays the back button.
      */
     private void showBack() {
-        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture) game.getAssetManager().get("text_back.png")));
+        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonBack.png")));
         BackButton = new ImageButton(buttonDrawableBack);
-        BackButton.setSize(MENU_WIDTH / 8, MENU_HEIGHT / 8);
-        BackButton.setPosition(7 * MENU_WIDTH / 8 - BackButton.getWidth() / 2, MENU_HEIGHT / 8 - DELTA_Y_MENU);
+        BackButton.setSize(MENU_WIDTH/7,MENU_HEIGHT/7);
+        BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/7 -DELTA_Y_MENU);
         stage.addActor(BackButton);
     }
 
@@ -160,11 +160,6 @@ public class CreditsView extends ScreenAdapter {
      */
     @Override
     public void show() {
-        Drawable buttonDrawableHoF = new TextureRegionDrawable(new TextureRegion((Texture) game.getAssetManager().get("textCredits.png")));
-        ImageButton CreditsLabel = new ImageButton(buttonDrawableHoF);
-        CreditsLabel.setSize(MENU_WIDTH / 2f, MENU_HEIGHT / 3.5f);
-        CreditsLabel.setPosition(MENU_WIDTH / 2 - CreditsLabel.getWidth() / 2, MENU_HEIGHT / 1.9f + CreditsLabel.getHeight() * 0.85f);
-        stage.addActor(CreditsLabel);
     }
 
     /**

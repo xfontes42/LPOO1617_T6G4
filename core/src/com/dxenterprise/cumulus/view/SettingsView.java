@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.dxenterprise.cumulus.MyCumulusGame;
 
 /**
@@ -45,6 +46,7 @@ public class SettingsView extends ScreenAdapter {
         skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
+        Table table;
     }
 
     /**
@@ -131,10 +133,10 @@ public class SettingsView extends ScreenAdapter {
         stage.addActor(SettingsOver);
 
         //back button
-        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_back.png")));
+        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonBack.png")));
         BackButton = new ImageButton(buttonDrawableBack);
-        BackButton.setSize(MENU_WIDTH/8,MENU_HEIGHT/8);
-        BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/8 -DELTA_Y_MENU);
+        BackButton.setSize(MENU_WIDTH/7,MENU_HEIGHT/7);
+        BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/7 -DELTA_Y_MENU);
         stage.addActor(BackButton);
     }
 
@@ -143,16 +145,16 @@ public class SettingsView extends ScreenAdapter {
      */
     private void showMusic(){
         Drawable buttonDrawableMusic;
-        buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textMusicOn.png")));
+        buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonMusicOn.png")));
         MusicTextOn = new ImageButton(buttonDrawableMusic);
         MusicTextOn.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
-        MusicTextOn.setPosition(3*MENU_WIDTH/4-MusicTextOn.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
+        MusicTextOn.setPosition(3*MENU_WIDTH/4-2*MusicTextOn.getWidth()/3,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(MusicTextOn);
 
-        buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textMusicOff.png")));
+        buttonDrawableMusic = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonMusicOff.png")));
         MusicTextOff = new ImageButton(buttonDrawableMusic);
         MusicTextOff.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
-        MusicTextOff.setPosition(3*MENU_WIDTH/4-MusicTextOff.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
+        MusicTextOff.setPosition(3*MENU_WIDTH/4-2*MusicTextOff.getWidth()/3,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(MusicTextOff);
 
         if(game.isMusicOn()) MusicTextOff.setVisible(false);
@@ -166,16 +168,16 @@ public class SettingsView extends ScreenAdapter {
      */
     private void showSound(){
         Drawable buttonDrawableSound;
-        buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOn.png")));
+        buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonSoundOn.png")));
         SoundTextOn = new ImageButton(buttonDrawableSound);
         SoundTextOn.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
-        SoundTextOn.setPosition(MENU_WIDTH/4-SoundTextOn.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
+        SoundTextOn.setPosition(MENU_WIDTH/4-SoundTextOn.getWidth()/3,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(SoundTextOn);
 
-        buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("textSoundOff.png")));
+        buttonDrawableSound = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonSoundOff.png")));
         SoundTextOff = new ImageButton(buttonDrawableSound);
         SoundTextOff.setSize(MENU_WIDTH/4, MENU_HEIGHT/4);
-        SoundTextOff.setPosition(MENU_WIDTH/4-SoundTextOff.getWidth()/2,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
+        SoundTextOff.setPosition(MENU_WIDTH/4-SoundTextOff.getWidth()/3,MENU_HEIGHT/1.8f-DELTA_Y_MENU);
         stage.addActor(SoundTextOff);
 
         if(game.isSoundOn()) SoundTextOff.setVisible(false);

@@ -157,12 +157,14 @@ public class MainMenuView extends ScreenAdapter {
      * Loads the settings menu assets.
      */
     private void loadSettingsMenuAssets(){
-        game.getAssetManager().load("textMusicOn.png",Texture.class);
-        game.getAssetManager().load("textSoundOn.png",Texture.class);
+        game.getAssetManager().load("buttonMusicOn.png",Texture.class);
+        game.getAssetManager().load("buttonSoundOn.png",Texture.class);
         game.getAssetManager().load("text_sensitivity.png",Texture.class);
-        game.getAssetManager().load("textMusicOff.png",Texture.class);
-        game.getAssetManager().load("textSoundOff.png",Texture.class);
+        game.getAssetManager().load("buttonMusicOff.png",Texture.class);
+        game.getAssetManager().load("buttonSoundOff.png",Texture.class);
         game.getAssetManager().load("Settings.png",Texture.class);
+        game.getAssetManager().load("buttonBack.png",Texture.class);
+
         game.getAssetManager().load("text_back.png",Texture.class);
     }
 

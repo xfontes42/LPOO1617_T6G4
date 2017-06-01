@@ -138,10 +138,10 @@ public class HighScoreView extends ScreenAdapter {
      * Displays the back button.
      */
     private void showBack() {
-        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture) game.getAssetManager().get("text_back.png")));
+        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonBack.png")));
         BackButton = new ImageButton(buttonDrawableBack);
-        BackButton.setSize(MENU_WIDTH / 8, MENU_HEIGHT / 8);
-        BackButton.setPosition(7 * MENU_WIDTH / 8 - BackButton.getWidth() / 2, MENU_HEIGHT / 8 - DELTA_Y_MENU);
+        BackButton.setSize(MENU_WIDTH/7,MENU_HEIGHT/7);
+        BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/7 -DELTA_Y_MENU);
         stage.addActor(BackButton);
     }
 
@@ -150,11 +150,9 @@ public class HighScoreView extends ScreenAdapter {
      */
     @Override
     public void show() {
-        Drawable buttonDrawableHoF = new TextureRegionDrawable(new TextureRegion((Texture) game.getAssetManager().get("textHallOfFame.png")));
-        ImageButton HallOfFameLabel = new ImageButton(buttonDrawableHoF);
-        HallOfFameLabel.setSize(MENU_WIDTH / 1.5f, MENU_HEIGHT / 3);
-        HallOfFameLabel.setPosition(MENU_WIDTH / 2 - HallOfFameLabel.getWidth() / 2, MENU_HEIGHT / 1.9f + HallOfFameLabel.getHeight() / 2);
-        stage.addActor(HallOfFameLabel);
+        Label title = new Label("Hall of Fame", new Label.LabelStyle(fonts.getInstance().getClouds(), Color.WHITE));
+        title.setPosition(MENU_WIDTH / 2 - title.getWidth() / 2, MENU_HEIGHT / 1.9f + 3*title.getHeight());
+        stage.addActor(title);
     }
 
     /**

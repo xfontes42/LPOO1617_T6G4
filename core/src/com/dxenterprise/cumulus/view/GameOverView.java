@@ -138,10 +138,10 @@ public class GameOverView extends ScreenAdapter {
      * Displays the back label.
      */
     private void showBack(){
-        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("text_back.png")));
+        Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonBack.png")));
         BackButton = new ImageButton(buttonDrawableBack);
-        BackButton.setSize(MENU_WIDTH/8,MENU_HEIGHT/8);
-        BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/8 -DELTA_Y_MENU);
+        BackButton.setSize(MENU_WIDTH/7,MENU_HEIGHT/7);
+        BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/7 -DELTA_Y_MENU);
         stage.addActor(BackButton);
     }
 
