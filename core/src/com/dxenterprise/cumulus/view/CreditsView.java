@@ -107,7 +107,7 @@ public class CreditsView extends ScreenAdapter {
     /**
      * Table elements.
      */
-    private Label line1, line2, line3, line4, line5, line6;
+    private Label line1, line2, line3, line4, line5, line6, line7, title;
 
     /**
      * Creates the table that will align the text in this screen.
@@ -116,31 +116,41 @@ public class CreditsView extends ScreenAdapter {
         table = new Table();
         table.center();
         table.setFillParent(true);
+        createLabels();
     }
 
     /**
-     * Fills the table with the top five high scores.
+     * Creates the labels with the credits text.
      */
-    private void fillTable() {
-
-        table.row();
-        table.add(new Label("Credits", new Label.LabelStyle(fonts.getInstance().getClouds(), Color.WHITE)));
-        table.row();
-
+    private void createLabels(){
+        title = new Label("Credits", new Label.LabelStyle(fonts.getInstance().getClouds(), Color.WHITE));
+        title.scaleBy(0.8f);
         line1 = new Label("Game design and programming:", new Label.LabelStyle(fonts.getInstance().getRancho(), Color.WHITE));
         line2 = new Label("Daniel Pinho, Xavier Fontes", new Label.LabelStyle(fonts.getInstance().getRancho40(), Color.WHITE));
         line3 = new Label("Faculdade de Engenharia da Universidade do Porto", new Label.LabelStyle(fonts.getInstance().getRancho40(), Color.WHITE));
-        line4 = new Label("Music:", new Label.LabelStyle(fonts.getInstance().getRancho(), Color.WHITE));
-        line5 = new Label("Bit Quest Kevin MacLeod (incompetech.com)", new Label.LabelStyle(fonts.getInstance().getRancho40(), Color.WHITE));
-        line6 = new Label("Licensed under Creative Commons: By Attribution 3.0 License", new Label.LabelStyle(fonts.getInstance().getRancho40(), Color.WHITE));
+        line4 = new Label("Special thanks: Nuno Flores, André Restivo, Jorge Barbosa", new Label.LabelStyle(fonts.getInstance().getRancho40(), Color.WHITE));
+        line5 = new Label("Music:", new Label.LabelStyle(fonts.getInstance().getRancho(), Color.WHITE));
+        line6 = new Label("Bit Quest Kevin MacLeod (incompetech.com)", new Label.LabelStyle(fonts.getInstance().getRancho40(), Color.WHITE));
+        line7 = new Label("Licensed under Creative Commons: By Attribution 3.0 License", new Label.LabelStyle(fonts.getInstance().getRancho40(), Color.WHITE));
+
+    }
+
+    /**
+     * Fills the table with the credits.
+     */
+    private void fillTable() {
+        table.row();
+        table.add(title);
+        table.row();
 
         table.add(line1).expandX(); table.row();
         table.add(line2).expandX(); table.row();
         table.add(line3).expandX(); table.row();
-        table.add();                table.row();
         table.add(line4).expandX(); table.row();
+        table.add();                table.row();
         table.add(line5).expandX(); table.row();
         table.add(line6).expandX(); table.row();
+        table.add(line7).expandX(); table.row();
 
     }
 
@@ -151,7 +161,7 @@ public class CreditsView extends ScreenAdapter {
         Drawable buttonDrawableBack = new TextureRegionDrawable(new TextureRegion((Texture)game.getAssetManager().get("buttonBack.png")));
         BackButton = new ImageButton(buttonDrawableBack);
         BackButton.setSize(MENU_WIDTH/7,MENU_HEIGHT/7);
-        BackButton.setPosition(7*MENU_WIDTH/8 - BackButton.getWidth()/2, MENU_HEIGHT/7 -DELTA_Y_MENU);
+        BackButton.setPosition(9*MENU_WIDTH/10 - BackButton.getWidth()/2, MENU_HEIGHT/7 -DELTA_Y_MENU);
         stage.addActor(BackButton);
     }
 
@@ -172,7 +182,6 @@ public class CreditsView extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         checkForBack();
-
 
         stage.act();
         stage.draw();

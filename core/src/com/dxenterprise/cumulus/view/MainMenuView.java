@@ -132,9 +132,7 @@ public class MainMenuView extends ScreenAdapter {
      * Loads the menu assets.
      */
     private void loadAssets() {
-        ///game.getAssetManager().load("iconCheck.png",Texture.class); //todo ver a necessidade isto
         loadMainMenuAssets();
-        loadPauseMenuAssets();
         loadOtherAssets();
         loadSettingsMenuAssets();
 
@@ -164,29 +162,14 @@ public class MainMenuView extends ScreenAdapter {
         game.getAssetManager().load("buttonSoundOff.png",Texture.class);
         game.getAssetManager().load("Settings.png",Texture.class);
         game.getAssetManager().load("buttonBack.png",Texture.class);
-
-        game.getAssetManager().load("text_back.png",Texture.class);
-    }
-
-    /**
-     * Loads the pause menu assets.
-     */
-    private void loadPauseMenuAssets(){
-        game.getAssetManager().load("iconBack.png",Texture.class);
-        game.getAssetManager().load("iconPlay.png",Texture.class);
-
     }
 
     /**
      * Loads other assets.
      */
     private void loadOtherAssets(){
-        game.getAssetManager().load("iconPause.png",Texture.class);
         game.getAssetManager().load("textGameOver.png",Texture.class);
         game.getAssetManager().load("textScore.png", Texture.class);
-        game.getAssetManager().load("textHallOfFame.png", Texture.class);
-        game.getAssetManager().load("textCredits.png", Texture.class);
-
     }
 
     /**
