@@ -105,7 +105,7 @@ public class MainMenuView extends ScreenAdapter {
      */
     public MainMenuView(MyCumulusGame game){
         this.game = game;
-        skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
+       // skinButtons = new Skin(Gdx.files.internal("SkinMainMenu/glassy-ui.json"));
         loadAssets();
         camera = new OrthographicCamera();
         viewport = new FitViewport(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT, camera);
@@ -364,7 +364,7 @@ public class MainMenuView extends ScreenAdapter {
     @Override
     public void dispose() {
         stage.dispose();
-        skinButtons.dispose();
+       // skinButtons.dispose();
     }
 
 }
