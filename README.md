@@ -16,6 +16,9 @@ Given that this is an Android app, the user has to download the .apk file to the
 
 # Development documentation
 ## UML Diagrams
+This project is structured as we can see in the following class diagram:
+
+![alt text](UML.png "Class diagram")
 
 ## Design patterns used
 This project includes in its codebase several design patterns:
