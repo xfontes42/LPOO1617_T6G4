@@ -23,7 +23,7 @@ public class SmallCloudBody extends EntityBody {
         int width = 1536, height = 512;
 
         createFixture(body, new float[]{
-                95,93,  479,9,  1079,9, 1493,121,   1437,463,  95,475
+                95,40,  479,9,  1079,9, 1493,121,   1437,463,  95,475
         }, width, height, density, friction, restitution, CLOUD_BODY , (short) (CLOUD_BODY | PLAYER_BODY | POW_BODY));
 
         body.setType(BodyDef.BodyType.StaticBody);

@@ -23,7 +23,7 @@ public class BigCloudBody extends EntityBody {
         int width = 2560, height = 512;
 
         createFixture(body, new float[]{
-                83, 87,    531, 5,     2083, 5,     2509, 121,      2453, 467,      90, 469
+                83, 40,    531, 5,     2083, 5,     2509, 121,      2453, 467,      90, 469
         }, width, height, density, friction, restitution, CLOUD_BODY, (short) (CLOUD_BODY | PLAYER_BODY | POW_BODY));
 
         body.setType(BodyDef.BodyType.StaticBody);

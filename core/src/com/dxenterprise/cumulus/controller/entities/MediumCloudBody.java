@@ -23,7 +23,7 @@ public class MediumCloudBody extends EntityBody {
         int width = 2048, height = 512;
 
         createFixture(body, new float[]{
-                71, 107, 487, 1, 1591, 1, 1981, 101, 1929, 469, 107, 469
+                71, 50, 487, 1, 1591, 1, 1981, 101, 1929, 469, 107, 469
         }, width, height, density, friction, restitution, CLOUD_BODY, (short) (CLOUD_BODY | PLAYER_BODY | POW_BODY));
 
         body.setType(BodyDef.BodyType.StaticBody);
