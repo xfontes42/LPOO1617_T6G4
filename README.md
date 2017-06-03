@@ -11,7 +11,7 @@ up201503145@fe.up.pt
 # Setup
 
 ## Project installation
-To import our project it's necessary to import it as a graddle project and to let the IDE sync the project and also install all the Libgdx libraries needed.
+To import our project for developing purposes, it is necessary to import it as a Gradle project and to let the IDE sync the project, while also installing all the LibGDX libraries needed.
 
 ## App installation
 Given that this is an Android app, the user has to download the .apk file to the device and open it in the device using a file explorer. Additionally, the user needs to allow installation from "Unknown Sources", a setting that can be found in Settings > Security.
@@ -24,22 +24,24 @@ This project is structured as we can see in the following class diagram:
 
 ## Design patterns used
 This project includes in its codebase several design patterns:
-* Adapter
-For the preferences part of our project we created an interface that was then implemented by the Android and by the Desktop part of our game using appropriate libraries for each instance, this way wether we run our game on Android or on the Desktop we can make sure the functionality holds true.
-* Singleton
+* **Adapter** - 
+For the preferences part of our project, we created an interface that was then implemented by the Android and the Desktop modules of our game using appropriate libraries for each instance. This way, whether we run our game on Android or on the desktop, we can be sure that the functionality holds true.
+* **Singleton** - 
 We used this design pattern to ensure that no more than one instance of our game controller and one instance of our game model were created. 
-* Factory
-By having a Factory that creates and caches our views we were able to instanciate no more than 1 View for each of our sub-components in the game.
-* Observer
-Each time the controller was updated, our whole model and it's intervinients were also notifiead and took appropriate actions.
-* MVC
-All our code was divided into 3 major components, Model, View and Controller. The Model serves has the holder of our game logic. The controller reads the inputs given by the View, updates de Model and itself. Because of this the View only has to worry about reading what the Controller gives it and displaying it as it sees fit. 
+* **Factory** - 
+By having a Factory that creates and caches our views, we were able to instanciate no more than 1 View for each of our sub-components in the game.
+* **Observer** - 
+Each time the controller was updated, our whole model and its intervenients were also notified and took appropriate actions.
+* **MVC** - 
+All our code was divided into 3 major components, Model, View and Controller. The Model contains the game logic. The Controller reads the inputs given by the View, updates the Model and itself. Because of this, the View only has to worry about reading what the Controller gives it and displaying it as it sees fit. 
 
 ## Difficulties and lessons
-We encountered problems starting with the division into MVC because at first there were a lot of connected parts. One more hiccup was getting accoustumed to the physics engine and the whole Libgdx framework. In the end it was a nice way to learn how to work with a different set of tools than the ones we are used to.
+We encountered problems starting with the division into MVC, given that at first there were a lot of connected parts. One more hiccup was getting accoustumed to the physics engine and the whole LibGDX framework. 
+
+In the end, it was a nice way to learn how to work with a different set of tools than the ones we are used to.
 
 ## Team effort
-The team effort was spilt 50/50, Daniel worked more on the design part of the game and Xavier worked more on the gameplay, either way there was always a channel of comunication between the members as to ensure the smooth progress of this project.
+The team effort was spilt evenly. Daniel worked more on the design part of the game and Xavier worked more on the gameplay; either way there was always a channel of comunication between the members as to ensure the smooth progress of this project. Additionally, both members of the group took part in pair programming on several occasions.
 
 # User manual
 
@@ -77,62 +79,3 @@ If the player falls below the clouds or falls behind (disappears to the left of 
 ![alt text](Manual_GameOver.png "The game over screen")
 
 The user can from this screen return to the main menu and try the game again.
-
---------------old stuff below here---------------
-
-# Architecture Design:
-
-## Package and class diagram (UML), documenting (describing) each class' responsibility
-![alt text](ClassDiagram.png "Classes")
-
-**Game**: The class that handles the game's basic gameplay loop (receiving input, checking for loss, etc.)
-
-The Entity/Character/Pickup/Hero/Enemy classes are split into three classes each (based on the MVC method). Generically, they are described as such:
-
-    - Body (the "Controller" part of the MVC, it handles operations between the Model and the View).
-
-    - Model (the Model includes the data for the class and includes methods to manipulate said data).
-
-    - View (the View handles the reception of data to be manipulated through the Body).
-
-**Entity**: The generic game element that is not fixed in the world. It can be split into two types: Characters and Powerups.
-
-**Character**: An entity that represents a game character (whether it's a playable character or an enemy).
-
-**Hero**: The player character, which is controlled by the user.
-
-**Enemy**: An enemy. These characters can cause the game to end prematurely.
-
-**Pickup**: Pickups are entities that bestow the player character additional attributes.
-
-**Platform**: The entities the player character stands on. They are solid entities.
-
-## Design of behavioural aspects
-![alt text](Behavioural_Aspects-menu.png "Menu")
-![alt text](Behavioural_Aspects-game.png "Game")
-## Design Patterns to use
-1. Singleton - for the main game class.
-2. Decorator - for the powerups.
-3. Observer - for the controllers.
-4. State - for the different states of the gameplay.
-5. Abstract Factory - to get the clouds.
-6. Strategy - not yet determined.
-# GUI Design
-## Identification of the main functionalities
-1. The game will be playable in Single Player or against another player.
-2. The game keeps scores of single player game runs.
-3. The settings of the game will allow for a player to turn off the sound in the game.
-4. The game will be able to share a post on Facebook upon player's request.
-## GUI mock-ups
-![alt text](GUI-MockUp-main.png "Main Screen")
-![alt text](GUI-MockUp-level.png "Level Screen")
-![alt text](GUI-MockUp-level_paused.png "Level Paused Screen")
-![alt text](GUI-MockUp-settings.png "Settings Screen")
-
-# Test Design
-## Listing of the expected final test cases
-1. Test to the movement of the user throughout the level.
-2. Test randomness of the generated level.
-3. Test out-of-bounds behaviour.
-4. Test player losing.
-5. Test highscore saving.
