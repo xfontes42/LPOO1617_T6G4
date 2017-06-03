@@ -9,7 +9,9 @@ up201505302@fe.up.pt
 up201503145@fe.up.pt
 
 # Setup
+
 ## Project installation
+To import our project it's necessary to import it as a graddle project and to let the IDE sync the project and also install all the Libgdx libraries needed.
 
 ## App installation
 Given that this is an Android app, the user has to download the .apk file to the device and open it in the device using a file explorer. Additionally, the user needs to allow installation from "Unknown Sources", a setting that can be found in Settings > Security.
@@ -22,14 +24,22 @@ This project is structured as we can see in the following class diagram:
 
 ## Design patterns used
 This project includes in its codebase several design patterns:
+* Adapter
+For the preferences part of our project we created an interface that was then implemented by the Android and by the Desktop part of our game using appropriate libraries for each instance, this way wether we run our game on Android or on the Desktop we can make sure the functionality holds true.
 * Singleton
+We used this design pattern to ensure that no more than one instance of our game controller and one instance of our game model were created. 
 * Factory
-* State
+By having a Factory that creates and caches our views we were able to instanciate no more than 1 View for each of our sub-components in the game.
+* Observer
+Each time the controller was updated, our whole model and it's intervinients were also notifiead and took appropriate actions.
 * MVC
+All our code was divided into 3 major components, Model, View and Controller. The Model serves has the holder of our game logic. The controller reads the inputs given by the View, updates de Model and itself. Because of this the View only has to worry about reading what the Controller gives it and displaying it as it sees fit. 
 
 ## Difficulties and lessons
+We encountered problems starting with the division into MVC because at first there were a lot of connected parts. One more hiccup was getting accoustumed to the physics engine and the whole Libgdx framework. In the end it was a nice way to learn how to work with a different set of tools than the ones we are used to.
 
 ## Team effort
+The team effort was spilt 50/50, Daniel worked more on the design part of the game and Xavier worked more on the gameplay, either way there was always a channel of comunication between the members as to ensure the smooth progress of this project.
 
 # User manual
 
