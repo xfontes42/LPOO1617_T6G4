@@ -41,7 +41,7 @@ We encountered problems starting with the division into MVC, given that at first
 In the end, it was a nice way to learn how to work with a different set of tools than the ones we are used to.
 
 ## Team effort
-The team effort was spilt evenly. Daniel worked more on the design part of the game and Xavier worked more on the gameplay; either way there was always a channel of comunication between the members as to ensure the smooth progress of this project. Additionally, both members of the group took part in pair programming on several occasions.
+The team worked on this project for approximately 90 hours, with the effort being spilt evenly. Daniel worked more on the design part of the game and Xavier worked more on the gameplay; either way there was always a channel of comunication between the members as to ensure the smooth progress of this project. Additionally, both members of the group took part in pair programming on several occasions.
 
 # User manual
 
