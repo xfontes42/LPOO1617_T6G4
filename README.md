@@ -1,5 +1,5 @@
-# LPOO1617_T6G4
-
+# LPOO1617_T6G4  
+[![BCH compliance](https://bettercodehub.com/edge/badge/xfontes42/LPOO1617_T6G4?branch=master&token=fab89fab73a45a0eea8d7b8781adffbfa4ea3445)](https://bettercodehub.com/)
 ##### Members:
 
 - Daniel Ribeiro de Pinho (201505302)
